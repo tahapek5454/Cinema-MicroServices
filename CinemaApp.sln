@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.MovieAPI", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.SessionAPI", "MicroServices\Cinema.Services.SessionAPI\Cinema.Services.SessionAPI.csproj", "{849C22B9-7375-4D17-A579-1E2ADCF1BF8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.MailWorkerService", "MicroServices\Cinema.Services.MailWorkerService\Cinema.Services.MailWorkerService.csproj", "{D8BA5426-B906-4C1A-A946-20E8F5D10B02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{849C22B9-7375-4D17-A579-1E2ADCF1BF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{849C22B9-7375-4D17-A579-1E2ADCF1BF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{849C22B9-7375-4D17-A579-1E2ADCF1BF8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BA5426-B906-4C1A-A946-20E8F5D10B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BA5426-B906-4C1A-A946-20E8F5D10B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BA5426-B906-4C1A-A946-20E8F5D10B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BA5426-B906-4C1A-A946-20E8F5D10B02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,6 +40,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{11875D93-ABEB-4C5C-B95B-62418B21F6B1} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
 		{849C22B9-7375-4D17-A579-1E2ADCF1BF8F} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
+		{D8BA5426-B906-4C1A-A946-20E8F5D10B02} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A59FDE0F-9419-49DE-8613-0BBB269BFA38}
