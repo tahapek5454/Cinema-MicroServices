@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.Rezervation
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.PaymentAPI", "MicroServices\Cinema.Services.PaymentAPI\Cinema.Services.PaymentAPI.csproj", "{52910210-7944-44A2-B789-019515101089}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "Shared\SharedLibrary\SharedLibrary.csproj", "{92923D50-6869-4BF4-B7AC-30FAA370B8D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{52910210-7944-44A2-B789-019515101089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52910210-7944-44A2-B789-019515101089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52910210-7944-44A2-B789-019515101089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92923D50-6869-4BF4-B7AC-30FAA370B8D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92923D50-6869-4BF4-B7AC-30FAA370B8D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92923D50-6869-4BF4-B7AC-30FAA370B8D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92923D50-6869-4BF4-B7AC-30FAA370B8D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{D8BA5426-B906-4C1A-A946-20E8F5D10B02} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
 		{111CE756-B6F8-49A9-BAAA-FCB86D47D490} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
 		{52910210-7944-44A2-B789-019515101089} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
+		{92923D50-6869-4BF4-B7AC-30FAA370B8D0} = {0A86E09A-52CD-4AA5-A1A9-B84223480A96}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A59FDE0F-9419-49DE-8613-0BBB269BFA38}
