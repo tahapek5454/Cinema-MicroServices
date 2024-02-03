@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{FC2C0529-6CEF-483D-94C4-8CD5F15A95E3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{0A86E09A-52CD-4AA5-A1A9-B84223480A96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MicroServices", "MicroServices", "{94DB79BB-9283-4FB7-A312-E11AF279AC00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.MovieAPI", "MicroServices\Cinema.Services.MovieAPI\Cinema.Services.MovieAPI.csproj", "{11875D93-ABEB-4C5C-B95B-62418B21F6B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11875D93-ABEB-4C5C-B95B-62418B21F6B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11875D93-ABEB-4C5C-B95B-62418B21F6B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11875D93-ABEB-4C5C-B95B-62418B21F6B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11875D93-ABEB-4C5C-B95B-62418B21F6B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{11875D93-ABEB-4C5C-B95B-62418B21F6B1} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A59FDE0F-9419-49DE-8613-0BBB269BFA38}
+	EndGlobalSection
+EndGlobal
