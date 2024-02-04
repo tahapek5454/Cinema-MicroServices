@@ -1,4 +1,6 @@
 ﻿using Cinema.Services.CategoryAPI.Data.Contexts;
+using Cinema.Services.CategoryAPI.Services.Abstract;
+using Cinema.Services.CategoryAPI.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Services.CategoryAPI
@@ -10,7 +12,9 @@ namespace Cinema.Services.CategoryAPI
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
-            });         
+            });
+
+            services.AddScoped<ICategoryService, CategoryService>();
         }
     }
 }
