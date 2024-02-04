@@ -1,5 +1,7 @@
 using Cinema.Services.MovieAPI;
 using Cinema.Services.MovieAPI.Data.Contexts;
+using Cinema.Services.MovieAPI.Extensions;
+using Cinema.Services.MovieAPI.Mapper;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
 
@@ -11,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
+MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
 builder.Services.AddHttpClient();
 
 builder.Services.AddMovieServices(builder.Configuration.GetConnectionString("MSSQL") ?? "");
@@ -23,6 +26,8 @@ app.UseSwaggerUI();
 app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseLanguage();
 
 app.UseAuthorization();
 
