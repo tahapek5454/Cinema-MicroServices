@@ -12,6 +12,5 @@ namespace Cinema.Services.MovieAPI.Models.Dtos.Movies
         public double Point { get; set; }
         public double Time { get; set; }
         public int CategoryId { get; set; }
-        public CategoryDto Category { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Cinema.Services.MovieAPI.Controllers
     [ApiController]
     public class MoviesController(IMovieService _movieService) : ControllerBase
     {
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetMovieById([FromRoute] int id)
         {
             var movie = await _movieService.Table.FirstOrDefaultAsync(x => x.Id == id);
@@ -44,7 +44,7 @@ namespace Cinema.Services.MovieAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllMovies([FromQuery] PaginationDto paginationDto)
+        public async Task<IActionResult> GetAllMovies()
         {
             var movies = await _movieService.Table.ToListAsync();
 
@@ -79,7 +79,7 @@ namespace Cinema.Services.MovieAPI.Controllers
             return Ok(ResponseDto<BlankDto>.Sucess(200));
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoveMovie([FromRoute] int id)
         {
             var movie = await _movieService.Table.FirstOrDefaultAsync(x => x.Id == id);
