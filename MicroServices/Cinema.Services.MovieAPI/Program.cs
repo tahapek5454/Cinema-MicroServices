@@ -1,6 +1,7 @@
 using Cinema.Services.MovieAPI;
 using Cinema.Services.MovieAPI.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
 
