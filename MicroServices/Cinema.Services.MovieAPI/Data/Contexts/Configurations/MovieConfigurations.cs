@@ -25,6 +25,7 @@ namespace Cinema.Services.MovieAPI.Data.Contexts.Configurations
                 CreatedDate = new DateTime(2024,2,5),
                 UpdatedDate = new DateTime(2024, 2, 5),
                 Time = 1.58,
+                CategoryId = 1, // Komedi
             };
 
             yield return new Movie()
@@ -38,6 +39,7 @@ namespace Cinema.Services.MovieAPI.Data.Contexts.Configurations
                 CreatedDate = new DateTime(2024, 2, 5),
                 UpdatedDate = new DateTime(2024, 2, 5),
                 Time = 1.45,
+                CategoryId = 1
             };
 
             yield return new Movie()
@@ -51,6 +53,7 @@ namespace Cinema.Services.MovieAPI.Data.Contexts.Configurations
                 CreatedDate = new DateTime(2024, 2, 5),
                 UpdatedDate = new DateTime(2024, 2, 5),
                 Time = 1.32,
+                CategoryId = 2 // Animasyon
             };
 
             yield return new Movie()
@@ -64,6 +67,7 @@ namespace Cinema.Services.MovieAPI.Data.Contexts.Configurations
                 CreatedDate = new DateTime(2024, 2, 5),
                 UpdatedDate = new DateTime(2024, 2, 5),
                 Time = 1.3,
+                CategoryId = 1
             };
 
             yield return new Movie()
@@ -77,6 +81,7 @@ namespace Cinema.Services.MovieAPI.Data.Contexts.Configurations
                 CreatedDate = new DateTime(2024, 2, 5),
                 UpdatedDate = new DateTime(2024, 2, 5),
                 Time = 2.03,
+                CategoryId = 3 // Biyografik
             };
 
             yield return new Movie()
@@ -90,6 +95,7 @@ namespace Cinema.Services.MovieAPI.Data.Contexts.Configurations
                 CreatedDate = new DateTime(2024, 2, 5),
                 UpdatedDate = new DateTime(2024, 2, 5),
                 Time = 1.35,
+                CategoryId = 1
             };
         }
     }
