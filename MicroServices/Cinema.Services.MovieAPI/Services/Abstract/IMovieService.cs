@@ -6,5 +6,7 @@ namespace Cinema.Services.MovieAPI.Services.Abstract
     public interface IMovieService: IBaseService
     {
         public DbSet<Movie> Table { get;}
+        public Task<int> SaveChangesAsync();
+        public int SaveChanges();
     }
 }

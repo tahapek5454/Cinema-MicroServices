@@ -10,5 +10,6 @@ namespace Cinema.Services.MovieAPI.Models.Entities
         public string Description_EN { get; set; }
         public double Point { get; set; }
         public double Time { get; set; }
+        public int CategoryId { get; set; }
     }
 }

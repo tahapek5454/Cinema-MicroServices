@@ -13,6 +13,12 @@ namespace Cinema.Services.MovieAPI.Services.Concrete
             _appDbContext = appDbContext;
         }
 
-        public DbSet<Movie> Table => _appDbContext.Set<Movie>(); 
+        public DbSet<Movie> Table => _appDbContext.Set<Movie>();
+
+        public int SaveChanges()
+            => _appDbContext.SaveChanges();
+
+        public async Task<int> SaveChangesAsync()
+            => await _appDbContext.SaveChangesAsync();
     }
 }
