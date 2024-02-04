@@ -1,5 +1,7 @@
 using Cinema.Services.CategoryAPI;
 using Cinema.Services.CategoryAPI.Data.Contexts;
+using Cinema.Services.CategoryAPI.Extensions;
+using Cinema.Services.CategoryAPI.Mapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpContextAccessor();
+MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
+builder.Services.AddHttpClient();
+
 builder.Services.AddCategoryServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
 
 var app = builder.Build();
@@ -17,6 +23,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
+
+app.UseLanguage();
 
 app.UseAuthorization();
 
