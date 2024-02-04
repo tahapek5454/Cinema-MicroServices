@@ -1,4 +1,6 @@
 ﻿using Cinema.Services.MovieAPI.Data.Contexts;
+using Cinema.Services.MovieAPI.Services.Abstract;
+using Cinema.Services.MovieAPI.Services.Concrete;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Services.MovieAPI
@@ -11,6 +13,9 @@ namespace Cinema.Services.MovieAPI
             {
                 options.UseSqlServer(connectionString);
             });
+
+
+            services.AddScoped<IMovieService, MovieService>();
         }
     }
 }
