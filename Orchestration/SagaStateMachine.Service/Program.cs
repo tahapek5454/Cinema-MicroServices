@@ -31,5 +31,18 @@ builder.Services.AddMassTransit(configure =>
 
 });
 
+void ApplyPendigMigration()
+{
+    var _db = builder.Services.BuildServiceProvider().GetRequiredService<DbContext>();
+
+    if (_db.Database.GetPendingMigrations().Count() > 0)
+        _db.Database.Migrate();
+}
+
 var host = builder.Build();
+
+ApplyPendigMigration();
+
 host.Run();
+
+
