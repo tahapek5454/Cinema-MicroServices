@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddFileServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
 builder.Services.AddStorage<LocalStorage>();
+builder.Services.AddMovieMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ") ?? string.Empty);
 
 var app = builder.Build();
 
