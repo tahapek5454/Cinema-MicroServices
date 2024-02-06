@@ -27,6 +27,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Services.CategoryAPI
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.FileAPI", "MicroServices\Cinema.Services.FileAPI\Cinema.Services.FileAPI.csproj", "{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orchestration", "Orchestration", "{C3160762-7410-4FC0-BE26-1827858B2397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SagaStateMachine.Service", "Orchestration\SagaStateMachine.Service\SagaStateMachine.Service.csproj", "{28CDB8E0-3DE2-4003-893B-81B236ACD086}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +73,10 @@ Global
 		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28CDB8E0-3DE2-4003-893B-81B236ACD086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28CDB8E0-3DE2-4003-893B-81B236ACD086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28CDB8E0-3DE2-4003-893B-81B236ACD086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28CDB8E0-3DE2-4003-893B-81B236ACD086}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,7 @@ Global
 		{D7E71DF6-1300-4922-9586-31FD0CAD5E96} = {FC2C0529-6CEF-483D-94C4-8CD5F15A95E3}
 		{1B23EDFA-F629-46B1-A84B-29B2DB300017} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
 		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
+		{28CDB8E0-3DE2-4003-893B-81B236ACD086} = {C3160762-7410-4FC0-BE26-1827858B2397}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A59FDE0F-9419-49DE-8613-0BBB269BFA38}
