@@ -8,6 +8,6 @@ namespace SharedLibrary.Events.MovieImageEvents
         public string FileName { get; set; }
         public string Path { get; set; }
         public string Storage { get; set; }
-        public string RelationId { get; set; }
+        public int RelationId { get; set; }
     }
 }

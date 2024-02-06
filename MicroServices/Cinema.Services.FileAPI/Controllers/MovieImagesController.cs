@@ -2,15 +2,19 @@
 using Cinema.Services.FileAPI.Models.Dtos;
 using Cinema.Services.FileAPI.Services.Abstract;
 using Cinema.Services.FileAPI.Storages.Abstract;
+using MassTransit;
+using MassTransit.Initializers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Events.MovieImageEvents;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Settings;
 
 namespace Cinema.Services.FileAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieImagesController(IMovieImageService _movieImageService, IStorageService _storageService) : ControllerBase
+    public class MovieImagesController(IMovieImageService _movieImageService, IStorageService _storageService, ISendEndpointProvider _sendEndpointProvider) : ControllerBase
     {
         [HttpPost]
         public async Task<IActionResult> UploadImageFile([FromQuery] UploadImageFileRequestDto uploadImageFileRequestDto)
@@ -47,6 +51,23 @@ namespace Cinema.Services.FileAPI.Controllers
 
             await _movieImageService.Table.AddRangeAsync(images);
             await _movieImageService.SaveChangesAsync();
+
+            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));
+
+            images.ForEach(async image =>
+            {
+                MovieImageUploadStartedEvent movieImageUploadStartedEvent = new MovieImageUploadStartedEvent()
+                {
+                    FileId = image.Id,
+                    FileName = image.FileName,
+                    Path = image.Path,
+                    RelationId = image.RelationId,
+                    Storage = image.Storage,
+                    
+                };
+
+                await sendEndpoint.Send(movieImageUploadStartedEvent);
+            });
 
             return Ok(ResponseDto<BlankDto>.Sucess(201));
         }
