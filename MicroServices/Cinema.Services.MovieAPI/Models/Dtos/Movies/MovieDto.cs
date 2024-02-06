@@ -7,7 +7,7 @@ namespace Cinema.Services.MovieAPI.Models.Dtos.Movies
     {
         public MovieDto()
         {
-            Files = new();
+            MovieImages = new();
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,6 +18,6 @@ namespace Cinema.Services.MovieAPI.Models.Dtos.Movies
         public DateTime UpdatedDate { get; set; }
         public int CategoryId { get; set; }
         public CategoryDto Category { get; set; }
-        public List<FileDto> Files { get; set; }
+        public List<MovieImageDto> MovieImages { get; set; }
     }
 }

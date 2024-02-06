@@ -11,6 +11,6 @@ namespace Cinema.Services.MovieAPI.Models.Entities
         public double Point { get; set; }
         public double Time { get; set; }
         public int CategoryId { get; set; }
-        public ICollection<MovieImage> MovieImages { get; set; }
+        public List<MovieImage> MovieImages { get; set; }
     }
 }

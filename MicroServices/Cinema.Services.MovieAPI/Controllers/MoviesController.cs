@@ -18,7 +18,7 @@ namespace Cinema.Services.MovieAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMovieById([FromRoute] int id)
         {
-            var movie = await _movieService.Table.FirstOrDefaultAsync(x => x.Id == id);
+            var movie = await _movieService.Table.Include(x => x.MovieImages).FirstOrDefaultAsync(x => x.Id == id);
 
             if (movie is null)
                 throw new Exception("Movie is not found");
@@ -37,7 +37,6 @@ namespace Cinema.Services.MovieAPI.Controllers
             if (categoryResponse?.ValidateWithData() ?? false)
                 movieDto.Category = categoryResponse.Data;
             
-            // fetch movie category and files
 
             return Ok(ResponseDto<MovieDto>.Sucess(movieDto, 200));
         }
@@ -46,6 +45,7 @@ namespace Cinema.Services.MovieAPI.Controllers
         public async Task<IActionResult> GetMoviesWithPagination([FromQuery] PaginationDto paginationDto)
         {
             var movies = await _movieService.Table
+                .Include(x => x.MovieImages)
                 .Skip((paginationDto.Page - 1) * paginationDto.Size)
                 .Take(paginationDto.Size)
                 .ToListAsync();
@@ -67,7 +67,6 @@ namespace Cinema.Services.MovieAPI.Controllers
                     movieDto.Category = categoryResponse.Data;
             });
 
-            // fetch movie category and files
 
             return Ok(ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200));
         }
@@ -75,7 +74,7 @@ namespace Cinema.Services.MovieAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllMovies()
         {
-            var movies = await _movieService.Table.ToListAsync();
+            var movies = await _movieService.Table.Include(x => x.MovieImages).ToListAsync();
 
             var movieDtos = ObjectMapper.Mapper.Map<List<MovieDto>>(movies);
 
@@ -94,7 +93,6 @@ namespace Cinema.Services.MovieAPI.Controllers
                     movieDto.Category = categoryResponse.Data;
             });
 
-            // fetch movie category and files
 
             return Ok(ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200));
         }
