@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cinema.Services.MovieAPI.Mapper.MovieImageProfile;
 using Cinema.Services.MovieAPI.Mapper.MovieProfile;
 
 namespace Cinema.Services.MovieAPI.Mapper
@@ -12,6 +13,7 @@ namespace Cinema.Services.MovieAPI.Mapper
                 cfg.AllowNullCollections = true;
 
                 cfg.AddProfile<MovieMapper>();
+                cfg.AddProfile<MovieImageMapper>();
 
             });
 
