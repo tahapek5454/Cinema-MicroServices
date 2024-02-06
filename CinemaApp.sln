@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedLibrary", "Shared\Sha
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.APIGateway", "Gateway\Cinema.APIGateway\Cinema.APIGateway.csproj", "{D7E71DF6-1300-4922-9586-31FD0CAD5E96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.CategoryAPI", "MicroServices\Cinema.Services.CategoryAPI\Cinema.Services.CategoryAPI.csproj", "{1B23EDFA-F629-46B1-A84B-29B2DB300017}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Services.CategoryAPI", "MicroServices\Cinema.Services.CategoryAPI\Cinema.Services.CategoryAPI.csproj", "{1B23EDFA-F629-46B1-A84B-29B2DB300017}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.FileAPI", "MicroServices\Cinema.Services.FileAPI\Cinema.Services.FileAPI.csproj", "{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{1B23EDFA-F629-46B1-A84B-29B2DB300017}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B23EDFA-F629-46B1-A84B-29B2DB300017}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B23EDFA-F629-46B1-A84B-29B2DB300017}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{92923D50-6869-4BF4-B7AC-30FAA370B8D0} = {0A86E09A-52CD-4AA5-A1A9-B84223480A96}
 		{D7E71DF6-1300-4922-9586-31FD0CAD5E96} = {FC2C0529-6CEF-483D-94C4-8CD5F15A95E3}
 		{1B23EDFA-F629-46B1-A84B-29B2DB300017} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
+		{18E21000-78D5-42E1-9B2D-FCFB9A5D1AD7} = {94DB79BB-9283-4FB7-A312-E11AF279AC00}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A59FDE0F-9419-49DE-8613-0BBB269BFA38}
