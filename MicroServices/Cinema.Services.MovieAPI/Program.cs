@@ -17,6 +17,7 @@ MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
 builder.Services.AddHttpClient();
 
 builder.Services.AddMovieServices(builder.Configuration.GetConnectionString("MSSQL") ?? "");
+builder.Services.AddMovieMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ") ?? "");
 
 var app = builder.Build();
 

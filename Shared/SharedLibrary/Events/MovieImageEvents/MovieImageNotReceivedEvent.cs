@@ -11,7 +11,7 @@ namespace SharedLibrary.Events.MovieImageEvents
         {
             CorrelationId = correlationId;
         }
-
+        public int FileId { get; set; }
         public string FileName { get; set; }
         public string Message { get; set; }
 

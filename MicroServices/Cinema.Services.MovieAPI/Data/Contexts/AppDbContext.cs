@@ -10,6 +10,7 @@ namespace Cinema.Services.MovieAPI.Data.Contexts
         public AppDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<MovieImage> MovieImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

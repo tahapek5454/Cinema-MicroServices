@@ -1,7 +1,10 @@
-﻿using Cinema.Services.MovieAPI.Data.Contexts;
+﻿using Cinema.Services.MovieAPI.Consumers;
+using Cinema.Services.MovieAPI.Data.Contexts;
 using Cinema.Services.MovieAPI.Services.Abstract;
 using Cinema.Services.MovieAPI.Services.Concrete;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Settings;
 
 namespace Cinema.Services.MovieAPI
 {
@@ -16,6 +19,26 @@ namespace Cinema.Services.MovieAPI
 
 
             services.AddScoped<IMovieService, MovieService>();
+        }
+
+        public static void AddMovieMassTransitServices(this IServiceCollection services, string connectionString)
+        {
+            services.AddMassTransit(configure =>
+            {
+
+                configure.AddConsumer<MovieImageUploadedEventConsumer>();
+
+                configure.UsingRabbitMq((context, configurator) =>
+                {
+                    configurator.Host(connectionString);
+
+                    configurator.ReceiveEndpoint(RabbitMQSettings.Movie_MovieImageUploadedQueue, e =>
+                    {
+                        e.ConfigureConsumer<MovieImageUploadedEventConsumer>(context);
+                        e.DiscardSkippedMessages();
+                    });
+                });
+            });
         }
     }
 }

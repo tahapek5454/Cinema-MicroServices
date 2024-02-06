@@ -55,6 +55,7 @@ namespace SagaStateMachine.Service.StateMachines
                             FileName = context.Data.FileName,
                             Path = context.Data.Path,
                             RelationId = context.Data.RelationId,
+                            FileId = context.Data.FileId
                             
                         })
                 );
@@ -70,6 +71,7 @@ namespace SagaStateMachine.Service.StateMachines
                     .TransitionTo(MovieImageNotReceived)
                     .Send(new Uri($"queue:{RabbitMQSettings.File_MovieImageRollbackMessageQueue}"), context => new MovieImageRollbackMessage()
                     {
+                        FileId = context.Data.FileId,   
                         FileName = context.Data.FileName,
                     })
                 );
