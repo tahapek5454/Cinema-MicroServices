@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Events.MovieImageEvents;
 using SharedLibrary.Models.Dtos;
 using SharedLibrary.Settings;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Cinema.Services.FileAPI.Controllers
 {
@@ -78,11 +79,27 @@ namespace Cinema.Services.FileAPI.Controllers
             await _storageService.DeleteAsync("images", fileName);
 
             var file = await _movieImageService.Table.FirstOrDefaultAsync(x => x.FileName.Equals(fileName));
+
+            MovieImageDeleteStartedEvent movieImageDeleteStartedEvent = new MovieImageDeleteStartedEvent()
+            {
+                FileId = file.Id,
+                FileName = file.FileName,
+                Path = file.Path,
+                RelationId = file.RelationId,
+                Storage = file.Storage,
+
+            };
+
             if (file is null)
                 throw new Exception("File Not Found");
 
             _movieImageService.Table.Remove(file);
             await _movieImageService.SaveChangesAsync();
+
+            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));         
+
+            await sendEndpoint.Send(movieImageDeleteStartedEvent);
+
             return Ok(ResponseDto<BlankDto>.Sucess(201));
 
         }

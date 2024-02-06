@@ -12,10 +12,12 @@ namespace SagaStateMachine.Service.StateMachines
         public Event<MovieImageUploadStartedEvent> MovieImageUploadStartedEvent { get; set; }
         public Event<MovieImageReceivedEvent> MovieImageReceivedEvent { get; set; }
         public Event<MovieImageNotReceivedEvent> MovieImageNotReceivedEvent { get; set; }
+        public Event<MovieImageDeleteStartedEvent> MovieImageDeleteStartedEvent { get; set; }
 
         public State MovieImageUploaded { get; set; }
         public State MovieImageReceived { get; set; }
         public State MovieImageNotReceived { get; set; }
+        public State MovieImageDeleted { get; set; }
 
         public MovieImageStateMachine()
         {
@@ -35,6 +37,12 @@ namespace SagaStateMachine.Service.StateMachines
             Event(() => MovieImageNotReceivedEvent, (movieImageStateInstance) =>
             {
                 movieImageStateInstance.CorrelateById(@event => @event.Message.CorrelationId);
+            });
+
+            Event(() => MovieImageDeleteStartedEvent, (movieImageStateInstance) =>
+            {
+                movieImageStateInstance.CorrelateBy<string>(database => database.FileName, @event => @event.Message.FileName)
+                .SelectId(e => Guid.NewGuid());
             });
 
 
@@ -57,7 +65,23 @@ namespace SagaStateMachine.Service.StateMachines
                             RelationId = context.Data.RelationId,
                             FileId = context.Data.FileId
                             
+                        }),
+
+                        When(MovieImageDeleteStartedEvent)
+                        .Then(context =>
+                        {
+                            context.Instance.Path = context.Data.Path;
+                            context.Instance.RelationId = context.Data.RelationId;
+                            context.Instance.FileId = context.Data.FileId;
+                            context.Instance.FileName = context.Data.FileName;
+                            context.Instance.Storage = context.Data.Storage;
                         })
+                        .TransitionTo(MovieImageDeleted)
+                        .Send(new Uri($"queue:{RabbitMQSettings.Movie_MovieImageDeletedQueue}"), context => new MovieImageDeletedEvent(context.Instance.CorrelationId)
+                        {
+                            FileName = context.Data.FileName,
+                        })
+                        .Finalize()
                 );
 
 

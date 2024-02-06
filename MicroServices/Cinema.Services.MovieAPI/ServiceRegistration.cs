@@ -27,6 +27,7 @@ namespace Cinema.Services.MovieAPI
             {
 
                 configure.AddConsumer<MovieImageUploadedEventConsumer>();
+                configure.AddConsumer<MovieImageDeletedEventConsumer>();
 
                 configure.UsingRabbitMq((context, configurator) =>
                 {
@@ -35,6 +36,12 @@ namespace Cinema.Services.MovieAPI
                     configurator.ReceiveEndpoint(RabbitMQSettings.Movie_MovieImageUploadedQueue, e =>
                     {
                         e.ConfigureConsumer<MovieImageUploadedEventConsumer>(context);
+                        e.DiscardSkippedMessages();
+                    });
+
+                    configurator.ReceiveEndpoint(RabbitMQSettings.Movie_MovieImageDeletedQueue, e =>
+                    {
+                        e.ConfigureConsumer<MovieImageDeletedEventConsumer>(context);
                         e.DiscardSkippedMessages();
                     });
                 });
