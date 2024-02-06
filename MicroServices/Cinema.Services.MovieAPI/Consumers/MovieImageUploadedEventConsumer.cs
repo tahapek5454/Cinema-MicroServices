@@ -14,7 +14,7 @@ namespace Cinema.Services.MovieAPI.Consumers
             MovieImage? newMovieFile = ObjectMapper.Mapper.Map<MovieImage>(context.Message);
             var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint
                    (new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));
-            if (newMovieFile != null & newMovieFile?.Id > 0)
+            if (newMovieFile != null)
             {
                 await _appDbContext.Set<MovieImage>().AddAsync(newMovieFile);
                 await _appDbContext.SaveChangesAsync();

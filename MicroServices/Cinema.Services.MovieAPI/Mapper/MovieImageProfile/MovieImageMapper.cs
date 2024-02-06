@@ -9,8 +9,7 @@ namespace Cinema.Services.MovieAPI.Mapper.MovieImageProfile
         public MovieImageMapper()
         {
             CreateMap<MovieImageUploadedEvent, MovieImage>()
-                .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.RelationId))
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.FileId));
+                .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.RelationId));
         }
     }
 }
