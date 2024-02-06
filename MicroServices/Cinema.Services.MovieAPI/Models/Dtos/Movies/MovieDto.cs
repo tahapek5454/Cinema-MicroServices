@@ -16,6 +16,7 @@ namespace Cinema.Services.MovieAPI.Models.Dtos.Movies
         public double Time { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+        public int CategoryId { get; set; }
         public CategoryDto Category { get; set; }
         public List<FileDto> Files { get; set; }
     }

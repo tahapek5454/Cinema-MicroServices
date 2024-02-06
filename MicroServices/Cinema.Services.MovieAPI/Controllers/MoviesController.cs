@@ -1,11 +1,13 @@
 ﻿using Cinema.Services.MovieAPI.Mapper;
+using Cinema.Services.MovieAPI.Models.Dtos.Categories;
 using Cinema.Services.MovieAPI.Models.Dtos.Movies;
 using Cinema.Services.MovieAPI.Models.Entities;
 using Cinema.Services.MovieAPI.Services.Abstract;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Models.Const;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Models.Enums;
 
 namespace Cinema.Services.MovieAPI.Controllers
 {
@@ -23,6 +25,18 @@ namespace Cinema.Services.MovieAPI.Controllers
 
             var movieDto = ObjectMapper.Mapper.Map<MovieDto>(movie);
 
+            var categoryResponse = await _movieService.SendAsync<BlankDto, CategoryDto>(new()
+            {
+                ActionType = ActionType.GET,
+                Language = SystemLanguage.tr_TR,
+                Url = $"{SharedConst.CategoryBaseAPI}/GetGategoryById/{movie.CategoryId}",
+                Data = null,
+                AccessToken = null,
+            });
+
+            if (categoryResponse?.ValidateWithData() ?? false)
+                movieDto.Category = categoryResponse.Data;
+            
             // fetch movie category and files
 
             return Ok(ResponseDto<MovieDto>.Sucess(movieDto, 200));
@@ -38,6 +52,21 @@ namespace Cinema.Services.MovieAPI.Controllers
 
             var movieDtos = ObjectMapper.Mapper.Map<List<MovieDto>>(movies);
 
+            movieDtos.ForEach(async (movieDto) =>
+            {
+                var categoryResponse = await _movieService.SendAsync<BlankDto, CategoryDto>(new()
+                {
+                    ActionType = ActionType.GET,
+                    Language = SystemLanguage.tr_TR,
+                    Url = $"{SharedConst.CategoryBaseAPI}/GetGategoryById/{movieDto.CategoryId}",
+                    Data = null,
+                    AccessToken = null,
+                });
+
+                if (categoryResponse?.ValidateWithData() ?? false)
+                    movieDto.Category = categoryResponse.Data;
+            });
+
             // fetch movie category and files
 
             return Ok(ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200));
@@ -49,6 +78,21 @@ namespace Cinema.Services.MovieAPI.Controllers
             var movies = await _movieService.Table.ToListAsync();
 
             var movieDtos = ObjectMapper.Mapper.Map<List<MovieDto>>(movies);
+
+            movieDtos.ForEach(async (movieDto) =>
+            {
+                var categoryResponse = await _movieService.SendAsync<BlankDto, CategoryDto>(new()
+                {
+                    ActionType = ActionType.GET,
+                    Language = SystemLanguage.tr_TR,
+                    Url = $"{SharedConst.CategoryBaseAPI}/GetGategoryById/{movieDto.CategoryId}",
+                    Data = null,
+                    AccessToken = null,
+                });
+
+                if (categoryResponse?.ValidateWithData() ?? false)
+                    movieDto.Category = categoryResponse.Data;
+            });
 
             // fetch movie category and files
 

@@ -26,5 +26,13 @@ namespace SharedLibrary.Models.Dtos
             ErrorDto errorDto = new(errorMessage, isShow);
             return new ResponseDto<T> { Error = errorDto, StatusCode = statusCode, IsSuccessful = false };
         }
+
+        public bool ValidateWithData()
+        {
+            if(this.Data is not null & this.IsSuccessful)
+                return true;
+
+            return false;
+        }
     }
 }

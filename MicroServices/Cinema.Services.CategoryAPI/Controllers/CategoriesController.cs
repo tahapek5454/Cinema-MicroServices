@@ -13,7 +13,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
     public class CategoriesController(ICategoryService _categoryService) : ControllerBase
     {
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetMovieById([FromRoute] int id)
+        public async Task<IActionResult> GetGategoryById([FromRoute] int id)
         {
             var category = await _categoryService.Table.FirstOrDefaultAsync(x => x.Id == id);
 
@@ -26,7 +26,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMoviesWithPagination([FromQuery] PaginationDto paginationDto)
+        public async Task<IActionResult> GetGategoriesWithPagination([FromQuery] PaginationDto paginationDto)
         {
             var categories = await _categoryService.Table
                 .Skip((paginationDto.Page - 1) * paginationDto.Size)
@@ -39,7 +39,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllMovies()
+        public async Task<IActionResult> GetAllGategories()
         {
             var categories = await _categoryService.Table.ToListAsync();
 
@@ -49,7 +49,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMovie([FromBody] AddCategoryDto addCategoryDto)
+        public async Task<IActionResult> AddGategory([FromBody] AddCategoryDto addCategoryDto)
         {
             var newCategory = ObjectMapper.Mapper.Map<Category>(addCategoryDto);
 
@@ -61,7 +61,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMovie([FromBody] UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> UpdateGategory([FromBody] UpdateCategoryDto updateCategoryDto)
         {
             var updatedCategory = ObjectMapper.Mapper.Map<Category>(updateCategoryDto);
 
@@ -73,7 +73,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> RemoveMovie([FromRoute] int id)
+        public async Task<IActionResult> RemoveGategory([FromRoute] int id)
         {
             var movie = await _categoryService.Table.FirstOrDefaultAsync(x => x.Id == id);
 
