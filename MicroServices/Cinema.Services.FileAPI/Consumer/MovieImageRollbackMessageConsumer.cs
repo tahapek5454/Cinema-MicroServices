@@ -2,13 +2,13 @@
 using Cinema.Services.FileAPI.Storages.Abstract;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Events.MovieImageEvents;
+using SharedLibrary.Messages;
 
 namespace Cinema.Services.FileAPI.Consumer
 {
-    public class MovieImageRollbackMessageConsumer(IStorageService _storageService, IMovieImageService _movieImageService) : IConsumer<MovieImageNotReceivedEvent>
+    public class MovieImageRollbackMessageConsumer(IStorageService _storageService, IMovieImageService _movieImageService) : IConsumer<MovieImageRollbackMessage>
     {
-        public async Task Consume(ConsumeContext<MovieImageNotReceivedEvent> context)
+        public async Task Consume(ConsumeContext<MovieImageRollbackMessage> context)
         {
             await _storageService.DeleteAsync("images", context.Message.FileName);
 
