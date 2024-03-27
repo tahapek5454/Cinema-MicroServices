@@ -19,6 +19,7 @@ namespace Cinema.Services.MovieAPI
 
 
             services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IMovieImageService, MovieImageService>();    
         }
 
         public static void AddMovieMassTransitServices(this IServiceCollection services, string connectionString)
