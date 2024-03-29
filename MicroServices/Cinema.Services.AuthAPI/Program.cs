@@ -2,6 +2,7 @@ using Cinema.Services.AuthAPI;
 using Cinema.Services.AuthAPI.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
+using SharedLibrary.Models.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +18,14 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGenService();
+
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 
 builder.Services.AddAuthServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
+
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
 
 var app = builder.Build();
 
