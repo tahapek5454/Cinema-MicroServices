@@ -1,5 +1,6 @@
 {
   "Routes": [
+    // AuthServer
     {
       "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "https",
@@ -9,9 +10,39 @@
           "Port": 7291
         }
       ],
-      "UpstreamPathTemplate": "/authserver/{url}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ]
+      "UpstreamPathTemplate": "/authserver/public/{url}",
+      "UpstreamHttpMethod": ["Post"]
+    },
+    // MovieServer
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7163
+        }
+      ],
+      "UpstreamPathTemplate": "/movieserver/public/{url}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7163
+        }
+      ],
+      "UpstreamPathTemplate": "/movieserver/{url}",
+      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
+
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7135"
