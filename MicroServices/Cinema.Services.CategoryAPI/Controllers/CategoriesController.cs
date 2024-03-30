@@ -2,6 +2,7 @@
 using Cinema.Services.CategoryAPI.Models.Dtos.Categories;
 using Cinema.Services.CategoryAPI.Models.Entities;
 using Cinema.Services.CategoryAPI.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Dtos;
@@ -48,7 +49,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
             return Ok(ResponseDto<List<CategoryDto>>.Sucess(categoryDtos, 200));
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> AddGategory([FromBody] AddCategoryDto addCategoryDto)
         {
             var newCategory = ObjectMapper.Mapper.Map<Category>(addCategoryDto);
@@ -60,7 +61,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
             return Created($"GetMovieById/{newCategory.Id}", ResponseDto<BlankDto>.Sucess(200));
         }
 
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateGategory([FromBody] UpdateCategoryDto updateCategoryDto)
         {
             var updatedCategory = ObjectMapper.Mapper.Map<Category>(updateCategoryDto);
@@ -72,7 +73,7 @@ namespace Cinema.Services.CategoryAPI.Controllers
             return Ok(ResponseDto<BlankDto>.Sucess(200));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> RemoveGategory([FromRoute] int id)
         {
             var movie = await _categoryService.Table.FirstOrDefaultAsync(x => x.Id == id);
