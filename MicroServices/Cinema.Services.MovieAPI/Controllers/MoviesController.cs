@@ -3,6 +3,7 @@ using Cinema.Services.MovieAPI.Models.Dtos.Categories;
 using Cinema.Services.MovieAPI.Models.Dtos.Movies;
 using Cinema.Services.MovieAPI.Models.Entities;
 using Cinema.Services.MovieAPI.Services.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Const;
@@ -97,7 +98,7 @@ namespace Cinema.Services.MovieAPI.Controllers
             return Ok(ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200));
         }
 
-        [HttpPost]
+        [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> AddMovie([FromBody] AddMovieDto addMovieDto)
         {
             var newMovie = ObjectMapper.Mapper.Map<Movie>(addMovieDto);
@@ -109,7 +110,7 @@ namespace Cinema.Services.MovieAPI.Controllers
             return Created($"GetMovieById/{newMovie.Id}", ResponseDto<BlankDto>.Sucess(200));
         }
 
-        [HttpPut]
+        [HttpPut, Authorize(Roles = "admin")]
         public async Task<IActionResult> UpdateMovie([FromBody]  UpdateMovieDto updateMovieDto)
         {
             var newMovie = ObjectMapper.Mapper.Map<Movie>(updateMovieDto);
@@ -121,7 +122,7 @@ namespace Cinema.Services.MovieAPI.Controllers
             return Ok(ResponseDto<BlankDto>.Sucess(200));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}"), Authorize(Roles = "admin")]
         public async Task<IActionResult> RemoveMovie([FromRoute] int id)
         {
             var movie = await _movieService.Table.FirstOrDefaultAsync(x => x.Id == id);

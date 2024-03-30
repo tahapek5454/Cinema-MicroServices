@@ -4,6 +4,7 @@ using Cinema.Services.MovieAPI.Extensions;
 using Cinema.Services.MovieAPI.Mapper;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
+using SharedLibrary.Models.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGenService();
 
 builder.Services.AddHttpContextAccessor();
 MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
@@ -27,6 +28,10 @@ builder.Services.AddHttpClient();
 
 builder.Services.AddMovieServices(builder.Configuration.GetConnectionString("MSSQL") ?? "");
 builder.Services.AddMovieMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ") ?? "");
+
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
 
 var app = builder.Build();
 
@@ -41,6 +46,7 @@ app.UseHttpsRedirection();
 
 app.UseLanguage();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
