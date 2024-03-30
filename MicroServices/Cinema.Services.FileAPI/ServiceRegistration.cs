@@ -6,6 +6,7 @@ using Cinema.Services.FileAPI.Storages.Abstract;
 using Cinema.Services.FileAPI.Storages.Concrete;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using SharedLibrary.Settings;
 
 namespace Cinema.Services.FileAPI
@@ -46,6 +47,37 @@ namespace Cinema.Services.FileAPI
                         e.ConfigureConsumer<MovieImageRollbackMessageConsumer>(context);
                         e.DiscardSkippedMessages();
                     });
+                });
+            });
+        }
+
+        public static void AddCustomSwaggerGenService(this IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSwaggerGen(option =>
+            {
+                option.SwaggerDoc("v1", new OpenApiInfo { Title = "Cinema API", Version = "v1" });
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
                 });
             });
         }

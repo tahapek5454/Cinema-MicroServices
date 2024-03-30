@@ -4,12 +4,13 @@ using Cinema.Services.FileAPI.Services.Abstract;
 using Cinema.Services.FileAPI.Storages.Abstract;
 using MassTransit;
 using MassTransit.Initializers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Events.MovieImageEvents;
 using SharedLibrary.Models.Dtos;
 using SharedLibrary.Settings;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace Cinema.Services.FileAPI.Controllers
 {
@@ -17,7 +18,7 @@ namespace Cinema.Services.FileAPI.Controllers
     [ApiController]
     public class MovieImagesController(IMovieImageService _movieImageService, IStorageService _storageService, ISendEndpointProvider _sendEndpointProvider) : ControllerBase
     {
-        [HttpPost]
+        [HttpPost, Authorize(Roles ="admin")]
         public async Task<IActionResult> UploadImageFile([FromQuery] UploadImageFileRequestDto uploadImageFileRequestDto)
         {
             var formFileCollection = Request.Form.Files;
@@ -73,7 +74,7 @@ namespace Cinema.Services.FileAPI.Controllers
             return Ok(ResponseDto<BlankDto>.Sucess(201));
         }
 
-        [HttpDelete]
+        [HttpDelete, Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteImageFile(string fileName)
         {
             await _storageService.DeleteAsync("images", fileName);

@@ -3,6 +3,7 @@ using Cinema.Services.FileAPI.Data.Contexts;
 using Cinema.Services.FileAPI.Storages.Concrete.Local;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
+using SharedLibrary.Models.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,11 +19,15 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddCustomSwaggerGenService();
 
 builder.Services.AddFileServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
 builder.Services.AddStorage<LocalStorage>();
 builder.Services.AddMovieMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ") ?? string.Empty);
+
+builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
 
 var app = builder.Build();
 
@@ -37,6 +42,7 @@ app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
