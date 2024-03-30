@@ -11,7 +11,7 @@
         }
       ],
       "UpstreamPathTemplate": "/authserver/public/{url}",
-      "UpstreamHttpMethod": ["Post"]
+      "UpstreamHttpMethod": [ "Post" ]
     },
     // MovieServer
     {
@@ -36,6 +36,35 @@
         }
       ],
       "UpstreamPathTemplate": "/movieserver/{url}",
+      "UpstreamHttpMethod": [ "Post", "Put", "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+    // CategoryServer
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7065
+        }
+      ],
+      "UpstreamPathTemplate": "/categoryserver/public/{url}",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7065
+        }
+      ],
+      "UpstreamPathTemplate": "/categoryserver/{url}",
       "UpstreamHttpMethod": [ "Post", "Put", "Delete" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
