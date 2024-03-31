@@ -6,6 +6,7 @@ using Cinema.Services.AuthAPI.Services.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Models.Dtos;
 
 namespace Cinema.Services.AuthAPI.Controllers
 {
@@ -24,7 +25,7 @@ namespace Cinema.Services.AuthAPI.Controllers
 
             var response = await _tokenService.CreateTokenAsync(user);
 
-            return Ok(response);
+            return Ok(ResponseDto<LoginResponse>.Sucess(response, 200));
         }
 
         [HttpPost]
