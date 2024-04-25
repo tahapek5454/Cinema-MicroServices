@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Cinema.Services.SessionAPI.Data.Contexts;
+using Cinema.Services.SessionAPI.Services.Abstract;
+using Cinema.Services.SessionAPI.Services.Concrete;
 
 namespace Cinema.Services.SessionAPI
 {
@@ -11,6 +13,11 @@ namespace Cinema.Services.SessionAPI
             {
                 options.UseSqlServer(connectionString);
             });
+
+
+            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<ISeatStatusService, SeatStatusService>();
+            services.AddScoped<ISeatService, SeatService>();
         }
     }
 }
