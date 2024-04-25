@@ -1,3 +1,5 @@
+using Cinema.Services.SessionAPI;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -13,6 +15,8 @@ builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSessionService(builder.Configuration.GetConnectionString("MSSQL"));
 
 var app = builder.Build();
 
