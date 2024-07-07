@@ -2,6 +2,7 @@
 using Cinema.Services.SessionAPI.Models.Entities;
 using Cinema.Services.SessionAPI.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Services;
 
 namespace Cinema.Services.SessionAPI.Services.Concrete
 {

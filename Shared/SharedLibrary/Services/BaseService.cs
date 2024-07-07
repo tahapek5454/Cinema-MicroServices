@@ -1,11 +1,10 @@
-﻿using Cinema.Services.MovieAPI.Services.Abstract;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SharedLibrary.Models.Dtos;
 using SharedLibrary.Models.Enums;
 using System.Net.Mime;
 using System.Text;
 
-namespace Cinema.Services.MovieAPI.Services.Concrete
+namespace SharedLibrary.Services
 {
     public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
     {
@@ -13,7 +12,7 @@ namespace Cinema.Services.MovieAPI.Services.Concrete
             where TRequest : class
             where TResponse : class
         {
-            
+
             HttpClient client = _httpClientFactory.CreateClient();
             HttpRequestMessage message = new();
 
@@ -65,7 +64,7 @@ namespace Cinema.Services.MovieAPI.Services.Concrete
 
 
             return result ?? ResponseDto<TResponse>.Fail("Deserialize failed", false, 500);
-                    
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Cinema.Services.SessionAPI.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Services;
 
 namespace Cinema.Services.SessionAPI.Services.Abstract
 {

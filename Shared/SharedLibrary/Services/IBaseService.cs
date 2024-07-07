@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models.Dtos;
+﻿using SharedLibrary.Models.Dtos;
 
-namespace Cinema.Services.SessionAPI.Services.Abstract
+namespace SharedLibrary.Services
 {
     public interface IBaseService
     {

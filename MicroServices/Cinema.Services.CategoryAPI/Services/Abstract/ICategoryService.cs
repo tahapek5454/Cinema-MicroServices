@@ -1,5 +1,6 @@
 ﻿using Cinema.Services.CategoryAPI.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Services;
 
 namespace Cinema.Services.CategoryAPI.Services.Abstract
 {

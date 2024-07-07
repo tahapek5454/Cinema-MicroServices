@@ -2,6 +2,7 @@
 using Cinema.Services.CategoryAPI.Models.Entities;
 using Cinema.Services.CategoryAPI.Services.Abstract;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Services;
 
 namespace Cinema.Services.CategoryAPI.Services.Concrete
 {
