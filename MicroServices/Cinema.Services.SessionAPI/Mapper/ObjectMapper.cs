@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cinema.Services.SessionAPI.Mapper.MovieTheaterProfile;
 using Cinema.Services.SessionAPI.Mapper.SeatProfile;
 using Cinema.Services.SessionAPI.Mapper.SeatStatusProfile;
 using Cinema.Services.SessionAPI.Mapper.SessionProfile;
@@ -16,6 +17,7 @@ namespace Cinema.Services.SessionAPI.Mapper
                 cfg.AddProfile<SeatMapper>();
                 cfg.AddProfile<SeatStatusMapper>();
                 cfg.AddProfile<SessionMapper>();
+                cfg.AddProfile<MovieTheaterMapper>();
 
             });
 

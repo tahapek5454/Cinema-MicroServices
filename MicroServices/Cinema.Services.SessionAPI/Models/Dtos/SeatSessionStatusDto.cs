@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Services.SessionAPI.Models.Dtos
 {
-    public class SeatStatusDto
+    public class SeatSessionStatusDto
     {
         public int Id { get; set; }
         public int SessionId { get; set; }
