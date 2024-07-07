@@ -8,7 +8,8 @@ namespace Cinema.Services.SessionAPI.Mapper.SeatStatusProfile
     {
         public SeatStatusMapper()
         {
-            CreateMap<SeatSessionStatus, SeatSessionStatusDto>();
+            CreateMap<SeatSessionStatus, SeatSessionStatusDto>()
+                .ForMember(dest => dest.SeatNumber, opt => opt.MapFrom(dest => dest.Seat.SeatNumber));
         }
     }
 }
