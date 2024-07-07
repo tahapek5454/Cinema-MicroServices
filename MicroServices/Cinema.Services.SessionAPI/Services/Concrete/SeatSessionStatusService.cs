@@ -6,15 +6,15 @@ using SharedLibrary.Services;
 
 namespace Cinema.Services.SessionAPI.Services.Concrete
 {
-    public class SeatStatusService : BaseService, ISeatStatusService
+    public class SeatSessionStatusService : BaseService, ISeatSessionStatusService
     {
         private readonly AppDbContext _appDbContext;
-        public SeatStatusService(IHttpClientFactory _httpClientFactory, AppDbContext appDbContext) : base(_httpClientFactory)
+        public SeatSessionStatusService(IHttpClientFactory _httpClientFactory, AppDbContext appDbContext) : base(_httpClientFactory)
         {
             _appDbContext = appDbContext;
         }
 
-        public DbSet<SeatStatus> Table => _appDbContext.Set<SeatStatus>();
+        public DbSet<SeatSessionStatus> Table => _appDbContext.Set<SeatSessionStatus>();
 
         public int SaveChanges()
             => _appDbContext.SaveChanges();

@@ -14,7 +14,7 @@ namespace Cinema.Services.SessionAPI.Data.Contexts
 
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Seat> Seats { get; set; }
-        public DbSet<SeatStatus> SeatStatuses { get; set; }
+        public DbSet<SeatSessionStatus> SeatSessionStatus { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -2,10 +2,12 @@
 
 namespace Cinema.Services.SessionAPI.Models.Entities;
 
-public class SeatStatus: BaseEntity
+public class SeatSessionStatus: BaseEntity
 {
     public int SessionId { get; set; }
-    public int SeatId { get; set; }
+    public Session Session { get; set; }
+    public int SeatId { get; set; } 
+    public Seat Seat { get; set; }
     public bool Reserved { get; set; }
 
 }

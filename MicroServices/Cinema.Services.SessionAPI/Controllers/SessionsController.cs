@@ -14,7 +14,7 @@ namespace Cinema.Services.SessionAPI.Controllers
     public class SessionsController(
             ISessionService _sessionService,
             ISeatService _seatService,
-            ISeatStatusService _seatStatusService
+            ISeatSessionStatusService _seatStatusService
         ) : ControllerBase
     {
                 

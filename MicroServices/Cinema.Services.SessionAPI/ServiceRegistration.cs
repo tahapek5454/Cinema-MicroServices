@@ -16,7 +16,7 @@ namespace Cinema.Services.SessionAPI
 
 
             services.AddScoped<ISessionService, SessionService>();
-            services.AddScoped<ISeatStatusService, SeatStatusService>();
+            services.AddScoped<ISeatSessionStatusService, SeatSessionStatusService>();
             services.AddScoped<ISeatService, SeatService>();
         }
     }

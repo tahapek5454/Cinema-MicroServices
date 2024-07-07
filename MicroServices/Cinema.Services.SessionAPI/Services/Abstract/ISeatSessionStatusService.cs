@@ -4,9 +4,9 @@ using SharedLibrary.Services;
 
 namespace Cinema.Services.SessionAPI.Services.Abstract
 {
-    public interface ISeatStatusService: IBaseService
+    public interface ISeatSessionStatusService: IBaseService
     {
-        public DbSet<SeatStatus> Table { get; }
+        public DbSet<SeatSessionStatus> Table { get; }
         public Task<int> SaveChangesAsync();
         public int SaveChanges();
     }
