@@ -13,6 +13,7 @@ namespace SagaStateMachine.Service.StateDbContexts
             get
             {
                 yield return new MovieImageStateMap();
+                yield return new ReservationStateMap();
             }
         }
     }

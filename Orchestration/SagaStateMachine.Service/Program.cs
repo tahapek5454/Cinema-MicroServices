@@ -18,6 +18,15 @@ builder.Services.AddMassTransit(configure =>
         });
     });
 
+    configure.AddSagaStateMachine<ReservationStateMachine, ReservationStateInstance>()
+    .EntityFrameworkRepository(options =>
+    {
+        options.AddDbContext<DbContext, MovieAppStateDbContext>((provider, _builder) =>
+        {
+            _builder.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
+        });
+    });
+
     configure.UsingRabbitMq((context, configurator) =>
     {
         configurator.Host(builder.Configuration.GetConnectionString("RabbitMQ"));
@@ -25,6 +34,12 @@ builder.Services.AddMassTransit(configure =>
         configurator.ReceiveEndpoint(RabbitMQSettings.FileStateMachineQueue, e =>
         {
             e.ConfigureSaga<MovieImageStateInstance>(context);
+            e.DiscardSkippedMessages();
+        });
+
+        configurator.ReceiveEndpoint(RabbitMQSettings.ReservationStateMachineQueue, e =>
+        {
+            e.ConfigureSaga<ReservationStateInstance>(context);
             e.DiscardSkippedMessages();
         });
     });
