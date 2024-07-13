@@ -1,4 +1,5 @@
 using Cinema.Services.BranchAPI;
+using SharedLibrary.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
