@@ -4,6 +4,7 @@ using Cinema.Services.SessionAPI.Models.Dtos;
 using Cinema.Services.SessionAPI.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Enums;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
 
@@ -23,7 +24,7 @@ namespace Cinema.Services.SessionAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSessionById([FromRoute] int id)
         {
-            var session = await _sessionService.Table.FirstOrDefaultAsync(x => x.Id == id);
+            var session = await _sessionService.Table.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
             var result = ObjectMapper.Mapper.Map<SessionDto>(session);
 
@@ -33,7 +34,7 @@ namespace Cinema.Services.SessionAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSessionsByMovieId([FromRoute] int id)
         {
-            var session = await _sessionService.Table.Where(x => x.MovieId == id).ToListAsync();
+            var session = await _sessionService.Table.AsNoTracking().Where(x => x.MovieId == id).ToListAsync();
 
             var result = ObjectMapper.Mapper.Map<List<SessionDto>>(session);
 
@@ -43,7 +44,7 @@ namespace Cinema.Services.SessionAPI.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAllSessionByMovieTheater([FromRoute] int id)
         {
-            var session = await _sessionService.Table.Where(x => x.MovieTheaterId == id).ToListAsync();
+            var session = await _sessionService.Table.AsNoTracking().Where(x => x.MovieTheaterId == id).ToListAsync();
 
             var result = ObjectMapper.Mapper.Map<List<SessionDto>>(session);
 
@@ -59,6 +60,7 @@ namespace Cinema.Services.SessionAPI.Controllers
             var (startOfWeek, endOfWeek) = CalculateMethods.FindWeekArrange(dateTime);
 
             var session = await _sessionService.Table
+                .AsNoTracking()
                 .Where(x => x.MovieTheaterId == id && x.CreatedDate >= startOfWeek && x.CreatedDate <= endOfWeek).ToListAsync();
 
             var result = ObjectMapper.Mapper.Map<List<SessionDto>>(session);
@@ -73,14 +75,13 @@ namespace Cinema.Services.SessionAPI.Controllers
             List<SeatSessionStatusDto> response = new();
 
             var movieTheaterId = await _sessionService.Table
+                .AsNoTracking()
                 .Where(s => s.Id == id)
                 .Select(x => x.MovieTheaterId)
                 .FirstOrDefaultAsync();
 
             var seatSessionStatus = await _seatStatusService
                 .Table
-                .Include(s => s.Seat)
-                .Include(s => s.Session)
                 .Where(x => x.SessionId == id)
                 .ToListAsync();
 
@@ -100,7 +101,7 @@ namespace Cinema.Services.SessionAPI.Controllers
                     response.Add(new SeatSessionStatusDto()
                     {
                         Id = -1,
-                        Reserved = false,
+                        ReservedStatus = ReservedStatusEnum.NotReserved,
                         SeatId = item.Id,
                         SeatNumber = item.SeatNumber,
                         SessionId = id,
