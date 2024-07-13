@@ -4,6 +4,7 @@ using Cinema.Services.SessionAPI.Models.Dtos;
 using Cinema.Services.SessionAPI.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
 
 
@@ -33,6 +34,32 @@ namespace Cinema.Services.SessionAPI.Controllers
         public async Task<IActionResult> GetSessionsByMovieId([FromRoute] int id)
         {
             var session = await _sessionService.Table.Where(x => x.MovieId == id).ToListAsync();
+
+            var result = ObjectMapper.Mapper.Map<List<SessionDto>>(session);
+
+            return Ok(ResponseDto<List<SessionDto>>.Sucess(result, 200));
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllSessionByMovieTheater([FromRoute] int id)
+        {
+            var session = await _sessionService.Table.Where(x => x.MovieTheaterId == id).ToListAsync();
+
+            var result = ObjectMapper.Mapper.Map<List<SessionDto>>(session);
+
+            return Ok(ResponseDto<List<SessionDto>>.Sucess(result, 200));
+        }
+
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAllSessionByMovieTheaterByDate([FromRoute] int id, [FromBody] DateTime dateTime)
+        {
+            // this date for week
+
+            var (startOfWeek, endOfWeek) = CalculateMethods.FindWeekArrange(dateTime);
+
+            var session = await _sessionService.Table
+                .Where(x => x.MovieTheaterId == id && x.CreatedDate >= startOfWeek && x.CreatedDate <= endOfWeek).ToListAsync();
 
             var result = ObjectMapper.Mapper.Map<List<SessionDto>>(session);
 
