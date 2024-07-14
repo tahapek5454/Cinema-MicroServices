@@ -24,6 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCustomSwaggerGenService();
 
 builder.Services.AddSessionService(builder.Configuration.GetConnectionString("MSSQL"));
+builder.Services.AddSessionMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ"));
 
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
