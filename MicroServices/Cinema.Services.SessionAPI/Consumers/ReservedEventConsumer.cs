@@ -64,7 +64,7 @@ namespace Cinema.Services.SessionAPI.Consumers
 
                 if (response.Any())
                 {
-                    await _seatSessionStatusService.Table.AddRangeAsync(response);
+                    _seatSessionStatusService.Table.UpdateRange(response);
                     await _seatSessionStatusService.SaveChangesAsync();
 
 
@@ -86,6 +86,9 @@ namespace Cinema.Services.SessionAPI.Consumers
             var datas = _seatSessionStatusService.Table.AsNoTracking().Where(x => x.SessionId == sessionId);
 
             var filteredDatas = datas.Where(x => seatIds.Contains(x.SeatId)).ToList();
+
+            if (seatIds.Count != filteredDatas.Count)
+                return false;
 
             return filteredDatas is not null ?  filteredDatas.TrueForAll(x => x.ReservedStatus == ReservedStatusEnum.Pending) : false;
         }
