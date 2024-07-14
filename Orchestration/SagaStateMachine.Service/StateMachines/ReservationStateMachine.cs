@@ -70,7 +70,7 @@ namespace SagaStateMachine.Service.StateMachines
                     Reserved,
                     When(ReserveReceivedEvent)
                     .TransitionTo(ReserveReceived)
-                    .Finalize() // for now, next session we will add payment operation for ex PaymentStartedEVent go
+                    .Finalize()
                     ,
                     When(ReserveFailedEvent)
                     .TransitionTo(ReserveFailed)

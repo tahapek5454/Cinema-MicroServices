@@ -1,21 +1,27 @@
 ﻿using AutoMapper;
 using Cinema.Services.RezervationAPI.Models.Dtos;
 using Cinema.Services.RezervationAPI.Models.Entities;
+using Cinema.Services.RezervationAPI.Models.Request;
 
 namespace Cinema.Services.RezervationAPI.Mapper.RezervationProfile
 {
-    public class RezervationMapper: Profile
+    public class ReservationMapper: Profile
     {
-        public RezervationMapper()
+        public ReservationMapper()
         {
-            CreateMap<RezervationDto, Rezervation>()
+            CreateMap<ReservationDto, Reservation>()
                 .ForMember(dest => dest.SeatIds, opt => opt.MapFrom(src => string.Join(",", src.SeatIds)))
                 .ReverseMap()
                 .ForMember(dest => dest.SeatIds, opt => opt.MapFrom(src => ConvertStringToList(src)));
+
+
+            CreateMap<ReservationRequest, Reservation>()
+                .ForMember(dest => dest.SeatIds, opt => opt.MapFrom(src => string.Join(",", src.SeatIds)));
+
         }
 
 
-        private  List<int> ConvertStringToList(Rezervation rezervation)
+        private  List<int> ConvertStringToList(Reservation rezervation)
         {
             if (string.IsNullOrEmpty(rezervation.SeatIds))
             {

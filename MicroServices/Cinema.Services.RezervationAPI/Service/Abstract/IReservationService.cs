@@ -4,9 +4,9 @@ using SharedLibrary.Services;
 
 namespace Cinema.Services.RezervationAPI.Service.Abstract
 {
-    public interface IRezervationService: IBaseService
+    public interface IReservationService: IBaseService
     {
-        public DbSet<Rezervation> Table { get; }
+        public DbSet<Reservation> Table { get; }
         public Task<int> SaveChangesAsync();
         public int SaveChanges();
     }

@@ -11,7 +11,7 @@ namespace Cinema.Services.RezervationAPI.Data.Contexts
         {
         }
 
-        public DbSet<Rezervation> Rezervations { get; set; }
+        public DbSet<Reservation> Rezervations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

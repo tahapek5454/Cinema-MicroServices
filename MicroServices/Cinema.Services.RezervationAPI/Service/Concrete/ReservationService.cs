@@ -6,15 +6,15 @@ using SharedLibrary.Services;
 
 namespace Cinema.Services.RezervationAPI.Service.Concrete
 {
-    public class RezervationService : BaseService, IRezervationService
+    public class ReservationService : BaseService, IReservationService
     {
         private readonly AppDbContext _appDbContext;
-        public RezervationService(IHttpClientFactory _httpClientFactory, AppDbContext appDbContext) : base(_httpClientFactory)
+        public ReservationService(IHttpClientFactory _httpClientFactory, AppDbContext appDbContext) : base(_httpClientFactory)
         {
             _appDbContext = appDbContext;
         }
 
-        public DbSet<Rezervation> Table => _appDbContext.Set<Rezervation>();
+        public DbSet<Reservation> Table => _appDbContext.Set<Reservation>();
 
         public int SaveChanges()
         {

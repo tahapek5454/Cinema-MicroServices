@@ -12,7 +12,7 @@ namespace Cinema.Services.MovieAPI.Mapper
             {
                 cfg.AllowNullCollections = true;
 
-                cfg.AddProfile<RezervationMapper>();
+                cfg.AddProfile<ReservationMapper>();
 
             });
 

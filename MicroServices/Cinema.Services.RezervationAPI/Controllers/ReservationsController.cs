@@ -1,6 +1,7 @@
 ﻿using Cinema.Services.MovieAPI.Mapper;
 using Cinema.Services.RezervationAPI.Models.Dtos;
 using Cinema.Services.RezervationAPI.Models.Entities;
+using Cinema.Services.RezervationAPI.Models.Request;
 using Cinema.Services.RezervationAPI.Service.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,11 +11,11 @@ namespace Cinema.Services.RezervationAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RezervationsController : ControllerBase
+    public class ReservationsController : ControllerBase
     {
-        private readonly IRezervationService _rezervationService;
+        private readonly IReservationService _rezervationService;
 
-        public RezervationsController(IRezervationService rezervationService)
+        public ReservationsController(IReservationService rezervationService)
         {
             _rezervationService = rezervationService;
         }
@@ -28,17 +29,17 @@ namespace Cinema.Services.RezervationAPI.Controllers
             if (rezervation is null)
                 throw new Exception("Rezervasyon bulunamadı");
 
-            var rezervationDto = ObjectMapper.Mapper.Map<RezervationDto>(rezervation);
+            var rezervationDto = ObjectMapper.Mapper.Map<ReservationDto>(rezervation);
 
-            return Ok(ResponseDto<RezervationDto>.Sucess(rezervationDto, 200));
+            return Ok(ResponseDto<ReservationDto>.Sucess(rezervationDto, 200));
         }
 
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateRezervation([FromBody] RezervationDto rezervationDto)
+        public async Task<IActionResult> CreateRezervation([FromBody] ReservationRequest request)
         {
-            var rezervation = ObjectMapper.Mapper.Map<Rezervation>(rezervationDto);
+            var rezervation = ObjectMapper.Mapper.Map<Reservation>(request);
 
             await _rezervationService.Table.AddAsync(rezervation);
 

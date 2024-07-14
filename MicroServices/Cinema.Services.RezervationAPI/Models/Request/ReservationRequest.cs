@@ -1,9 +1,7 @@
-﻿namespace Cinema.Services.RezervationAPI.Models.Dtos
+﻿namespace Cinema.Services.RezervationAPI.Models.Request
 {
-    public class RezervationDto
+    public class ReservationRequest
     {
-        public int Id { get; set; }
-        public DateTime CreatedDate { get; set; }
         public int SessionId { get; set; }
         public int UserId { get; set; }
         public List<int> SeatIds { get; set; }
