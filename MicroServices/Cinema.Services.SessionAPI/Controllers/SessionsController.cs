@@ -1,6 +1,8 @@
 ﻿
 using Cinema.Services.SessionAPI.Mapper;
 using Cinema.Services.SessionAPI.Models.Dtos;
+using Cinema.Services.SessionAPI.Models.Entities;
+using Cinema.Services.SessionAPI.Models.Request;
 using Cinema.Services.SessionAPI.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -114,6 +116,19 @@ namespace Cinema.Services.SessionAPI.Controllers
             return Ok(ResponseDto<List<SeatSessionStatusDto>>.Sucess(response, 200));
 
         }
+
+        [HttpPost]
+        public async Task<IActionResult> PreBooking([FromBody] PreBookingRequest request)
+        {
+            var seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
+
+            await _seatStatusService.Table.AddAsync(seatSessionStatus);
+            await _seatStatusService.SaveChangesAsync();
+
+            return Created();
+
+        }
+
 
 
     }
