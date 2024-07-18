@@ -1,8 +1,10 @@
-﻿using Cinema.Services.MovieAPI.Mapper;
+﻿using Cinema.Services.MovieAPI.Application.Queries.GetMovieById;
+using Cinema.Services.MovieAPI.Mapper;
 using Cinema.Services.MovieAPI.Models.Dtos.Categories;
 using Cinema.Services.MovieAPI.Models.Dtos.Movies;
 using Cinema.Services.MovieAPI.Models.Entities;
 using Cinema.Services.MovieAPI.Services.Abstract;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,32 +16,14 @@ namespace Cinema.Services.MovieAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class MoviesController(IMovieService _movieService) : ControllerBase
+    public class MoviesController(IMediator _mediator, IMovieService _movieService) : ControllerBase
     {
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetMovieById([FromRoute] int id)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetMovieById([FromRoute] GetMovieByIdQueryRequest request)
         {
-            var movie = await _movieService.Table.Include(x => x.MovieImages).FirstOrDefaultAsync(x => x.Id == id);
+            var r = await _mediator.Send(request);
 
-            if (movie is null)
-                throw new Exception("Movie is not found");
-
-            var movieDto = ObjectMapper.Mapper.Map<MovieDto>(movie);
-
-            var categoryResponse = await _movieService.SendAsync<BlankDto, CategoryDto>(new()
-            {
-                ActionType = ActionType.GET,
-                Language = SystemLanguage.tr_TR,
-                Url = $"{SharedConst.CategoryBaseAPI}/GetGategoryById/{movie.CategoryId}",
-                Data = null,
-                AccessToken = null,
-            });
-
-            if (categoryResponse?.ValidateWithData() ?? false)
-                movieDto.Category = categoryResponse.Data;
-            
-
-            return Ok(ResponseDto<MovieDto>.Sucess(movieDto, 200));
+            return Ok(r.Response);
         }
 
         [HttpGet]
