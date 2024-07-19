@@ -85,9 +85,9 @@ namespace Cinema.Services.SessionAPI.Controllers
             var seatSessionStatus = await _seatStatusService
                 .Table
                 .Where(x => x.SessionId == id)
+                .Include(x => x.Seat)
                 .ToListAsync();
-
-
+    
             response = ObjectMapper.Mapper.Map<List<SeatSessionStatusDto>>(seatSessionStatus);
 
             
@@ -102,7 +102,6 @@ namespace Cinema.Services.SessionAPI.Controllers
                 {
                     response.Add(new SeatSessionStatusDto()
                     {
-                        Id = -1,
                         ReservedStatus = ReservedStatusEnum.NotReserved,
                         SeatId = item.Id,
                         SeatNumber = item.SeatNumber,
@@ -116,6 +115,9 @@ namespace Cinema.Services.SessionAPI.Controllers
             return Ok(ResponseDto<List<SeatSessionStatusDto>>.Sucess(response, 200));
 
         }
+
+
+        // Rezervasyona tasinabilir.
 
         [HttpPost]
         public async Task<IActionResult> PreBooking([FromBody] PreBookingRequest request)

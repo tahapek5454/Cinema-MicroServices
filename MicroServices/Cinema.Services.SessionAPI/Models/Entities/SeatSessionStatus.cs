@@ -1,5 +1,6 @@
 ﻿using SharedLibrary.Enums;
 using SharedLibrary.Models.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinema.Services.SessionAPI.Models.Entities;
 
@@ -11,10 +12,12 @@ public class SeatSessionStatus: BaseEntity, ICloneable
     public Seat Seat { get; set; }
     public ReservedStatusEnum ReservedStatus { get; set; }
 
+    [NotMapped]
+    public override int Id { get => base.Id; set => base.Id = value; }
+
     public object Clone()
         => new SeatSessionStatus() 
         {
-            Id = this.Id,
             SeatId = this.SeatId,
             ReservedStatus = this.ReservedStatus,
             CreatedDate = this.CreatedDate,

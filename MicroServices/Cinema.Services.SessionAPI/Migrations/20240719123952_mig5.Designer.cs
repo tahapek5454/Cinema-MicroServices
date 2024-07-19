@@ -4,6 +4,7 @@ using Cinema.Services.SessionAPI.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Services.SessionAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240719123952_mig5")]
+    partial class mig5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace Cinema.Services.SessionAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MovieTheaters", (string)null);
+                    b.ToTable("MovieTheaters");
 
                     b.HasData(
                         new
@@ -128,7 +131,7 @@ namespace Cinema.Services.SessionAPI.Migrations
 
                     b.HasIndex("MovieTheaterId");
 
-                    b.ToTable("Seats", (string)null);
+                    b.ToTable("Seats");
 
                     b.HasData(
                         new
@@ -997,7 +1000,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.HasIndex("SessionId", "SeatId")
                         .IsUnique();
 
-                    b.ToTable("SeatSessionStatus", (string)null);
+                    b.ToTable("SeatSessionStatus");
                 });
 
             modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.Session", b =>
@@ -1030,7 +1033,7 @@ namespace Cinema.Services.SessionAPI.Migrations
 
                     b.HasIndex("MovieTheaterId");
 
-                    b.ToTable("Sessions", (string)null);
+                    b.ToTable("Sessions");
 
                     b.HasData(
                         new
