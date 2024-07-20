@@ -22,8 +22,18 @@ namespace SharedLibrary.Extensions
                     var errorFeatures = context.Features.Get<IExceptionHandlerFeature>();
 
                     if (errorFeatures != null)
-                    {      
-                        var errorDto = new ErrorDto(errorFeatures.Error.Message, true);
+                    {
+
+                        ErrorDto errorDto = null;
+
+                        if (string.IsNullOrEmpty(errorFeatures?.Error?.InnerException?.Message))
+                        {
+                            errorDto = new ErrorDto(errorFeatures.Error.Message, true);
+                        }
+                        else
+                        {
+                            errorDto = new ErrorDto([errorFeatures.Error.Message, errorFeatures.Error.InnerException.Message], true);
+                        }
 
                         var responseDto = ResponseDto<BlankDto>.Fail(errorDto, (int)HttpStatusCode.InternalServerError);
 
