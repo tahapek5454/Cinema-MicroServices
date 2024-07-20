@@ -3,9 +3,13 @@ using Cinema.Services.RezervationAPI.Models.Dtos;
 using Cinema.Services.RezervationAPI.Models.Entities;
 using Cinema.Services.RezervationAPI.Models.Request;
 using Cinema.Services.RezervationAPI.Service.Abstract;
+using MassTransit;
+using MassTransit.Transports;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Events.ReservationEvents;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Settings;
 
 namespace Cinema.Services.RezervationAPI.Controllers
 {
@@ -14,10 +18,12 @@ namespace Cinema.Services.RezervationAPI.Controllers
     public class ReservationsController : ControllerBase
     {
         private readonly IReservationService _rezervationService;
+        private readonly ISendEndpointProvider _sendEndpointProvider;
 
-        public ReservationsController(IReservationService rezervationService)
+        public ReservationsController(IReservationService rezervationService, ISendEndpointProvider sendEndpointProvider)
         {
             _rezervationService = rezervationService;
+            _sendEndpointProvider = sendEndpointProvider;
         }
 
 
@@ -39,13 +45,32 @@ namespace Cinema.Services.RezervationAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateRezervation([FromBody] ReservationRequest request)
         {
-            var rezervation = ObjectMapper.Mapper.Map<Reservation>(request);
+            var reservation = ObjectMapper.Mapper.Map<Reservation>(request);
 
-            await _rezervationService.Table.AddAsync(rezervation);
+            await _rezervationService.Table.AddAsync(reservation);
 
             await _rezervationService.SaveChangesAsync();
 
-            return Created("api/Rezervations/"+ rezervation.Id, ResponseDto<BlankDto>.Sucess(200));
+
+            var sendEndpoint =
+               await _sendEndpointProvider.GetSendEndpoint
+               (new Uri($"queue:{RabbitMQSettings.ReservationStateMachineQueue}"));
+
+
+            ReservedStartedEvent @event = new()
+            {
+                MovieTheaterId = request.MovieTheaterId,
+                Price = request.Price,
+                ReservationCreatedDate = DateTime.Now,
+                ReservationId = reservation.Id,
+                SeatIds = reservation.SeatIds,
+                SessionId = request.SessionId,
+                UserId = request.UserId,
+            };
+
+            await sendEndpoint.Send(@event);
+
+            return Created("api/Rezervations/"+ reservation.Id, ResponseDto<BlankDto>.Sucess(200));
         }
 
 
