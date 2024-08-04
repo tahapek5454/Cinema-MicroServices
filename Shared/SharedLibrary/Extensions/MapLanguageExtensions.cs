@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Cinema.Services.BranchAPI.Mapper;
+using SharedLibrary.Helpers;
 using System.Reflection;
 
-namespace Cinema.Services.BranchAPI.Extensions
+namespace SharedLibrary.Extensions
 {
     public static class MapLanguageExtensions
     {

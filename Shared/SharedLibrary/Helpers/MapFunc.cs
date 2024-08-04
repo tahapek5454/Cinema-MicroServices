@@ -1,7 +1,9 @@
-﻿using SharedLibrary.Models.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using SharedLibrary.Models.Enums;
 using System.Reflection;
 
-namespace Cinema.Services.BranchAPI.Mapper
+namespace SharedLibrary.Helpers
 {
     public static class MapFunc
     {

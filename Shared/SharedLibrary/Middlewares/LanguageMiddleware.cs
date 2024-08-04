@@ -1,6 +1,7 @@
-﻿using SharedLibrary.Models.Enums;
+﻿using Microsoft.AspNetCore.Http;
+using SharedLibrary.Models.Enums;
 
-namespace Cinema.Services.MovieAPI.Middlewares
+namespace SharedLibrary.Middlewares
 {
     public class LanguageMiddleware
     {

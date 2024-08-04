@@ -1,9 +1,8 @@
 using Cinema.Services.MovieAPI;
 using Cinema.Services.MovieAPI.Data.Contexts;
-using Cinema.Services.MovieAPI.Extensions;
-using Cinema.Services.MovieAPI.Mapper;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
+using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);

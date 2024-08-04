@@ -1,6 +1,6 @@
 using Cinema.Services.BranchAPI;
-using Cinema.Services.BranchAPI.Mapper;
 using SharedLibrary.Extensions;
+using SharedLibrary.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,7 @@
-﻿using Cinema.Services.CategoryAPI.Middlewares;
+﻿using Microsoft.AspNetCore.Builder;
+using SharedLibrary.Middlewares;
 
-namespace Cinema.Services.CategoryAPI.Extensions
+namespace SharedLibrary.Extensions
 {
     public static class UseLanguageExtension
     {

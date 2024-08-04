@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Cinema.Services.CategoryAPI.Extensions;
 using Cinema.Services.CategoryAPI.Models.Dtos.Categories;
 using Cinema.Services.CategoryAPI.Models.Entities;
+using SharedLibrary.Extensions;
 
 namespace Cinema.Services.CategoryAPI.Mapper.CategoryProfile
 {

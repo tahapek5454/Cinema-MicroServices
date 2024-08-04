@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Cinema.Services.MovieAPI.Extensions;
 using Cinema.Services.MovieAPI.Models.Dtos.Movies;
 using Cinema.Services.MovieAPI.Models.Entities;
+using SharedLibrary.Extensions;
 
 namespace Cinema.Services.MovieAPI.Mapper.MovieProfile
 {

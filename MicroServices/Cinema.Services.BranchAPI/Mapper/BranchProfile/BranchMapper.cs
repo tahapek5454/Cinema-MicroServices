@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using Cinema.Services.BranchAPI.Extensions;
 using Cinema.Services.BranchAPI.Models.Dtos;
 using Cinema.Services.BranchAPI.Models.Entities;
 using Cinema.Services.BranchAPI.Models.Requests;
+using SharedLibrary.Extensions;
+
 
 namespace Cinema.Services.BranchAPI.Mapper.BranchProfile
 {
