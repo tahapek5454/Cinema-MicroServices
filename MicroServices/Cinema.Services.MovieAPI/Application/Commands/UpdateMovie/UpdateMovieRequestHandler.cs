@@ -15,32 +15,10 @@ namespace Cinema.Services.MovieAPI.Application.Commands.UpdateMovie
             if (movie is null) throw new Exception("Güncellenecek Film Bulunamadı.");
 
 
-            var entityType = typeof(Movie);
-            var requestType = typeof(UpdateMovieRequest);
+            var count = _movieService.AdvancedUpdate(movie, request);
 
-            var entityProperties = entityType.GetProperties();
-            var requestProperties = requestType.GetProperties();
-
-            var pk = entityType.GetProperty("Id");
-
-            var updateFlag = false;
-
-            // request and entity properties have to same
-            foreach (var requestProperty in requestProperties)
+            if (count > 0)
             {
-                var entityProperty = entityProperties.FirstOrDefault(p => p.Name == requestProperty.Name);
-                var updatedValue = requestProperty.GetValue(request);
-
-                if (entityProperty != null && updatedValue != null && requestProperty != pk)
-                {
-                    entityProperty.SetValue(movie, updatedValue);
-                    updateFlag = true;
-                }
-            }
-
-            if (updateFlag)
-            {
-                _movieService.Table.Update(movie);
                 await _movieService.SaveChangesAsync();
             }
 

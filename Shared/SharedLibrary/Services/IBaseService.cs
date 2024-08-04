@@ -8,5 +8,8 @@ namespace SharedLibrary.Services
             where TResponse : class
             where TRequest : class;
 
+        int AdvancedUpdate<TModel, TRequest>(TModel model, TRequest request)
+            where TModel : class
+            where TRequest : class;
     }
 }
