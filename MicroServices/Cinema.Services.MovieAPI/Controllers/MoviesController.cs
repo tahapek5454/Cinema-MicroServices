@@ -1,16 +1,13 @@
-﻿using Cinema.Services.MovieAPI.Application.Queries.GetMovieById;
-using Cinema.Services.MovieAPI.Mapper;
-using Cinema.Services.MovieAPI.Models.Dtos.Categories;
-using Cinema.Services.MovieAPI.Models.Dtos.Movies;
-using Cinema.Services.MovieAPI.Models.Entities;
+﻿using Cinema.Services.MovieAPI.Application.Commands.AddMovie;
+using Cinema.Services.MovieAPI.Application.Commands.RemoveMovie;
+using Cinema.Services.MovieAPI.Application.Commands.UpdateMovie;
+using Cinema.Services.MovieAPI.Application.Queries.GetAllMovies;
+using Cinema.Services.MovieAPI.Application.Queries.GetMovieById;
+using Cinema.Services.MovieAPI.Application.Queries.GetMoviesWithPagination;
 using Cinema.Services.MovieAPI.Services.Abstract;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models.Const;
-using SharedLibrary.Models.Dtos;
-using SharedLibrary.Models.Enums;
 
 namespace Cinema.Services.MovieAPI.Controllers
 {
@@ -19,106 +16,48 @@ namespace Cinema.Services.MovieAPI.Controllers
     public class MoviesController(IMediator _mediator, IMovieService _movieService) : ControllerBase
     {
         [HttpGet("{Id}")]
-        public async Task<IActionResult> GetMovieById([FromRoute] GetMovieByIdQueryRequest request)
+        public async Task<IActionResult> GetMovieById([FromRoute] GetMovieByIdRequest request)
         {
             var r = await _mediator.Send(request);
-
-            return Ok(r.Response);
+            return Ok(r);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMoviesWithPagination([FromQuery] PaginationDto paginationDto)
+        public async Task<IActionResult> GetMoviesWithPagination([FromQuery] GetMoviesWithPaginationRequest request)
         {
-            var movies = await _movieService.Table
-                .Include(x => x.MovieImages)
-                .Skip((paginationDto.Page - 1) * paginationDto.Size)
-                .Take(paginationDto.Size)
-                .ToListAsync();
-
-            var movieDtos = ObjectMapper.Mapper.Map<List<MovieDto>>(movies);
-
-            movieDtos.ForEach(async (movieDto) =>
-            {
-                var categoryResponse = await _movieService.SendAsync<BlankDto, CategoryDto>(new()
-                {
-                    ActionType = ActionType.GET,
-                    Language = SystemLanguage.tr_TR,
-                    Url = $"{SharedConst.CategoryBaseAPI}/GetGategoryById/{movieDto.CategoryId}",
-                    Data = null,
-                    AccessToken = null,
-                });
-
-                if (categoryResponse?.ValidateWithData() ?? false)
-                    movieDto.Category = categoryResponse.Data;
-            });
-
-
-            return Ok(ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200));
+            var r = await _mediator.Send(request);
+            return Ok(r);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllMovies()
+        public async Task<IActionResult> GetAllMovies([FromQuery] GetAllMoviesRequest request)
         {
-            var movies = await _movieService.Table.Include(x => x.MovieImages).ToListAsync();
-
-            var movieDtos = ObjectMapper.Mapper.Map<List<MovieDto>>(movies);
-
-            movieDtos.ForEach(async (movieDto) =>
-            {
-                var categoryResponse = await _movieService.SendAsync<BlankDto, CategoryDto>(new()
-                {
-                    ActionType = ActionType.GET,
-                    Language = SystemLanguage.tr_TR,
-                    Url = $"{SharedConst.CategoryBaseAPI}/GetGategoryById/{movieDto.CategoryId}",
-                    Data = null,
-                    AccessToken = null,
-                });
-
-                if (categoryResponse?.ValidateWithData() ?? false)
-                    movieDto.Category = categoryResponse.Data;
-            });
-
-
-            return Ok(ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200));
+            var r = await _mediator.Send(request);
+            return Ok(r);
         }
 
         [HttpPost, Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddMovie([FromBody] AddMovieDto addMovieDto)
+        public async Task<IActionResult> AddMovie([FromBody] AddMovieRequest request)
         {
-            var newMovie = ObjectMapper.Mapper.Map<Movie>(addMovieDto);
+            var r = await _mediator.Send(request);
 
-            await _movieService.Table.AddAsync(newMovie);
-
-            await _movieService.SaveChangesAsync();
-
-            return Created($"GetMovieById/{newMovie.Id}", ResponseDto<BlankDto>.Sucess(200));
+            return Created($"GetMovieById/{r.Result}", r);
         }
 
-        [HttpPut, Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateMovie([FromBody]  UpdateMovieDto updateMovieDto)
+        [HttpPut]
+        public async Task<IActionResult> UpdateMovie([FromBody]  UpdateMovieRequest request)
         {
-            var newMovie = ObjectMapper.Mapper.Map<Movie>(updateMovieDto);
+            var r = await _mediator.Send(request);
 
-            _movieService.Table.Update(newMovie);
-
-            await _movieService.SaveChangesAsync();
-
-            return Ok(ResponseDto<BlankDto>.Sucess(200));
+            return Ok(r);
         }
 
         [HttpDelete("{id}"), Authorize(Roles = "admin")]
-        public async Task<IActionResult> RemoveMovie([FromRoute] int id)
+        public async Task<IActionResult> RemoveMovie([FromRoute] RemoveMovieRequest request)
         {
-            var movie = await _movieService.Table.FirstOrDefaultAsync(x => x.Id == id);
+            var r = await _mediator.Send(request);
 
-            if (movie is null)
-                throw new Exception("Movie is not found");
-
-            _movieService.Table.Remove(movie);
-
-            await _movieService.SaveChangesAsync();
-
-            return Ok(ResponseDto<BlankDto>.Sucess(200));
+            return Ok(r);
         }
     }
 }

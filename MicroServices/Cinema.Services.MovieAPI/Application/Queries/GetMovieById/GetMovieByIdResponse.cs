@@ -3,7 +3,7 @@ using SharedLibrary.Behaviors;
 
 namespace Cinema.Services.MovieAPI.Application.Queries.GetMovieById
 {
-    public class GetMovieByIdQueryResponse: CommonResponse<MovieDto>
+    public class GetMovieByIdResponse: CommonResponse<MovieDto>
     {
     }
 }

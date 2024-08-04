@@ -10,16 +10,16 @@ using SharedLibrary.Models.Enums;
 
 namespace Cinema.Services.MovieAPI.Application.Queries.GetMovieById
 {
-    public class GetMovieByIdQueryRequestHandler : IRequestHandler<GetMovieByIdQueryRequest, GetMovieByIdQueryResponse>
+    public class GetMovieByIdRequestHandler : IRequestHandler<GetMovieByIdRequest, GetMovieByIdResponse>
     {
         private readonly IMovieService _movieService;
 
-        public GetMovieByIdQueryRequestHandler(IMovieService movieService)
+        public GetMovieByIdRequestHandler(IMovieService movieService)
         {
             _movieService = movieService;
         }
 
-        public async Task<GetMovieByIdQueryResponse> Handle(GetMovieByIdQueryRequest request, CancellationToken cancellationToken)
+        public async Task<GetMovieByIdResponse> Handle(GetMovieByIdRequest request, CancellationToken cancellationToken)
         {
             var movie = await _movieService.Table.Include(x => x.MovieImages).FirstOrDefaultAsync(x => x.Id == request.Id);
 
@@ -43,9 +43,9 @@ namespace Cinema.Services.MovieAPI.Application.Queries.GetMovieById
                 movieDto.Category = categoryResponse.Data;
 
 
-            return new GetMovieByIdQueryResponse()
+            return new GetMovieByIdResponse()
             {
-                Response = ResponseDto<MovieDto>.Sucess(movieDto, 200)
+                Result = ResponseDto<MovieDto>.Sucess(movieDto, 200)
             };
 
         }

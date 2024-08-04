@@ -2,7 +2,7 @@
 
 namespace Cinema.Services.MovieAPI.Application.Queries.GetMovieById
 {
-    public class GetMovieByIdQueryRequest: IRequest<GetMovieByIdQueryResponse>
+    public class GetMovieByIdRequest: IRequest<GetMovieByIdResponse>
     {
         public int Id { get; set; }
     }

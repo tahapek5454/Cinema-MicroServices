@@ -2,7 +2,7 @@
 
 namespace SharedLibrary.Models.Dtos
 {
-    public class ResponseDto<T> where T : class
+    public class ResponseDto<T>
     {
         [JsonProperty("data")]
         public T? Data { get; private set; }

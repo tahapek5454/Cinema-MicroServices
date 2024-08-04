@@ -5,8 +5,7 @@ using SharedLibrary.Models.Dtos;
 namespace SharedLibrary.Behaviors
 {
     public class CommonResponse<T>
-        where T : class
     {
-        public ResponseDto<T> Response { get; set; }
+        public ResponseDto<T> Result { get; set; }
     }
 }
