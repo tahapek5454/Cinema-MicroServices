@@ -1,7 +1,9 @@
-﻿using Cinema.Services.MovieAPI.Consumers;
-using Cinema.Services.MovieAPI.Data.Contexts;
-using Cinema.Services.MovieAPI.Services.Abstract;
-using Cinema.Services.MovieAPI.Services.Concrete;
+﻿using Cinema.Services.MovieAPI.Application.Repositories;
+using Cinema.Services.MovieAPI.Application.Services.Abstract;
+using Cinema.Services.MovieAPI.Infrastructure.Consumers;
+using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.MovieAPI.Persistence.Data.Contexts;
+using Cinema.Services.MovieAPI.Persistence.Repositories;
 using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +26,8 @@ namespace Cinema.Services.MovieAPI
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(BeforeHandlerBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AfterHandlerBehavior<,>));
 
+
+            services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IMovieImageService, MovieImageService>();
             

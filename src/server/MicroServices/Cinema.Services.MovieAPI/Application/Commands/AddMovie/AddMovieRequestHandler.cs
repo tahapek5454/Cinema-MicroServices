@@ -1,6 +1,6 @@
-﻿using Cinema.Services.MovieAPI.Mapper;
-using Cinema.Services.MovieAPI.Models.Entities;
-using Cinema.Services.MovieAPI.Services.Abstract;
+﻿using Cinema.Services.MovieAPI.Application.Mapper;
+using Cinema.Services.MovieAPI.Application.Services.Abstract;
+using Cinema.Services.MovieAPI.Domain.Entities;
 using MediatR;
 using SharedLibrary.Models.Dtos;
 

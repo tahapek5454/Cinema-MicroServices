@@ -1,7 +1,7 @@
-﻿using Cinema.Services.MovieAPI.Mapper;
-using Cinema.Services.MovieAPI.Models.Dtos.Categories;
-using Cinema.Services.MovieAPI.Models.Dtos.Movies;
-using Cinema.Services.MovieAPI.Services.Abstract;
+﻿using Cinema.Services.MovieAPI.Application.Dtos.Categories;
+using Cinema.Services.MovieAPI.Application.Dtos.Movies;
+using Cinema.Services.MovieAPI.Application.Mapper;
+using Cinema.Services.MovieAPI.Application.Services.Abstract;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Const;

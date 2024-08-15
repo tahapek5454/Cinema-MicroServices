@@ -1,5 +1,5 @@
-﻿using Cinema.Services.MovieAPI.Models.Entities;
-using Cinema.Services.MovieAPI.Services.Abstract;
+﻿using Cinema.Services.MovieAPI.Application.Services.Abstract;
+using Cinema.Services.MovieAPI.Models.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Dtos;
