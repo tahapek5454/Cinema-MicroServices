@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Cinema.Services.RezervationAPI.Mapper.RezervationProfile;
+using Cinema.Services.RezervationAPI.Application.Mapper.RezervationProfile;
 
-
-namespace Cinema.Services.MovieAPI.Mapper
+namespace Cinema.Services.RezervationAPI.Application.Mapper
 {
     public class ObjectMapper
     {

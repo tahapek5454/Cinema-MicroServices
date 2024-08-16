@@ -1,4 +1,4 @@
-using Cinema.Services.RezervationAPI.Data.Contexts;
+using Cinema.Services.RezervationAPI.Persistence.Data.Contexts;
 using Cinema.Services.SessionAPI;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;

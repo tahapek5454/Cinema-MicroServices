@@ -1,9 +1,9 @@
-﻿using Cinema.Services.RezervationAPI.Models.Entities;
+﻿using Cinema.Services.RezervationAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Entities;
 using System.Reflection;
 
-namespace Cinema.Services.RezervationAPI.Data.Contexts
+namespace Cinema.Services.RezervationAPI.Persistence.Data.Contexts
 {
     public class AppDbContext : DbContext
     {

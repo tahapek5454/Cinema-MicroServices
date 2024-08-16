@@ -1,10 +1,10 @@
-﻿using Cinema.Services.RezervationAPI.Data.Contexts;
-using Cinema.Services.RezervationAPI.Models.Entities;
-using Cinema.Services.RezervationAPI.Service.Abstract;
+﻿using Cinema.Services.RezervationAPI.Application.Services.Abstract;
+using Cinema.Services.RezervationAPI.Domain.Entities;
+using Cinema.Services.RezervationAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Services;
 
-namespace Cinema.Services.RezervationAPI.Service.Concrete
+namespace Cinema.Services.RezervationAPI.Infrastructure.Services.Concrete
 {
     public class ReservationService : BaseService, IReservationService
     {

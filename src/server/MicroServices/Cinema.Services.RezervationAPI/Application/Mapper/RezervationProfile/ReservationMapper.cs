@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Cinema.Services.RezervationAPI.Models.Dtos;
-using Cinema.Services.RezervationAPI.Models.Entities;
-using Cinema.Services.RezervationAPI.Models.Request;
+using Cinema.Services.RezervationAPI.Application.Dtos;
+using Cinema.Services.RezervationAPI.Application.Request;
+using Cinema.Services.RezervationAPI.Domain.Entities;
 
-namespace Cinema.Services.RezervationAPI.Mapper.RezervationProfile
+namespace Cinema.Services.RezervationAPI.Application.Mapper.RezervationProfile
 {
-    public class ReservationMapper: Profile
+    public class ReservationMapper : Profile
     {
         public ReservationMapper()
         {
@@ -21,7 +21,7 @@ namespace Cinema.Services.RezervationAPI.Mapper.RezervationProfile
         }
 
 
-        private  List<int> ConvertStringToList(Reservation rezervation)
+        private List<int> ConvertStringToList(Reservation rezervation)
         {
             if (string.IsNullOrEmpty(rezervation.SeatIds))
             {
@@ -33,5 +33,5 @@ namespace Cinema.Services.RezervationAPI.Mapper.RezervationProfile
                           .ToList();
         }
     }
- 
+
 }

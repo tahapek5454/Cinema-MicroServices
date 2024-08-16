@@ -1,8 +1,8 @@
-﻿using Cinema.Services.MovieAPI.Mapper;
-using Cinema.Services.RezervationAPI.Models.Dtos;
-using Cinema.Services.RezervationAPI.Models.Entities;
-using Cinema.Services.RezervationAPI.Models.Request;
-using Cinema.Services.RezervationAPI.Service.Abstract;
+﻿using Cinema.Services.RezervationAPI.Application.Dtos;
+using Cinema.Services.RezervationAPI.Application.Mapper;
+using Cinema.Services.RezervationAPI.Application.Request;
+using Cinema.Services.RezervationAPI.Application.Services.Abstract;
+using Cinema.Services.RezervationAPI.Domain.Entities;
 using MassTransit;
 using MassTransit.Transports;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +11,7 @@ using SharedLibrary.Events.ReservationEvents;
 using SharedLibrary.Models.Dtos;
 using SharedLibrary.Settings;
 
-namespace Cinema.Services.RezervationAPI.Controllers
+namespace Cinema.Services.RezervationAPI.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -70,7 +70,7 @@ namespace Cinema.Services.RezervationAPI.Controllers
 
             await sendEndpoint.Send(@event);
 
-            return Created("api/Rezervations/"+ reservation.Id, ResponseDto<BlankDto>.Sucess(200));
+            return Created("api/Rezervations/" + reservation.Id, ResponseDto<BlankDto>.Sucess(200));
         }
 
 

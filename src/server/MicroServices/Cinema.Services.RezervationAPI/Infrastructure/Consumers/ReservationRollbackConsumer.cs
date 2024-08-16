@@ -1,10 +1,10 @@
-﻿using Cinema.Services.RezervationAPI.Service.Abstract;
+﻿using Cinema.Services.RezervationAPI.Application.Services.Abstract;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Events.ReservationEvents;
 using SharedLibrary.Messages;
 
-namespace Cinema.Services.RezervationAPI.Consumers
+namespace Cinema.Services.RezervationAPI.Infrastructure.Consumers
 {
     public class ReservationRollbackConsumer(IReservationService _reservationService) : IConsumer<ReservationRollbackMessage>, IConsumer<Fault<ReservedEvent>>
     {
@@ -28,12 +28,12 @@ namespace Cinema.Services.RezervationAPI.Consumers
         {
             var r = await _reservationService.Table.FirstOrDefaultAsync(x => x.Id == reservationId);
 
-            if(r != null)
+            if (r != null)
             {
                 _reservationService.Table.Remove(r);
                 await _reservationService.SaveChangesAsync();
             }
-            
+
         }
     }
 }

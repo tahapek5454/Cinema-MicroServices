@@ -1,7 +1,7 @@
-﻿using Cinema.Services.RezervationAPI.Consumers;
-using Cinema.Services.RezervationAPI.Data.Contexts;
-using Cinema.Services.RezervationAPI.Service.Abstract;
-using Cinema.Services.RezervationAPI.Service.Concrete;
+﻿using Cinema.Services.RezervationAPI.Application.Services.Abstract;
+using Cinema.Services.RezervationAPI.Infrastructure.Consumers;
+using Cinema.Services.RezervationAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.RezervationAPI.Persistence.Data.Contexts;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Settings;

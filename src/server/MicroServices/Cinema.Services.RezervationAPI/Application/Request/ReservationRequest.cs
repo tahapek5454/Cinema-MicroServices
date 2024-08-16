@@ -1,4 +1,4 @@
-﻿namespace Cinema.Services.RezervationAPI.Models.Request
+﻿namespace Cinema.Services.RezervationAPI.Application.Request
 {
     public class ReservationRequest
     {
