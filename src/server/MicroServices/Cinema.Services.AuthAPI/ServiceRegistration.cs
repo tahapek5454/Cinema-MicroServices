@@ -1,6 +1,6 @@
-﻿using Cinema.Services.AuthAPI.Data.Contexts;
-using Cinema.Services.AuthAPI.Services.Abstract;
-using Cinema.Services.AuthAPI.Services.Concrete;
+﻿using Cinema.Services.AuthAPI.Application.Services.Abstract;
+using Cinema.Services.AuthAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.AuthAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
