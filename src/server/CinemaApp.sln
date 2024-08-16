@@ -33,7 +33,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SagaStateMachine.Service", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Services.AuthAPI", "MicroServices\Cinema.Services.AuthAPI\Cinema.Services.AuthAPI.csproj", "{1A24742E-53C4-40C3-BD05-3E1A1C8B9118}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cinema.Services.BranchAPI", "MicroServices\Cinema.Services.BranchAPI\Cinema.Services.BranchAPI.csproj", "{CA427CC3-3F7D-4161-8798-6900A35128BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cinema.Services.BranchAPI", "MicroServices\Cinema.Services.BranchAPI\Cinema.Services.BranchAPI.csproj", "{CA427CC3-3F7D-4161-8798-6900A35128BE}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{631BFD25-8B63-48EC-AE6A-9F7FE311E23F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,6 +91,10 @@ Global
 		{CA427CC3-3F7D-4161-8798-6900A35128BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA427CC3-3F7D-4161-8798-6900A35128BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA427CC3-3F7D-4161-8798-6900A35128BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{631BFD25-8B63-48EC-AE6A-9F7FE311E23F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{631BFD25-8B63-48EC-AE6A-9F7FE311E23F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{631BFD25-8B63-48EC-AE6A-9F7FE311E23F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{631BFD25-8B63-48EC-AE6A-9F7FE311E23F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

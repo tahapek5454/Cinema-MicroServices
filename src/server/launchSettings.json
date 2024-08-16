@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "cinema.services.authapi": "StartDebugging",
+        "cinema.services.categoryapi": "StartDebugging",
+        "cinema.services.fileapi": "StartDebugging",
+        "cinema.services.mailworkerservice": "StartDebugging",
+        "cinema.services.movieapi": "StartDebugging",
+        "cinema.services.paymentapi": "StartDebugging",
+        "sagastatemachine.service": "StartDebugging",
+        "cinema.services.sessionapi": "StartDebugging",
+        "cinema.apigateway": "StartDebugging"
+      }
+    }
+  }
+}

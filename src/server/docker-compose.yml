@@ -1,0 +1,157 @@
+version: '3.4'
+
+services:
+  cinema.services.authapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicesauthapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.AuthAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+  cinema.services.branchapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicesbranchapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.BranchAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+  cinema.services.categoryapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicescategoryapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.CategoryAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+  cinema.services.fileapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicesfileapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.FileAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+  cinema.services.mailworkerservice:
+    image: ${DOCKER_REGISTRY-}cinemaservicesmailworkerservice
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.MailWorkerService/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+  cinema.services.movieapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicesmovieapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.MovieAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+
+  cinema.services.paymentapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicespaymentapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.PaymentAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+
+  cinema.services.rezervationapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicesrezervationapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.RezervationAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+
+  cinema.services.sessionapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicessessionapi
+    build:
+      context: .
+      dockerfile: MicroServices/Cinema.Services.SessionAPI/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+
+  sagastatemachine.service:
+    image: ${DOCKER_REGISTRY-}sagastatemachineservice
+    build:
+      context: .
+      dockerfile: Orchestration/SagaStateMachine.Service/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+
+
+  cinema.apigateway:
+    image: ${DOCKER_REGISTRY-}cinemaapigateway
+    build:
+      context: .
+      dockerfile: Gateway/Cinema.APIGateway/Dockerfile
+    networks:
+      - shared_network
+    depends_on:
+      - mssql
+      - rabbitmq
+  
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: mssqldockercompose
+    environment:
+        - SA_PASSWORD=Sifre0134
+        - ACCEPT_EULA=Y
+    ports:
+        - "1433:1433"
+    volumes:
+        - mssql_data:/var/opt/mssql
+    networks:
+      - shared_network
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmqdockercompose
+    ports:
+      - "5672:5672"    
+      - "15672:15672"  
+    networks:
+      - shared_network
+
+volumes:
+  mssql_data:
+
+networks:
+  shared_network:
+    driver: bridge
