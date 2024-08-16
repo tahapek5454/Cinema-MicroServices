@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Cinema.Services.CategoryAPI.Mapper.CategoryProfile;
+using Cinema.Services.CategoryAPI.Application.Mapper.CategoryProfile;
 
-
-namespace Cinema.Services.CategoryAPI.Mapper
+namespace Cinema.Services.CategoryAPI.Application.Mapper
 {
     public class ObjectMapper
     {

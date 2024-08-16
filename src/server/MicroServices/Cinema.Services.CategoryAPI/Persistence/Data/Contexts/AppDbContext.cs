@@ -1,13 +1,13 @@
-﻿using Cinema.Services.CategoryAPI.Models.Entities;
+﻿using Cinema.Services.CategoryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Entities;
 using System.Reflection;
 
-namespace Cinema.Services.CategoryAPI.Data.Contexts
+namespace Cinema.Services.CategoryAPI.Persistence.Data.Contexts
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions options): base(options) { }
+        public AppDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Category> Categories { get; set; }
 

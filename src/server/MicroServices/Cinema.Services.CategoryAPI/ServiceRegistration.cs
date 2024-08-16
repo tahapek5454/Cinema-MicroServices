@@ -1,6 +1,6 @@
-﻿using Cinema.Services.CategoryAPI.Data.Contexts;
-using Cinema.Services.CategoryAPI.Services.Abstract;
-using Cinema.Services.CategoryAPI.Services.Concrete;
+﻿using Cinema.Services.CategoryAPI.Application.Services.Abstract;
+using Cinema.Services.CategoryAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.CategoryAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Services.CategoryAPI

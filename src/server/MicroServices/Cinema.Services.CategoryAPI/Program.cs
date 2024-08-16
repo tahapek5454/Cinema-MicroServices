@@ -1,5 +1,5 @@
 using Cinema.Services.CategoryAPI;
-using Cinema.Services.CategoryAPI.Data.Contexts;
+using Cinema.Services.CategoryAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
 using SharedLibrary.Helpers;

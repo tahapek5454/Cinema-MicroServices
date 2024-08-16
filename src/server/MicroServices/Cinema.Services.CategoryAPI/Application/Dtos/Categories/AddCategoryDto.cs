@@ -1,4 +1,4 @@
-﻿namespace Cinema.Services.CategoryAPI.Models.Dtos.Categories
+﻿namespace Cinema.Services.CategoryAPI.Application.Dtos.Categories
 {
     public class AddCategoryDto
     {

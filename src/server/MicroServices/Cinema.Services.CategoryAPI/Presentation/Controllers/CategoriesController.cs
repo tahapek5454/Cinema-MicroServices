@@ -1,13 +1,13 @@
-﻿using Cinema.Services.CategoryAPI.Mapper;
-using Cinema.Services.CategoryAPI.Models.Dtos.Categories;
-using Cinema.Services.CategoryAPI.Models.Entities;
-using Cinema.Services.CategoryAPI.Services.Abstract;
+﻿using Cinema.Services.CategoryAPI.Application.Dtos.Categories;
+using Cinema.Services.CategoryAPI.Application.Mapper;
+using Cinema.Services.CategoryAPI.Application.Services.Abstract;
+using Cinema.Services.CategoryAPI.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Dtos;
 
-namespace Cinema.Services.CategoryAPI.Controllers
+namespace Cinema.Services.CategoryAPI.Presentation.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]

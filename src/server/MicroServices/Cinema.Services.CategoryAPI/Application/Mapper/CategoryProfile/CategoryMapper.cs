@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Cinema.Services.CategoryAPI.Models.Dtos.Categories;
-using Cinema.Services.CategoryAPI.Models.Entities;
+using Cinema.Services.CategoryAPI.Application.Dtos.Categories;
+using Cinema.Services.CategoryAPI.Domain.Entities;
 using SharedLibrary.Extensions;
 
-namespace Cinema.Services.CategoryAPI.Mapper.CategoryProfile
+namespace Cinema.Services.CategoryAPI.Application.Mapper.CategoryProfile
 {
-    public class CategoryMapper: Profile
+    public class CategoryMapper : Profile
     {
         public CategoryMapper()
         {

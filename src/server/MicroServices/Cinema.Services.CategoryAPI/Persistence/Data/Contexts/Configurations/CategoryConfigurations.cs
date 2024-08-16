@@ -1,8 +1,8 @@
-﻿using Cinema.Services.CategoryAPI.Models.Entities;
+﻿using Cinema.Services.CategoryAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Cinema.Services.CategoryAPI.Data.Contexts.Configurations
+namespace Cinema.Services.CategoryAPI.Persistence.Data.Contexts.Configurations
 {
     public class CategoryConfigurations : IEntityTypeConfiguration<Category>
     {
