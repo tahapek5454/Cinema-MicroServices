@@ -1,6 +1,6 @@
-﻿using Cinema.Services.BranchAPI.Data.Context;
-using Cinema.Services.BranchAPI.Services.Abstract;
-using Cinema.Services.BranchAPI.Services.Concrete;
+﻿using Cinema.Services.BranchAPI.Application.Services.Abstract;
+using Cinema.Services.BranchAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.BranchAPI.Persistence.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cinema.Services.BranchAPI
