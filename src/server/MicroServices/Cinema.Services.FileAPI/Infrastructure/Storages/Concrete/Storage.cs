@@ -1,4 +1,4 @@
-﻿using Cinema.Services.FileAPI.Operations;
+﻿using Cinema.Services.FileAPI.Infrastructure.Operations;
 
 namespace Cinema.Services.FileAPI.Storages.Concrete
 {

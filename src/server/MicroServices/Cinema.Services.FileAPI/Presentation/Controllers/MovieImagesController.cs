@@ -1,6 +1,6 @@
-﻿using Cinema.Services.FileAPI.Models;
-using Cinema.Services.FileAPI.Models.Dtos;
-using Cinema.Services.FileAPI.Services.Abstract;
+﻿using Cinema.Services.FileAPI.Application.Dtos;
+using Cinema.Services.FileAPI.Application.Services.Abstract;
+using Cinema.Services.FileAPI.Domain.Entities;
 using Cinema.Services.FileAPI.Storages.Abstract;
 using MassTransit;
 using MassTransit.Initializers;
@@ -12,19 +12,19 @@ using SharedLibrary.Models.Dtos;
 using SharedLibrary.Settings;
 
 
-namespace Cinema.Services.FileAPI.Controllers
+namespace Cinema.Services.FileAPI.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class MovieImagesController(IMovieImageService _movieImageService, IStorageService _storageService, ISendEndpointProvider _sendEndpointProvider) : ControllerBase
     {
-        [HttpPost, Authorize(Roles ="admin")]
+        [HttpPost, Authorize(Roles = "admin")]
         public async Task<IActionResult> UploadImageFile([FromQuery] UploadImageFileRequestDto uploadImageFileRequestDto)
         {
             var formFileCollection = Request.Form.Files;
 
             if (formFileCollection == null)
-                return BadRequest(ResponseDto<BlankDto>.Fail("Couldn't Access Files",true ,500));
+                return BadRequest(ResponseDto<BlankDto>.Fail("Couldn't Access Files", true, 500));
 
             var result = await _storageService.UploadAsync("images", formFileCollection);
 
@@ -40,7 +40,7 @@ namespace Cinema.Services.FileAPI.Controllers
                     RelationId = uploadImageFileRequestDto.RelationId
                 };
 
-                images.Add(image);  
+                images.Add(image);
             });
 
             if (!images.Any())
@@ -65,7 +65,7 @@ namespace Cinema.Services.FileAPI.Controllers
                     Path = image.Path,
                     RelationId = image.RelationId,
                     Storage = image.Storage,
-                    
+
                 };
 
                 await sendEndpoint.Send(movieImageUploadStartedEvent);
@@ -97,7 +97,7 @@ namespace Cinema.Services.FileAPI.Controllers
             _movieImageService.Table.Remove(file);
             await _movieImageService.SaveChangesAsync();
 
-            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));         
+            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));
 
             await sendEndpoint.Send(movieImageDeleteStartedEvent);
 

@@ -1,9 +1,9 @@
-﻿using Cinema.Services.FileAPI.Data.Contexts;
-using Cinema.Services.FileAPI.Models;
-using Cinema.Services.FileAPI.Services.Abstract;
+﻿using Cinema.Services.FileAPI.Application.Services.Abstract;
+using Cinema.Services.FileAPI.Domain.Entities;
+using Cinema.Services.FileAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinema.Services.FileAPI.Services.Concrete
+namespace Cinema.Services.FileAPI.Infrastructure.Services.Concrete
 {
     public class MovieImageService(AppDbContext appDbContext) : IMovieImageService
     {

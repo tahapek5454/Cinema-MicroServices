@@ -1,9 +1,9 @@
 ﻿using SharedLibrary.Models.Entities;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Cinema.Services.FileAPI.Models
+namespace Cinema.Services.FileAPI.Domain.Entities
 {
-    public class MovieImage: BaseEntity
+    public class MovieImage : BaseEntity
     {
         public string FileName { get; set; }
         public string Path { get; set; }

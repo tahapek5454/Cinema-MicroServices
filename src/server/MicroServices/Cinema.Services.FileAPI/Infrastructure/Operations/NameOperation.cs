@@ -1,4 +1,4 @@
-﻿namespace Cinema.Services.FileAPI.Operations
+﻿namespace Cinema.Services.FileAPI.Infrastructure.Operations
 {
     public static class NameOperation
     {

@@ -1,7 +1,7 @@
-﻿using Cinema.Services.FileAPI.Models;
+﻿using Cinema.Services.FileAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Cinema.Services.FileAPI.Services.Abstract
+namespace Cinema.Services.FileAPI.Application.Services.Abstract
 {
     public interface IMovieImageService
     {

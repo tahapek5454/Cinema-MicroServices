@@ -1,7 +1,7 @@
-﻿using Cinema.Services.FileAPI.Consumer;
-using Cinema.Services.FileAPI.Data.Contexts;
-using Cinema.Services.FileAPI.Services.Abstract;
-using Cinema.Services.FileAPI.Services.Concrete;
+﻿using Cinema.Services.FileAPI.Application.Services.Abstract;
+using Cinema.Services.FileAPI.Infrastructure.Consumer;
+using Cinema.Services.FileAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.FileAPI.Persistence.Data.Contexts;
 using Cinema.Services.FileAPI.Storages.Abstract;
 using Cinema.Services.FileAPI.Storages.Concrete;
 using MassTransit;

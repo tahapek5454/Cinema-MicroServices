@@ -1,4 +1,4 @@
-﻿namespace Cinema.Services.FileAPI.Models.Dtos
+﻿namespace Cinema.Services.FileAPI.Application.Dtos
 {
     public class UploadImageFileRequestDto
     {

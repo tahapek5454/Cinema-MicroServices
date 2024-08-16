@@ -1,10 +1,10 @@
-﻿using Cinema.Services.FileAPI.Services.Abstract;
+﻿using Cinema.Services.FileAPI.Application.Services.Abstract;
 using Cinema.Services.FileAPI.Storages.Abstract;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Messages;
 
-namespace Cinema.Services.FileAPI.Consumer
+namespace Cinema.Services.FileAPI.Infrastructure.Consumer
 {
     public class MovieImageRollbackMessageConsumer(IStorageService _storageService, IMovieImageService _movieImageService) : IConsumer<MovieImageRollbackMessage>
     {

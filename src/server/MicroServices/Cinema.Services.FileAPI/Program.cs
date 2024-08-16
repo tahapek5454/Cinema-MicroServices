@@ -1,5 +1,5 @@
 using Cinema.Services.FileAPI;
-using Cinema.Services.FileAPI.Data.Contexts;
+using Cinema.Services.FileAPI.Persistence.Data.Contexts;
 using Cinema.Services.FileAPI.Storages.Concrete.Local;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;

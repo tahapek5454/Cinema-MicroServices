@@ -1,11 +1,11 @@
-﻿using Cinema.Services.FileAPI.Models;
+﻿using Cinema.Services.FileAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Entities;
 using System.Reflection;
 
-namespace Cinema.Services.FileAPI.Data.Contexts
+namespace Cinema.Services.FileAPI.Persistence.Data.Contexts
 {
-    public class AppDbContext: DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions options) : base(options) { }
 
