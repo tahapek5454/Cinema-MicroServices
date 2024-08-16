@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Cinema.Services.SessionAPI.Data.Contexts;
-using Cinema.Services.SessionAPI.Services.Abstract;
-using Cinema.Services.SessionAPI.Services.Concrete;
 using MassTransit;
-using Cinema.Services.SessionAPI.Consumers;
 using SharedLibrary.Settings;
+using Cinema.Services.SessionAPI.Infrastructure.Consumers;
+using Cinema.Services.SessionAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.SessionAPI.Persistence.Data.Contexts;
+using Cinema.Services.SessionAPI.Application.Services.Abstract;
 
 namespace Cinema.Services.SessionAPI
 {

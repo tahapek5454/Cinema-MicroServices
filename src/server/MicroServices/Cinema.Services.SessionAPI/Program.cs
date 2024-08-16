@@ -1,5 +1,5 @@
 using Cinema.Services.SessionAPI;
-using Cinema.Services.SessionAPI.Data.Contexts;
+using Cinema.Services.SessionAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
 using SharedLibrary.Models.Dtos;
