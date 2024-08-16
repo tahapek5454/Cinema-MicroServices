@@ -1,6 +1,7 @@
 version: '3.4'
 
 services:
+
   cinema.services.authapi:
     image: ${DOCKER_REGISTRY-}cinemaservicesauthapi
     build:
@@ -103,18 +104,17 @@ services:
       - mssql
       - rabbitmq
 
-
-  sagastatemachine.service:
-    image: ${DOCKER_REGISTRY-}sagastatemachineservice
+      
+  sagastatemachine.host:
+    image: ${DOCKER_REGISTRY-}sagastatemachinehost
     build:
       context: .
-      dockerfile: Orchestration/SagaStateMachine.Service/Dockerfile
+      dockerfile: Orchestration/SagaStateMachine.Host/Dockerfile
     networks:
       - shared_network
     depends_on:
       - mssql
       - rabbitmq
-
 
   cinema.apigateway:
     image: ${DOCKER_REGISTRY-}cinemaapigateway
@@ -126,7 +126,7 @@ services:
     depends_on:
       - mssql
       - rabbitmq
-  
+
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: mssqldockercompose
@@ -148,6 +148,7 @@ services:
       - "15672:15672"  
     networks:
       - shared_network
+
 
 volumes:
   mssql_data:

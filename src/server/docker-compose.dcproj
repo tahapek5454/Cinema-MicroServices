@@ -5,9 +5,12 @@
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>631bfd25-8b63-48ec-ae6a-9f7fe311e23f</ProjectGuid>
-    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <!--<DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>cinema.services.authapi</DockerServiceName>
+    <DockerServiceName>sagastatemachine.host</DockerServiceName>-->
+    <!--<DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+    <DockerServiceName>cinema.services.authapi</DockerServiceName>-->
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

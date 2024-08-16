@@ -10,9 +10,10 @@
         "cinema.services.mailworkerservice": "StartDebugging",
         "cinema.services.movieapi": "StartDebugging",
         "cinema.services.paymentapi": "StartDebugging",
-        "sagastatemachine.service": "StartDebugging",
+        //"sagastatemachine.service": "StartDebugging",
         "cinema.services.sessionapi": "StartDebugging",
-        "cinema.apigateway": "StartDebugging"
+        "cinema.apigateway": "StartDebugging",
+        "sagastatemachine.host": "StartDebugging"
       }
     }
   }
