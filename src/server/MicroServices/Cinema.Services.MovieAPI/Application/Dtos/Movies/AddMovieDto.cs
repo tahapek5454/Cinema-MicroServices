@@ -1,7 +1,4 @@
-﻿using Cinema.Services.MovieAPI.Models.Dtos.Categories;
-using Cinema.Services.MovieAPI.Models.Dtos.Files;
-
-namespace Cinema.Services.MovieAPI.Application.Dtos.Movies
+﻿namespace Cinema.Services.MovieAPI.Application.Dtos.Movies
 {
     public class AddMovieDto
     {
