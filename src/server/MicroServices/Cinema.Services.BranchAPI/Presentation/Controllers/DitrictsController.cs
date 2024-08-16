@@ -9,7 +9,7 @@ using SharedLibrary.Models.Dtos;
 
 namespace Cinema.Services.BranchAPI.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class DitrictsController : ControllerBase
     {
