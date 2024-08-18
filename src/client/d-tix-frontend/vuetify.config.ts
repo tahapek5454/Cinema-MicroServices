@@ -6,7 +6,7 @@ import * as directives from 'vuetify/directives';
 const d_tix_theme = {
     dark: true, 
     colors: {
-        background: '#121212', // Genel arka plan rengi
+        background: '#1B1B1B', // Genel arka plan rengi
         surface: '#1E1E1E', // Kartlar ve diğer yüzeyler için arka plan
         primary: '#BB86FC', // Vurgulayıcı ana renk
         secondary: '#03DAC6', // İkincil vurgu rengi
