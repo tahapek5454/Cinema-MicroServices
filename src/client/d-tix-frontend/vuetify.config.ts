@@ -4,13 +4,13 @@ import * as directives from 'vuetify/directives';
 
 
 const d_tix_theme = {
-    dark: true, 
+    dark: true,
     colors: {
-        background: '#1B1B1B', // Genel arka plan rengi
+        background: '#0C0C0D', // Genel arka plan rengi
         surface: '#1E1E1E', // Kartlar ve diğer yüzeyler için arka plan
         primary: '#BB86FC', // Vurgulayıcı ana renk
-        secondary: '#03DAC6', // İkincil vurgu rengi
-        accent: '#FF4081', // Öne çıkan vurgu rengi
+        secondary: '#1E1E1E', // İkincil vurgu rengi
+        accent: '#2D0000', // Öne çıkan vurgu rengi
         error: '#CF6679', // Hata mesajları ve hatalar için kırmızı
         info: '#2196F3', // Bilgi mesajları için mavi
         success: '#4CAF50', // Başarı mesajları için yeşil
@@ -33,13 +33,13 @@ const d_tix_theme = {
         'theme-on-kbd': '#E0E0E0', // Klavye tuşlarındaki metin için açık gri
         'theme-code': '#1E1E1E', // Kod blokları için koyu gri arka plan
         'theme-on-code': '#F5F5F5', // Kod blokları üzerindeki metinler için açık beyaz
-      }
+    }
 };
 
 const vuetify = createVuetify({
     components,
     directives,
-    theme:{
+    theme: {
         defaultTheme: 'd_tix_theme',
         themes: {
             d_tix_theme
