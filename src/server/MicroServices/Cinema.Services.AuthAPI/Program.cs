@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins(@"http://localhost:3000", @"https://localhost:3000")
+        builder => builder.WithOrigins(@"http://localhost:5173", @"https://localhost:5173")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
@@ -52,6 +52,10 @@ void ApplyPendigMigration()
     using var scope = app.Services.CreateScope();
 
     var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    var a = _db.Users.ToList();
+
+    var x = _db.Database.GetPendingMigrations().Count();
 
     if (_db.Database.GetPendingMigrations().Count() > 0)
         _db.Database.Migrate();

@@ -11,6 +11,8 @@ namespace Cinema.Services.AuthAPI.Domain.Entities
         public string Email { get; set; }
         public string Password { get; set; }
 
+        public UserRefreshToken UserRefreshToken { get; set; }
+
         public List<UserRole> Roles { get; set; }
     }
 }

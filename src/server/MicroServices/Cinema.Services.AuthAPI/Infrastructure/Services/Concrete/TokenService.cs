@@ -10,6 +10,7 @@ using SharedLibrary.Models.Dtos;
 using SharedLibrary.Services;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
 {
@@ -17,7 +18,7 @@ namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
     {
         public async Task<LoginResponse> CreateTokenAsync(User user)
         {
-            var accessTokenExpiration = DateTime.UtcNow.AddMinutes(_options.Value.AccessTokenExpiration);
+            var accessTokenExpiration = DateTime.UtcNow.AddSeconds(_options.Value.AccessTokenExpiration);
             var securityKey = SignService.GetSymmetricSecurityKey(_options.Value.SecurityKey);
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
@@ -35,10 +36,25 @@ namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
             var loginResponseDto = new LoginResponse
             {
                 AccessToken = token,
+                RefreshToken = CreateRefreshToken(),
+                RefreshTokenExpire = DateTime.UtcNow.AddMinutes(_options.Value.RefreshTokenExpiration),
                 UserName = user.UserName,
             };
 
             return loginResponseDto;
+        }
+
+        private string CreateRefreshToken()
+        {
+            //32 byte random string data
+
+            var numberByte = new Byte[32];
+
+            using var rnd = RandomNumberGenerator.Create();
+            rnd.GetBytes(numberByte);
+
+            return Convert.ToBase64String(numberByte);
+
         }
 
         private async Task<IEnumerable<Claim>> GetClaims(User user, string audiences)
