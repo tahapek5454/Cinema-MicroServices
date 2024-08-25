@@ -21,7 +21,7 @@ axiosInstance.interceptors.request.use(async req => {
     if(req.url == loginUrl) // araya girmeye gerek yok zaten token almaya calisiyoruz
         return req;
 
-    if(!authValues || !authValues.accessToken){
+    if(!authValues || !authValues?.accessToken){
         authValues = localStorage.getItem('authValues') ? JSON.parse(localStorage.getItem('authValues') as string)  : null; 
         req.headers.Authorization = `Bearer ${authValues?.accessToken}`
     }
