@@ -100,11 +100,6 @@ export class HttpClientService {
     headers?: any;
   }
   
-  const Customheaders = {
-    "Content-Type": "application/json",
-    Authorization: `Bearer myToken`,
-  };
-  
   export enum ServerNames {
     AuthServer = "authserver",
     FileServer = "fileserver",
