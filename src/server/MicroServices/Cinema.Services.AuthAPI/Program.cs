@@ -53,10 +53,6 @@ void ApplyPendigMigration()
 
     var _db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    var a = _db.Users.ToList();
-
-    var x = _db.Database.GetPendingMigrations().Count();
-
     if (_db.Database.GetPendingMigrations().Count() > 0)
         _db.Database.Migrate();
 }
