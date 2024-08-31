@@ -1,19 +1,31 @@
 <template>
   <div id="app">
-    <nav>
+    <!-- <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
-    </nav>
+    </nav> -->
+    <Navbar/>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { Component, Vue } from 'vue-property-decorator';
+import Navbar from '@/components/navbar/index.vue'; // @, /src'ye karşılık gelir
+
+@Component({
+  components: {
+    Navbar,
+  },
+})
+export default class App extends Vue {}
+</script>
 
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 
