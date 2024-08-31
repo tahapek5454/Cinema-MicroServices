@@ -1,7 +1,5 @@
-import type { BlankDto } from "@/repositories/models/BlankDto";
-import type { ErrorDto } from "@/repositories/models/ErrorDto";
-import type { ResponseDto } from "@/repositories/models/ResponseDto";
-import axios, { AxiosError } from "axios";
+import { ToastifyService } from "@/services/ToastifyService";
+import axios from "axios";
 import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
 
@@ -58,20 +56,12 @@ axiosInstance.interceptors.request.use(async req => {
 
 axiosInstance.interceptors.response.use((response) => response /* success operation */
     , (error: any) => {
-
+        const toastifyService: ToastifyService = new ToastifyService();
         const isShow = error?.response?.data?.error?.IsShow ?  error?.response?.data?.error?.IsShow : false;
         const message = error?.response?.data?.error?.Errors  &&  error?.response?.data?.error?.Errors.length > 0 ? error?.response?.data?.error?.Errors[0] : '';
 
-
         if(isShow)
-            console.log(message);
-    
-
-        // if(errValue.IsShow){
-        //     console.log(errValue.Errors && errValue.Errors[0]);
-        // }
-         
-            
+            toastifyService.error(message);
 
         if(error.response?.status === 404) // Not Found ekranina gitr
             return Promise.reject(error);
