@@ -5,7 +5,9 @@
       <router-link to="/about">About</router-link>
     </nav> -->
     <Navbar/>
-    <router-view/>
+    <div class="text-gray-light">
+      <router-view/>
+    </div>
   </div>
 </template>
 
