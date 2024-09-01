@@ -1,12 +1,15 @@
 <!-- HomeView.vue -->
 <template>
+    <div class="bg-background">
 
-    <div class="bg-background flex items-center justify-center h-screen">
 
-        <h1 class="font-poppin">Home Page</h1>
-
+    <div class="flex justify-center">
+        <MovieCarousel></MovieCarousel>
     </div>
-    
+
+    <h1>Hello Wolrd</h1>
+
+    </div>  
 </template>
   
 <style scoped>

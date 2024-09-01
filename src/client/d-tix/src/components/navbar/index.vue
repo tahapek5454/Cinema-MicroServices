@@ -6,7 +6,7 @@
                     <img width="50px" src="@/assets/YENILOGO.svg" alt="Logo">
                 </div>
                 <div
-                    :class="`absolute bigmd:static  min-h-[60vh] bigmd:min-h-fit left-0 bg-dark ${topPosition} w-full bigmd:w-auto flex  items-center px-5 transition-all duration-500`">
+                    :class="`absolute z-40 bigmd:z-0 bigmd:static  min-h-[60vh] bigmd:min-h-fit left-0 bg-dark ${topPosition} w-full bigmd:w-auto flex  items-center px-5 transition-all duration-500`">
                     <ul class="flex flex-col bigmd:flex-row bigmd:items-center gap-8 bigmd:gap-[2vw]">
                         <li class="hover:text-gray-500">Filmler</li>
                         <li class="hover:text-gray-500">Kategoriler</li>
