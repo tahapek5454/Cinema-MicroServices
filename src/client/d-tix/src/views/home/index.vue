@@ -3,7 +3,7 @@
 
     <div class="bg-background flex items-center justify-center h-screen">
 
-        <h1>Home Page</h1>
+        <h1 class="font-poppin">Home Page</h1>
 
     </div>
     

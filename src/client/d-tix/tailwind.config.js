@@ -1,8 +1,12 @@
 module.exports = {
-  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  purge: ['../public/index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
    darkMode: false, // or 'media' or 'class'
    theme: {
-     extend: {},
+     extend: {
+      fontFamily:{
+        poppin: ['Poppins', 'sans-serif']
+      },
+     },
      colors: {
       'blue': '#1fb6ff',
       'purple': '#7e5bef',
@@ -11,11 +15,13 @@ module.exports = {
       'green': '#13ce66',
       'yellow': '#ffc82c',
       'gray-dark': '#1f1b1b',
-      'gray': '#8492a6',
+      'gray': '#dddddd',
       'gray-light': '#d3dce6',
       'white': '#ffffff',
+      'white2': '#f7f7f7',
       'dark': '#000000',
-      'background': '#0C0C0D'
+      'background': '#0C0C0D',
+      'red': '#bc1a45'
     }
    },
    variants: {
