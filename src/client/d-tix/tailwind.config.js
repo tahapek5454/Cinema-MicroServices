@@ -6,6 +6,9 @@ module.exports = {
       fontFamily:{
         poppin: ['Poppins', 'sans-serif']
       },
+      screens:{
+        'bigmd': '900px'
+      }
      },
      colors: {
       'blue': '#1fb6ff',
@@ -21,7 +24,8 @@ module.exports = {
       'white2': '#f7f7f7',
       'dark': '#000000',
       'background': '#0C0C0D',
-      'red': '#bc1a45'
+      'red': '#bc1a45',
+      'transparent': 'transparent',
     }
    },
    variants: {

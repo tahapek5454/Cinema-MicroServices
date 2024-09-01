@@ -6,20 +6,35 @@
                     <img width="50px" src="@/assets/YENILOGO.svg" alt="Logo">
                 </div>
                 <div
-                    :class="`absolute md:static  min-h-[60vh] md:min-h-fit left-0 bg-dark ${topPosition} w-full md:w-auto flex  items-center px-5 transition-all duration-500`">
-                    <ul class="flex flex-col md:flex-row md:items-center gap-8 md:gap-[4vw]">
+                    :class="`absolute bigmd:static  min-h-[60vh] bigmd:min-h-fit left-0 bg-dark ${topPosition} w-full bigmd:w-auto flex  items-center px-5 transition-all duration-500`">
+                    <ul class="flex flex-col bigmd:flex-row bigmd:items-center gap-8 bigmd:gap-[2vw]">
                         <li class="hover:text-gray-500">Filmler</li>
                         <li class="hover:text-gray-500">Kategoriler</li>
                         <li class="hover:text-gray-500">Sinemalar</li>
-                        <li class="hover:text-gray-500">Kampanyalar</li>
-                        <li class="hover:text-gray-500">Salonlar</li>
+                        <div class="group border-r px-4 mx-4 py-1 border-red">
+                            <input type="text" class="transition duration-500 bg-transparent border-b border-red w-32 md:w-44 focus:outline-none ">
+                            <span class="-ml-4 group-hover:ml-0 transition-all duration-500 group-hover:text-red material-symbols-outlined">search</span>
+                        </div>
+
+                        
                     </ul>
                 </div>
                 <div class="flex items-center gap-6">
-                    <ion-icon name="log-in-outline" class="text-3xl cursor-pointer"></ion-icon>
-                    <ion-icon name="person-add-outline" class="text-3xl cursor-pointer"></ion-icon>
-                    <ion-icon @click="changeMenuExpandIcon" :name="menuExpandIconName"
-                        class="text-3xl cursor-pointer md:hidden"></ion-icon>
+                    <span class="text-3xl cursor-pointer material-symbols-outlined">
+                        account_circle
+                    </span>
+                    <span class="text-3xl cursor-pointer material-symbols-outlined">
+                        book_online
+                    </span>
+                    <span class="text-3xl cursor-pointer material-symbols-outlined">
+                        login
+                    </span>
+                    <span class="text-3xl cursor-pointer material-symbols-outlined">
+                        logout
+                    </span>
+                    <span  @click="changeMenuExpandIcon" class="text-3xl cursor-pointer bigmd:hidden material-symbols-outlined">
+                        {{ menuExpandIconName }}
+                    </span>                 
                 </div>
             </nav>
         </header>
