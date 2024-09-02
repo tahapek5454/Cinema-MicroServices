@@ -2,18 +2,27 @@
 <template>
     <div class="bg-background">
 
-
     <div class="flex justify-center">
         <MovieCarousel></MovieCarousel>
     </div>
 
-    <h1>Hello Wolrd</h1>
+    <div class="py-10">
+        <div class="container ml-10 my-5">
+            <h1 class="text-2xl uppercase">Vizyondakiler</h1>
+        </div>
+        <MovieCardList/>
+    </div>
+
+    <div class="py-10">
+        <div class="container ml-10 my-5">
+            <h1 class="text-2xl uppercase">Yakında</h1>
+        </div>
+        <MovieCardList/>
+    </div>
 
     </div>  
 </template>
   
-<style scoped>
-/* Buraya stil kodlarını yazın */
-</style>
+
 
 <script src="./index"></script>

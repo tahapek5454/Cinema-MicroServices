@@ -7,7 +7,7 @@ export default class MovieCarousel extends Vue {
     slides: string[] = [
         this.basePath+'batman.jpg',
         this.basePath+'cars.jpg',
-        this.basePath+'kraven.jpeg',
+        this.basePath+'kraven.jpg',
         this.basePath+'morbius.jpg',
         this.basePath+'spiderman.jpg',
     ]
