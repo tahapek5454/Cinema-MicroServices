@@ -63,7 +63,7 @@
                 </div>
                 
                 <div class="flex mt-16 justify-center items-center">
-                    <button class="bg-red hover:bg-rose-900 duration-500 text-white font-bold py-2 px-4 rounded-full  justify-center items-center text-center flex">
+                    <button @click="show" class="bg-red hover:bg-rose-900 duration-500 text-white font-bold py-2 px-4 rounded-full  justify-center items-center text-center flex">
                         <span class="material-symbols-outlined mr-2">
                             local_activity
                         </span>
