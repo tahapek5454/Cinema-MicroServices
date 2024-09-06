@@ -3,6 +3,9 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 @Component
 export default class MovieCard extends Vue {
   @Prop() path!: string;
+  @Prop({ default: false }) isDetail!: boolean;
 
-  w:string = '/movieCardImages/dw.jpg'
+  goToDetail(){
+    this.$router.push({path:'/movieDetail'});
+  }
 }

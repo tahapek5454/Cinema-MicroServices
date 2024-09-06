@@ -7,7 +7,7 @@
         <h3 class="text-sm uppercase text-red md:text-xl">Movie Title</h3>
         <p class="text-xs md:text-md text-white2 ">2 saat 32 dakika</p>
         <p class="text-xs md:text-sm text-white2">Aksiyon</p>
-        <button class="text-xs md:text-sm bg-gray hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full uppercase">
+        <button v-if="!isDetail" @click="goToDetail" class="text-xs md:text-sm bg-gray hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full uppercase">
           Hemen İncele
         </button>
         <button class="text-xs md:text-sm bg-red hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full uppercase">
