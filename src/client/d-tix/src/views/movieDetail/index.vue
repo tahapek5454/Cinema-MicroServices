@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="tw-flex tw-px-16 tw-mt-4 tw-mb-16 tw-flex-col md:tw-flex-row">
+        <div class="tw-flex tw-px-16 tw-mt-4 tw-mb-16 tw-flex-col md:tw-flex-row tw-space-y-10 md:tw-space-y-0">
             <div class="tw-basis-1/4" >
                 <MovieCard :path="moviePath" :isDetail="true"/>
             </div>
