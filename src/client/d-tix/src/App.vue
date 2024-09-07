@@ -5,7 +5,7 @@
       <router-link to="/about">About</router-link>
     </nav> -->
     <Navbar/>
-    <div class="text-gray-light">
+    <div class="tw-text-gray-light">
       <router-view/>
     </div>
   </div>

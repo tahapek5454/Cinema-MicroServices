@@ -24,6 +24,6 @@ enum ExpandIcon{
 }
 
 enum ExpandPosition{
-    Show = 'top-[67px]',
-    Hide = 'top-[-60%] '
+    Show = 'tw-top-[67px]',
+    Hide = 'tw-top-[-60%] '
 }

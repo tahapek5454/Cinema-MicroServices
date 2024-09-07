@@ -1,21 +1,21 @@
 <!-- HomeView.vue -->
 <template>
-    <div class="bg-background">
+    <div class="tw-bg-background">
 
-    <div class="flex justify-center">
+    <div class="tw-flex tw-justify-center">
         <MovieCarousel></MovieCarousel>
     </div>
 
-    <div class="py-10 px-10 md:px-0">
-        <div class="container ml-10 my-5">
-            <h1 class="text-2xl uppercase">Vizyondakiler</h1>
+    <div class="tw-py-10 tw-px-10 md:tw-px-0">
+        <div class="tw-container tw-ml-10 tw-my-5">
+            <h1 class="tw-text-2xl tw-uppercase">Vizyondakiler</h1>
         </div>
         <MovieCardList/>
     </div>
 
-    <div class="py-10 px-10 md:px-0">
-        <div class="container ml-10 my-5">
-            <h1 class="text-2xl uppercase">Yakında</h1>
+    <div class="tw-py-10 tw-px-10 md:tw-px-0">
+        <div class="tw-container tw-ml-10 tw-my-5">
+            <h1 class="tw-text-2xl tw-uppercase">Yakında</h1>
         </div>
         <MovieCardList :hasAnimation="true"/>
     </div>
