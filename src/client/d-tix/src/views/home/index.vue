@@ -17,7 +17,7 @@
         <div class="container ml-10 my-5">
             <h1 class="text-2xl uppercase">Yakında</h1>
         </div>
-        <MovieCardList/>
+        <MovieCardList :hasAnimation="true"/>
     </div>
 
     </div>  
