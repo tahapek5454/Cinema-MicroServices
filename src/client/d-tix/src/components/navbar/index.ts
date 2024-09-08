@@ -3,8 +3,14 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component
 export default class Navbar extends Vue {
 
+    auido: HTMLAudioElement | null = null;
+    isMusicPlay:boolean = false;
+
     menuExpandIconName: ExpandIcon = ExpandIcon.Menu;
     topPosition: ExpandPosition = ExpandPosition.Hide;
+
+    items = ['Xyz Avm Sinemaları', 'Serdivan AVM Sinemaları', 'Agora Sienamalrı']
+    values= ['Serdivan AVM Sinemaları']
 
     changeMenuExpandIcon(){
         this.menuExpandIconName === ExpandIcon.Menu 
@@ -16,8 +22,31 @@ export default class Navbar extends Vue {
         : this.topPosition = ExpandPosition.Show;
     }
 
-    items = ['Xyz Avm Sinemaları', 'Serdivan AVM Sinemaları', 'Agora Sienamalrı']
-    values= ['Serdivan AVM Sinemaları']
+
+    created() {
+        this.auido = new Audio('/a.mp3'); 
+    }
+
+
+    music(){
+        const self = this;
+        if(!this.auido)
+            return;
+
+        if(this.isMusicPlay){
+            this.auido.pause();
+            this.auido.currentTime = 0;
+            this.isMusicPlay = false;
+        }else{
+            this.auido.play();
+            this.isMusicPlay = true;
+
+            this.auido.onended = (e)=>{
+                self.$toast.success("Müzik bitti :)");
+                self.isMusicPlay = false;
+            }
+        }        
+    }
 }
 
 enum ExpandIcon{
