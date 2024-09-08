@@ -20,10 +20,6 @@
         <MovieCardList :hasAnimation="true"/>
     </div>
 
-    <div class="flex justify-center">
-        <BaseFooter></BaseFooter>
-    </div>
-
     </div>  
 </template>
   

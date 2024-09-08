@@ -9,6 +9,7 @@
       <div class="tw-text-gray-light">
         <router-view/>
       </div>
+      <BaseFooter class="tw-text-gray-light"></BaseFooter>
     </v-app>
   </div>
 </template>
@@ -16,10 +17,13 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import Navbar from '@/components/navbar/index.vue'; // @, /src'ye karşılık gelir
+import BaseFooter from '@/components/baseFooter/index.vue';
+
 
 @Component({
   components: {
     Navbar,
+    BaseFooter
   },
 })
 export default class App extends Vue {}
