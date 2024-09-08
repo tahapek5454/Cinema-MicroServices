@@ -11,12 +11,27 @@
                         <li class="hover:tw-text-gray-500">Filmler</li>
                         <li class="hover:tw-text-gray-500">Kategoriler</li>
                         <li class="hover:tw-text-gray-500">Sinemalar</li>
-                        <div class="tw-group tw-border-r tw-px-4 tw-mx-4 tw-py-1 tw-border-red">
+
+                        <!-- <div class="tw-group tw-border-r tw-px-4 tw-mx-4 tw-py-1 tw-border-red">
                             <input type="text" class="tw-transition tw-duration-500 tw-bg-transparent tw-border-b tw-border-red tw-w-32 md:tw-w-44 focus:tw-outline-none ">
                             <span class="tw--ml-4 group-hover:tw-ml-0 tw-transition-all tw-duration-500 group-hover:tw-text-red material-symbols-outlined">search</span>
-                        </div>
-
-                        
+                        </div> -->
+                        <div class="">
+                            <v-autocomplete
+                                v-model="values"
+                                :items="items"
+                                deletable-chips
+                                multiple
+                                small-chips
+                                class="tw-min-w-10"
+                            ></v-autocomplete>
+                        </div>    
+                        <v-btn
+      depressed
+      color="primary"
+    >
+      Primary
+    </v-btn>
                     </ul>
                 </div>
                 <div class="tw-flex tw-items-center tw-gap-6">

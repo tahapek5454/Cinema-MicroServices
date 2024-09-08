@@ -23,7 +23,7 @@ module.exports = {
       'white': '#ffffff',
       'white2': '#f7f7f7',
       'dark': '#000000',
-      'background': '#0C0C0D',
+      'background': '#121212', 
       'red': '#bc1a45',
       'transparent': 'transparent',
     },

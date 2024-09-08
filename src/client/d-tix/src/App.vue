@@ -4,10 +4,12 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav> -->
-    <Navbar/>
-    <div class="tw-text-gray-light">
-      <router-view/>
-    </div>
+    <v-app>
+      <Navbar/>
+      <div class="tw-text-gray-light">
+        <router-view/>
+      </div>
+    </v-app>
   </div>
 </template>
 
