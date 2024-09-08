@@ -28,6 +28,7 @@
                             ></v-autocomplete>
                         </div>    
                         <v-btn
+                        @click="hey"
       depressed
       color="primary"
     >
@@ -36,6 +37,12 @@
                     </ul>
                 </div>
                 <div class="tw-flex tw-items-center tw-gap-6">
+                    <span @click="music" v-if="isMusicPlay" class="tw-text-3xl material-symbols-outlined tw-cursor-pointer hover:tw-text-cyan-300 tw-duration-500">
+                        music_off
+                    </span>
+                    <span @click="music" v-else  class="tw-text-3xl material-symbols-outlined tw-cursor-pointer hover:tw-text-cyan-300 tw-duration-500">
+                        music_note
+                    </span>                  
                     <span class="tw-text-3xl tw-cursor-pointer material-symbols-outlined">
                         account_circle
                     </span>
