@@ -23,6 +23,7 @@
                                 deletable-chips
                                 multiple
                                 small-chips
+                                dense
                                 class="tw-min-w-10"
                             ></v-autocomplete>
                         </div>    
