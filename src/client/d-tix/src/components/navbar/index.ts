@@ -16,6 +16,8 @@ export default class Navbar extends Vue {
         : this.topPosition = ExpandPosition.Show;
     }
 
+    items = ['Xyz Avm Sinemaları', 'Serdivan AVM Sinemaları', 'Agora Sienamalrı']
+    values= ['Serdivan AVM Sinemaları']
 }
 
 enum ExpandIcon{
@@ -24,6 +26,6 @@ enum ExpandIcon{
 }
 
 enum ExpandPosition{
-    Show = 'top-[67px]',
-    Hide = 'top-[-60%] '
+    Show = 'tw-top-[67px]',
+    Hide = 'tw-top-[-60%] '
 }

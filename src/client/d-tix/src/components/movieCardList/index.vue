@@ -1,9 +1,9 @@
 <template>
-    <div class="container mx-auto">
-        <div class="flex items-center justify-center custom-scrollbar">
-            <div class="overflow-x-auto ">
-                <ul class="flex space-x-10">
-                    <li v-for="(item, index) in movieList" :key="index" class="flex-shrink-0">
+    <div  @mouseenter="pauseAnimation" @mouseleave="resumeAnimation" class="tw-container tw-mx-auto">
+        <div class="tw-flex tw-items-center tw-justify-center">
+            <div class="tw-overflow-x-auto custom-scrollbar scroller custom-shadow " :data-animated="hasAnimation" ref="scroller">
+                <ul class="tw-flex tw-space-x-10 scroller__inner " :style="`animation-play-state: ${animation_status};`">
+                    <li v-for="(item, index) in movieList" :key="index" class="tw-flex-shrink-0">
                         <MovieCard :path="item"/>
                     </li>
                 </ul>
@@ -13,9 +13,40 @@
 </template>
 
 <style scoped>
+
+
+.custom-shadow{
+  -webkit-mask: linear-gradient(
+    90deg,
+    transparent,
+    white 5%,
+    white 90%,
+    transparent
+  );
+  mask: linear-gradient(90deg, transparent, white 5%, white 90%, transparent);
+}
+
+.scroller[data-animated="true"]{
+  --_animation-direction: forwards;
+  --_animation-duration: 40s;
+}
+
+.scroller[data-animated="true"] .scroller__inner {
+  width: max-content;
+  flex-wrap: nowrap;
+  animation: scroll var(--_animation-duration, 40s)
+    var(--_animation-direction, forwards) linear infinite;
+}
+
+
+@keyframes scroll {
+  to {
+    transform: translate(calc(-50% - 2.5rem));
+  }
+}
+
 .custom-scrollbar {
     max-width: 100%;
-    overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: #3d3d3d #000000;
   }
