@@ -1,6 +1,6 @@
 <template>                                              
     <footer class="tw-w-full">
-        <div class="tw-w-full tw-px-0 sm:tw-px-0 lg:tw-px-0">
+        <div class="tw-w-full">
             <div class="tw-grid tw-grid-cols-2 sm:tw-grid-cols-4 lg:tw-grid-cols-4 tw-gap-3 tw-gap-y-8 md:tw-gap-8 tw-py-10 tw-max-w-sm tw-mx-auto tw-sm:max-w-3xl lg:tw-max-w-full">
                 <div class="tw-col-span-full tw-mb-10 tw-ml-5 lg:tw-col-span-1">
                     <div>
@@ -44,7 +44,7 @@
                     </ul>
                 </div>
                 <div class="lg:tw-mx-auto tw-text-left">
-                    <h4 class="tw-text-lg tw-text-gray-900 tw-font-medium mb-7">Yakında</h4>
+                    <h4 class="tw-text-lg tw-text-gray-900 tw-font-medium tw-mb-7">Yakında</h4>
                     <ul class="tw-text-sm  tw-transition-all tw-duration-500">
                         <li class="tw-mb-6">Siccin 7</li>
                         <li class="tw-mb-6">Tuzak</li>
@@ -66,7 +66,7 @@
             </div>
             <div class="tw-flex tw-items-center">
                 <img src="@/assets/misir.svg" alt="Mısır">
-                <img src="@/assets/misir.svg" alt="Mısır">
+                <img src="@/assets/misir.svg" alt="Mısır" class="tw-hidden bigmd:tw-block">
             </div>
         </div>
     </footer>                                        
