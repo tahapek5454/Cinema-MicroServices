@@ -26,6 +26,8 @@ module.exports = {
       'background': '#121212', 
       'red': '#bc1a45',
       'transparent': 'transparent',
+      'krem':'#f6e3ba',
+      'koyukrem': '#dfcaa0'
     },
     spacing:{
       '128': '32rem'

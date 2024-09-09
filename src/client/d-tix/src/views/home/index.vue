@@ -25,9 +25,12 @@
             </div>
             <Campaign/>
         </div>
+
+        <div class="tw-py-10 tw-px-10 md:tw-px-0">
+            <MobileAdvertisement/>
+        </div>
     </div>  
 </template>
-  
 
 
 <script src="./index"></script>
