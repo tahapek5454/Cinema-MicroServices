@@ -1,25 +1,30 @@
 <!-- HomeView.vue -->
 <template>
     <div class="tw-bg-background">
-
-    <div class="tw-flex tw-justify-center">
-        <MovieCarousel></MovieCarousel>
-    </div>
-
-    <div class="tw-py-10 tw-px-10 md:tw-px-0">
-        <div class="tw-container tw-ml-10 tw-my-5">
-            <h1 class="tw-text-2xl tw-uppercase">Vizyondakiler</h1>
+        <div class="tw-flex tw-justify-center">
+            <MovieCarousel></MovieCarousel>
         </div>
-        <MovieCardList/>
-    </div>
 
-    <div class="tw-py-10 tw-px-10 md:tw-px-0">
-        <div class="tw-container tw-ml-10 tw-my-5">
-            <h1 class="tw-text-2xl tw-uppercase">Yakında</h1>
+        <div class="tw-py-10 tw-px-10 md:tw-px-0">
+            <div class="tw-container tw-ml-10 tw-my-5">
+                <h1 class="tw-text-2xl tw-uppercase">Vizyondakiler</h1>
+            </div>
+            <MovieCardList/>
         </div>
-        <MovieCardList :hasAnimation="true"/>
-    </div>
 
+        <div class="tw-py-10 tw-px-10 md:tw-px-0">
+            <div class="tw-container tw-ml-10 tw-my-5">
+                <h1 class="tw-text-2xl tw-uppercase">Yakında</h1>
+            </div>
+            <MovieCardList :hasAnimation="true"/>
+        </div>
+
+        <div class="tw-py-10 tw-px-10 md:tw-px-0">
+            <div class="tw-container tw-ml-10 tw-my-5">
+                <h1 class="tw-text-2xl tw-uppercase">Kampanyalar</h1>
+            </div>
+            <Campaign/>
+        </div>
     </div>  
 </template>
   
