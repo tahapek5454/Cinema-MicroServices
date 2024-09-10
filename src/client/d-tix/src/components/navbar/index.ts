@@ -25,6 +25,8 @@ export default class Navbar extends Vue {
 
     created() {
         this.auido = new Audio('/a.mp3'); 
+        const a = 5;
+        console.log("asddasdasdasd");
     }
 
 
