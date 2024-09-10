@@ -14,7 +14,7 @@
                 <img src="/campaignImages/4.png" alt="1">
             </div>
         </div>
-        <img src="/absoluteImages/kova.svg" alt="kova" class="tw-absolute tw-bottom-44 tw-left-1/3 tw-z-0 tw-hidden bigmd:tw-block">
+        <img src="/absoluteImages/kova.svg" alt="sepet" class="tw-absolute tw-bottom-44 tw-left-1/3 tw-z-0 tw-hidden bigmd:tw-block">
     </div>
 </template>
 

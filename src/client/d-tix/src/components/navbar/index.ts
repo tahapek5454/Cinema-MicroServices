@@ -20,16 +20,19 @@ export default class Navbar extends Vue {
         this.menuExpandIconName === ExpandIcon.Menu
         ? this.topPosition = ExpandPosition.Hide
         : this.topPosition = ExpandPosition.Show;
+        console.log('hello world');
     }
 
 
     created() {
         this.auido = new Audio('/a.mp3'); 
         console.log('hello world');
+        console.log('hello world');
     }
 
 
     music(){
+        console.log('hello world');
         const self = this;
         if(!this.auido)
             return;
