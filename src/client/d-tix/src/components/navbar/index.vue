@@ -55,7 +55,7 @@
                     <span class="tw-text-3xl tw-cursor-pointer material-symbols-outlined">
                         logout
                     </span>
-                    <span  @click="changeMenuExpandIcon" class="tw-text-3xl tw-cursor-pointer bigmd:tw-hidden material-symbols-outlined">
+                    <span  @click="changeMenuExpandIcon" class="tw-text-3xl tw-cursor-pointer bigmd:tw-hidden material-symbols-outlined  ">
                         {{ menuExpandIconName }}
                     </span>                 
                 </div>
