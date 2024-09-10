@@ -44,7 +44,7 @@
                         music_note
                     </span>                  
                     <span class="tw-text-3xl tw-cursor-pointer material-symbols-outlined">
-                        account_circle sadsdf
+                        account_circle
                     </span>
                     <span class="tw-text-3xl tw-cursor-pointer material-symbols-outlined">
                         book_online
