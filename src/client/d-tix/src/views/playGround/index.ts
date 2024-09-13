@@ -1,10 +1,10 @@
 import { Component, Vue } from 'vue-property-decorator';
-import TheaterHall from '@/components/theaterhall/index.vue';
+import C from '@/components/ticketSummary/index.vue';
 
 
 @Component({
     components: {
-        TheaterHall
+        C
     }
 })
 export default class PlayGroundView extends Vue {}
