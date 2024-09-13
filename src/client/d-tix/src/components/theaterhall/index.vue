@@ -1,5 +1,5 @@
 <template>
-    <div class="tw-text-xs tw-w-[20rem] tw-h-[12rem]  md:tw-text-base md:tw-w-[40rem] md:tw-h-[20rem] tw-bg-[#454444] tw-rounded-lg tw-flex tw-flex-col">
+    <div class="tw-text-xs tw-w-[20rem] tw-h-[14rem]  md:tw-text-base md:tw-w-[40rem] md:tw-h-[22rem] tw-bg-[#454444] tw-rounded-lg tw-flex tw-flex-col">
         <div class="tw-bg-slate-300 tw-flex tw-justify-center tw-items-center tw-mx-auto tw-px-8 md:tw-px-32 tw-mt-2 tw-font-bold tw-text-black tw-rounded-md">
             PERDE
         </div>
@@ -56,9 +56,22 @@
                 </div>
             </div>
         </div>
-        <div class="tw-flex tw-justify-end tw-items-center tw-space-x-2">
+        <div class="tw-flex tw-justify-end tw-items-center tw-space-x-6 tw-mr-8 tw-mt-8">
             <div class="tw-flex tw-flex-col tw-justify-center tw-items-center">
-                
+                <div class="tw-w-4 tw-h-3 md:tw-w-7 md:tw-h-6 tw-bg-white tw-rounded-md"></div>
+                <div class="tw-font-bold tw-text-xs ">Boş</div>   
+            </div>
+            <div class="tw-flex tw-flex-col tw-justify-center tw-items-center">
+                <div class="tw-w-4 tw-h-3 md:tw-w-7 md:tw-h-6 tw-bg-red tw-rounded-md"></div>
+                <div class="tw-font-bold tw-text-xs">Dolu</div>   
+            </div>
+            <div class="tw-flex tw-flex-col tw-justify-center tw-items-center">
+                <div class="tw-w-4 tw-h-3 md:tw-w-7 md:tw-h-6 tw-bg-lime-500 tw-rounded-md"></div>
+                <div class="tw-font-bold tw-text-xs ">Seçildi</div>   
+            </div>
+            <div class="tw-flex tw-flex-col tw-justify-center tw-items-center">
+                <div class="tw-w-4 tw-h-3 md:tw-w-7 md:tw-h-6 tw-bg-orange tw-rounded-md"></div>
+                <div class="tw-font-bold tw-text-xs ">Rezerve</div>   
             </div>
         </div>
     </div>
