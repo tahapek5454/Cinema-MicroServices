@@ -56,6 +56,11 @@
                 </div>
             </div>
         </div>
+        <div class="tw-flex tw-justify-end tw-items-center tw-space-x-2">
+            <div class="tw-flex tw-flex-col tw-justify-center tw-items-center">
+                
+            </div>
+        </div>
     </div>
 </template>
 

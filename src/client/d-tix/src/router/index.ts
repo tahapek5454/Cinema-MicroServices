@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/home/index.vue'
 import MovieDetailView from '@/views/movieDetail/index.vue'
+import PlayGroundView from '@/views/playGround/index.vue'
 
 Vue.use(VueRouter)
 
@@ -20,6 +21,11 @@ const routes: Array<RouteConfig> = [
     path: '/movieDetail',
     name: 'movieDetail',
     component: MovieDetailView
+  },
+  {
+    path: '/playground',
+    name: 'playground',
+    component: PlayGroundView
   }
 ]
 

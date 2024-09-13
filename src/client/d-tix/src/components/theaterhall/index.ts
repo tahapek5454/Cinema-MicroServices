@@ -7,7 +7,7 @@ import TheaterSeat from '../theaterSeat/index.vue';
         TheaterSeat
     }
 })
-export default class TheaterSeats extends Vue {
+export default class TheaterHall extends Vue {
     seats: Seat[] = [
         {key: 'A', value:'1'},
         {key: 'A', value:'2'},

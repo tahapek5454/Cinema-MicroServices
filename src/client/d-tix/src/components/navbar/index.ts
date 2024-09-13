@@ -28,7 +28,9 @@ export default class Navbar extends Vue {
         this.auido = new Audio('/a.mp3'); 
     }
 
-
+    hey(){
+        this.$router.push({path:'/playground'})
+    }
     music(){
         console.log('hello world');
         const self = this;
