@@ -1,12 +1,9 @@
-﻿using Cinema.Services.BranchAPI.Application.Dtos;
-using Cinema.Services.BranchAPI.Application.Mapper;
-using Cinema.Services.BranchAPI.Application.Requests;
-using Cinema.Services.BranchAPI.Application.Services.Abstract;
-using Cinema.Services.BranchAPI.Domain.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using Cinema.Services.BranchAPI.Application.Commands.Branches.AddBranch;
+using Cinema.Services.BranchAPI.Application.Queries.Branches.GetAllBranches;
+using Cinema.Services.BranchAPI.Application.Queries.Branches.GetBrancheById;
+using Cinema.Services.BranchAPI.Application.Queries.Branches.GetBranches;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models.Dtos;
 
 namespace Cinema.Services.BranchAPI.Presentation.Controllers
 {
@@ -14,57 +11,43 @@ namespace Cinema.Services.BranchAPI.Presentation.Controllers
     [ApiController]
     public class BranchsController : ControllerBase
     {
-        private readonly IBranchService _branchService;
+        private readonly IMediator _mediator;
 
-        public BranchsController(IBranchService branchService)
+        public BranchsController(IMediator mediator)
         {
-            _branchService = branchService;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBranches()
+        public async Task<IActionResult> GetAllBranches([FromQuery] GetAllBranchesRequest request)
         {
-            var r = await _branchService.Table.ToListAsync();
+            var r = await _mediator.Send(request);
 
-            var result = ObjectMapper.Mapper.Map<List<BranchDto>>(r);
-
-            return Ok(ResponseDto<List<BranchDto>>.Sucess(result, 200));
+            return Ok(r);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBranches([FromQuery] int page, [FromQuery] int size)
+        public async Task<IActionResult> GetBranches([FromQuery] GetBranchesRequest request)
         {
-            var r = await _branchService.Table
-                                        .Skip((page - 1) * size).Take(size).ToListAsync();
+            var r = await _mediator.Send(request);
 
-            var result = ObjectMapper.Mapper.Map<List<BranchDto>>(r);
-
-            return Ok(ResponseDto<List<BranchDto>>.Sucess(result, 200));
+            return Ok(r);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetBrancheById([FromRoute] int id)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetBrancheById([FromRoute] GetBrancheByIdRequest request)
         {
-            var r = await _branchService.Table
-                                        .FirstOrDefaultAsync(x => x.Id == id);
+            var r = await _mediator.Send(request);    
 
-            if (r is null)
-                throw new Exception("Şube bulunamadı.");
-
-            var result = ObjectMapper.Mapper.Map<BranchDto>(r);
-
-            return Ok(ResponseDto<BranchDto>.Sucess(result, 200));
+            return Ok(r);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddBranch([FromBody] AddBranchRequest request)
         {
-            var r = ObjectMapper.Mapper.Map<Branch>(request);
+            _ = await _mediator.Send(request);
 
-            await _branchService.Table.AddAsync(r);
-            await _branchService.SaveChangesAsync();
-
-            return Created("api/Branchs/GetBrancheById/" + r.Id, ResponseDto<BlankDto>.Sucess(201));
+            return Created();
         }
 
         // sonra guncelleme ve silme eklenir 

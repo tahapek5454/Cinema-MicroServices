@@ -1,6 +1,6 @@
-﻿namespace Cinema.Services.BranchAPI.Application.Requests
+﻿namespace Cinema.Services.BranchAPI.Application.Commands.Branches.AddBranch
 {
-    public class AddBranchRequest
+    public class AddBranchResponse
     {
         public string Name { get; set; }
         public string Address { get; set; }

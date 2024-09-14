@@ -1,11 +1,9 @@
-﻿using Cinema.Services.BranchAPI.Application.Dtos;
-using Cinema.Services.BranchAPI.Application.Mapper;
-using Cinema.Services.BranchAPI.Application.Requests;
-using Cinema.Services.BranchAPI.Application.Services.Abstract;
-using Cinema.Services.BranchAPI.Domain.Entities;
+﻿using Cinema.Services.BranchAPI.Application.Commands.Districts.AddDistrict;
+using Cinema.Services.BranchAPI.Application.Queries.Districts.GetAllDistricts;
+using Cinema.Services.BranchAPI.Application.Queries.Districts.GetDistrictById;
+using Cinema.Services.BranchAPI.Application.Queries.Districts.GetDistricts;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models.Dtos;
 
 namespace Cinema.Services.BranchAPI.Presentation.Controllers
 {
@@ -13,57 +11,43 @@ namespace Cinema.Services.BranchAPI.Presentation.Controllers
     [ApiController]
     public class DitrictsController : ControllerBase
     {
-        private readonly IDistrictService _districtService;
+        private readonly IMediator _mediator;
 
-        public DitrictsController(IDistrictService districtService)
+        public DitrictsController(IMediator mediator)
         {
-            _districtService = districtService;
+            _mediator = mediator;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllDistricts()
+        public async Task<IActionResult> GetAllDistricts([FromQuery] GetAllDistrictsRequest request)
         {
-            var r = await _districtService.Table.ToListAsync();
+            var r = await _mediator.Send(request);
 
-            var result = ObjectMapper.Mapper.Map<List<DistrictDto>>(r);
-
-            return Ok(ResponseDto<List<DistrictDto>>.Sucess(result, 200));
+            return Ok(r);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDistricts([FromQuery] int page, [FromQuery] int size)
+        public async Task<IActionResult> GetDistricts([FromQuery] GetDistrictsRequest request)
         {
-            var r = await _districtService.Table
-                                        .Skip((page - 1) * size).Take(size).ToListAsync();
+            var r = await _mediator.Send(request);
 
-            var result = ObjectMapper.Mapper.Map<List<DistrictDto>>(r);
-
-            return Ok(ResponseDto<List<DistrictDto>>.Sucess(result, 200));
+            return Ok(r);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetDistrictById([FromRoute] int id)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetDistrictById([FromRoute] GetDistrictByIdRequest request)
         {
-            var r = await _districtService.Table
-                                        .FirstOrDefaultAsync(x => x.Id == id);
+            var r = await _mediator.Send(request);
 
-            if (r is null)
-                throw new Exception("İlçe bulunamadı.");
-
-            var result = ObjectMapper.Mapper.Map<DistrictDto>(r);
-
-            return Ok(ResponseDto<DistrictDto>.Sucess(result, 200));
+            return Ok(r);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddDistrict([FromBody] AddDistrictRequest request)
         {
-            var r = ObjectMapper.Mapper.Map<District>(request);
+            var r = await _mediator.Send(request);
 
-            await _districtService.Table.AddAsync(r);
-            await _districtService.SaveChangesAsync();
-
-            return Created("api/District/GetDistrictById/" + r.Id, ResponseDto<BlankDto>.Sucess(201));
+            return Created();
         }
     }
 }
