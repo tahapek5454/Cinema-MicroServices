@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Cinema.Services.AuthAPI.Application.Commands.Register;
 using Cinema.Services.AuthAPI.Application.Dtos;
 using Cinema.Services.AuthAPI.Domain.Entities;
 

@@ -6,7 +6,7 @@ using SharedLibrary.Services;
 
 namespace Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 
-public class MovieImageService : BaseService, IMovieImageService
+public class MovieImageService :  BaseService, IMovieImageService
 {
     private readonly AppDbContext _dbContext;
     public MovieImageService(IHttpClientFactory _httpClientFactory, AppDbContext dbContext) : base(_httpClientFactory)

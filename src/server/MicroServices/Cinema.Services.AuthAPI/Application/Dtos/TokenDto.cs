@@ -1,6 +1,6 @@
 ﻿namespace Cinema.Services.AuthAPI.Application.Dtos
 {
-    public class LoginResponse
+    public class TokenDto
     {
         public string AccessToken { get; set; }
         public string UserName { get; set; }

@@ -1,6 +1,8 @@
-﻿namespace Cinema.Services.AuthAPI.Application.Dtos
+﻿using MediatR;
+
+namespace Cinema.Services.AuthAPI.Application.Commands.Register
 {
-    public class RegisterRequest
+    public class RegisterRequest: IRequest<RegisterResponse>
     {
         public string Name { get; set; }
         public string Surname { get; set; }

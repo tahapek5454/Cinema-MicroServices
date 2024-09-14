@@ -2,6 +2,7 @@ using Cinema.Services.AuthAPI;
 using Cinema.Services.AuthAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
+using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,10 @@ builder.Services.AddAuthServices(builder.Configuration.GetConnectionString("MSSQ
 
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
 builder.Services.AddCustomTokenAuth(tokenOptions);
+
+builder.Services.AddHttpContextAccessor();
+MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider()); // maybe not neccessary
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

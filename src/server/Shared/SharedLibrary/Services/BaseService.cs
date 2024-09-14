@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SharedLibrary.Services
 {
-    public class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
+    public abstract class BaseService(IHttpClientFactory _httpClientFactory) : IBaseService
     {
         public async Task<ResponseDto<TResponse>> SendAsync<TRequest, TResponse>(RequestDto<TRequest> requestDto, bool isAuthorize = true)
             where TRequest : class
@@ -76,34 +76,5 @@ namespace SharedLibrary.Services
             }
         }
 
-        public int AdvancedUpdate<TModel, TRequest>(TModel model, TRequest request)
-            where TModel : class
-            where TRequest : class
-        {
-            var entityType = typeof(TModel);
-            var requestType = typeof(TRequest);
-
-            var entityProperties = entityType.GetProperties();
-            var requestProperties = requestType.GetProperties();
-
-            var pk = entityType.GetProperty("Id"); // we use primary key like Id if you change pk name you have to change this
-
-            var updatedPropertyCount = 0;
-
-            // request and entity properties have to same
-            foreach (var requestProperty in requestProperties)
-            {
-                var entityProperty = entityProperties.FirstOrDefault(p => p.Name == requestProperty.Name);
-                var updatedValue = requestProperty.GetValue(request);
-
-                if (entityProperty != null && updatedValue != null && requestProperty != pk)
-                {
-                    entityProperty.SetValue(model, updatedValue);
-                    updatedPropertyCount++;
-                }
-            }
-
-            return updatedPropertyCount;
-        }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using Cinema.Services.AuthAPI.Application.Dtos;
 using Cinema.Services.AuthAPI.Application.Services.Abstract;
 using Cinema.Services.AuthAPI.Domain.Entities;
-using Cinema.Services.AuthAPI.Persistence.Data.Contexts;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -14,9 +12,9 @@ using System.Security.Cryptography;
 
 namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
 {
-    public class TokenService(AppDbContext _context, IOptions<CustomTokenOptions> _options) : ITokenService
+    public class TokenService(IUserService _userService, IRoleService _roleService ,IOptions<CustomTokenOptions> _options) : ITokenService
     {
-        public async Task<LoginResponse> CreateTokenAsync(User user)
+        public async Task<TokenDto> CreateTokenAsync(User user)
         {
             var accessTokenExpiration = DateTime.UtcNow.AddSeconds(_options.Value.AccessTokenExpiration);
             var securityKey = SignService.GetSymmetricSecurityKey(_options.Value.SecurityKey);
@@ -33,7 +31,7 @@ namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
             var handler = new JwtSecurityTokenHandler();
             var token = handler.WriteToken(jwtSecurityToken);
 
-            var loginResponseDto = new LoginResponse
+            var r = new TokenDto
             {
                 AccessToken = token,
                 RefreshToken = CreateRefreshToken(),
@@ -41,7 +39,7 @@ namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
                 UserName = user.UserName,
             };
 
-            return loginResponseDto;
+            return r;
         }
 
         private string CreateRefreshToken()
@@ -73,12 +71,12 @@ namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
 
             userClaimList.AddRange(listedAudiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
 
-            var roleIds = await _context.Users
+            var roleIds = await _userService.Table
                 .Include(x => x.Roles)
                 .Where(x => x.Id.Equals(user.Id))
                 .Select(x => x.Roles.Select(y => y.RoleId).ToList()).FirstOrDefaultAsync();
 
-            var roles = await _context.Roles
+            var roles = await _roleService.Table
                 .Where(x => roleIds != null ? roleIds.Contains(x.Id) : false)
                 .Select(x => x.Name)
                 .ToListAsync();

@@ -3,7 +3,7 @@ using SharedLibrary.Models.Entities;
 
 namespace SharedLibrary.Repositories
 {
-    public class BaseRepository<T>: IBaseRepository<T> where T : BaseEntity
+    public abstract class BaseRepository<T>: IBaseRepository<T> where T : BaseEntity
     {
         private readonly DbContext _context;
 
