@@ -1,20 +1,12 @@
 ﻿using Cinema.Services.BranchAPI.Persistence.Data.Context;
+using SharedLibrary.Services;
 
 namespace Cinema.Services.BranchAPI.Infrastructure.Services.Concrete
 {
-    public class BranchUnitOfWork
+    public class BranchUnitOfWork : BaseUnitOfWork
     {
-        private readonly AppDbContext _dbContext;
-
-        public BranchUnitOfWork(AppDbContext dbContext)
+        public BranchUnitOfWork(AppDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
         }
-
-        public int SaveChanges()
-             => _dbContext.SaveChanges();
-
-        public async Task<int> SaveChangesAsync()
-            => await _dbContext.SaveChangesAsync();
     }
 }
