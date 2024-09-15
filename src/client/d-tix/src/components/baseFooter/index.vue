@@ -1,5 +1,5 @@
 <template>                                              
-    <footer class="tw-w-full">
+    <footer class="tw-w-full tw-border-t-4 tw-border-[#8b00008e]">
         <div class="tw-w-full">
             <div class="tw-grid tw-grid-cols-2 sm:tw-grid-cols-4 lg:tw-grid-cols-4 tw-gap-3 tw-gap-y-8 md:tw-gap-8 tw-py-10 tw-max-w-sm tw-mx-auto tw-sm:max-w-3xl lg:tw-max-w-full">
                 <div class="tw-col-span-full tw-mb-10 tw-ml-5 lg:tw-col-span-1">
