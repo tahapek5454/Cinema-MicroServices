@@ -1,11 +1,12 @@
 ﻿using Cinema.Services.MovieAPI.Application.Services.Abstract;
+using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Dtos;
 
-namespace Cinema.Services.MovieAPI.Application.Commands.UpdateMovie
+namespace Cinema.Services.MovieAPI.Application.Commands.Movies.UpdateMovie
 {
-    public class UpdateMovieRequestHandler(IMovieService _movieService) : IRequestHandler<UpdateMovieRequest, UpdateMovieResponse>
+    public class UpdateMovieRequestHandler(IMovieService _movieService, MovieUnitOfWork _movieUnitOfWork) : IRequestHandler<UpdateMovieRequest, UpdateMovieResponse>
     {
         public async Task<UpdateMovieResponse> Handle(UpdateMovieRequest request, CancellationToken cancellationToken)
         {
@@ -14,11 +15,11 @@ namespace Cinema.Services.MovieAPI.Application.Commands.UpdateMovie
             if (movie is null) throw new Exception("Güncellenecek Film Bulunamadı.");
 
 
-            var count = _movieService.AdvancedUpdate(movie, request);
+            var count = _movieService.UpdateAdvance(movie, request);
 
             if (count > 0)
             {
-                await _movieService.SaveChangesAsync();
+                await _movieUnitOfWork.SaveChangesAsync();
             }
 
 

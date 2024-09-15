@@ -8,13 +8,19 @@ using SharedLibrary.Models.Const;
 using SharedLibrary.Models.Dtos;
 using SharedLibrary.Models.Enums;
 
-namespace Cinema.Services.MovieAPI.Application.Queries.GetAllMovies
+namespace Cinema.Services.MovieAPI.Application.Queries.Movies.GetMoviesWithPagination
 {
-    public class GetAllMoviesRequestHandler(IMovieService _movieService) : IRequestHandler<GetAllMoviesRequest, GetAllMoviesResponse>
+    public class GetMoviesWithPaginationRequestHandler(IMovieService _movieService) : IRequestHandler<GetMoviesWithPaginationRequest, GetMoviesWithPaginationResponse>
     {
-        public async Task<GetAllMoviesResponse> Handle(GetAllMoviesRequest request, CancellationToken cancellationToken)
+        public async Task<GetMoviesWithPaginationResponse> Handle(GetMoviesWithPaginationRequest request, CancellationToken cancellationToken)
         {
-            var movies = await _movieService.Table.Include(x => x.MovieImages).ToListAsync();
+            var totalCount = _movieService.Table.Count();
+
+            var movies = await _movieService.Table
+            .Include(x => x.MovieImages)
+                .Skip((request.Page - 1) * request.Size)
+                .Take(request.Size)
+                .ToListAsync();
 
             var movieDtos = ObjectMapper.Mapper.Map<List<MovieDto>>(movies);
 
@@ -36,7 +42,8 @@ namespace Cinema.Services.MovieAPI.Application.Queries.GetAllMovies
 
             return new()
             {
-                Result = ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200)
+                Result = ResponseDto<List<MovieDto>>.Sucess(movieDtos, 200),
+                TotalCount = totalCount
             };
         }
     }

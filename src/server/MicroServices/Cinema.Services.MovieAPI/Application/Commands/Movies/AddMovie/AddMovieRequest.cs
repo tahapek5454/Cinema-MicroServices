@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Cinema.Services.MovieAPI.Application.Commands.AddMovie
+namespace Cinema.Services.MovieAPI.Application.Commands.Movies.AddMovie
 {
-    public class AddMovieRequest: IRequest<AddMovieResponse>
+    public class AddMovieRequest : IRequest<AddMovieResponse>
     {
         public string Name { get; set; }
         public string Name_EN { get; set; }

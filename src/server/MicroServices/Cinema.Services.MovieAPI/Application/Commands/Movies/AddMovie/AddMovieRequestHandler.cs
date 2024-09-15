@@ -1,12 +1,13 @@
 ﻿using Cinema.Services.MovieAPI.Application.Mapper;
 using Cinema.Services.MovieAPI.Application.Services.Abstract;
 using Cinema.Services.MovieAPI.Domain.Entities;
+using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 using MediatR;
 using SharedLibrary.Models.Dtos;
 
-namespace Cinema.Services.MovieAPI.Application.Commands.AddMovie
+namespace Cinema.Services.MovieAPI.Application.Commands.Movies.AddMovie
 {
-    public class AddMovieRequestHandler(IMovieService _movieService) : IRequestHandler<AddMovieRequest, AddMovieResponse>
+    public class AddMovieRequestHandler(IMovieService _movieService, MovieUnitOfWork _movieUnitOfWork) : IRequestHandler<AddMovieRequest, AddMovieResponse>
     {
         public async Task<AddMovieResponse> Handle(AddMovieRequest request, CancellationToken cancellationToken)
         {
@@ -14,7 +15,7 @@ namespace Cinema.Services.MovieAPI.Application.Commands.AddMovie
 
             await _movieService.Table.AddAsync(newMovie);
 
-            await _movieService.SaveChangesAsync();
+            await _movieUnitOfWork.SaveChangesAsync();
 
             return new()
             {

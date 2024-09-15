@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Cinema.Services.MovieAPI.Application.Commands.UpdateMovie
+namespace Cinema.Services.MovieAPI.Application.Commands.Movies.UpdateMovie
 {
-    public class UpdateMovieRequest: IRequest<UpdateMovieResponse>
+    public class UpdateMovieRequest : IRequest<UpdateMovieResponse>
     {
         public int Id { get; set; }
         public string? Name { get; set; }

@@ -17,17 +17,26 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
+
+// Service
+builder.Services.AddMovieServices(builder.Configuration.GetConnectionString("MSSQL") ?? "");
+
+// MassTransit
+builder.Services.AddMovieMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ") ?? "");
+
+
+// Swager
 builder.Services.AddCustomSwaggerGenService();
 
+
+// HttpAccessor
 builder.Services.AddHttpContextAccessor();
 MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
 builder.Services.AddHttpClient();
 
-builder.Services.AddMovieServices(builder.Configuration.GetConnectionString("MSSQL") ?? "");
-builder.Services.AddMovieMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ") ?? "");
 
+// Authentication
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
 builder.Services.AddCustomTokenAuth(tokenOptions);

@@ -8,7 +8,7 @@ using SharedLibrary.Models.Const;
 using SharedLibrary.Models.Dtos;
 using SharedLibrary.Models.Enums;
 
-namespace Cinema.Services.MovieAPI.Application.Queries.GetMovieById
+namespace Cinema.Services.MovieAPI.Application.Queries.Movies.GetMovieById
 {
     public class GetMovieByIdRequestHandler : IRequestHandler<GetMovieByIdRequest, GetMovieByIdResponse>
     {
@@ -28,7 +28,7 @@ namespace Cinema.Services.MovieAPI.Application.Queries.GetMovieById
 
             var movieDto = ObjectMapper.Mapper.Map<MovieDto>(movie);
 
-          
+
             var categoryResponse = await _movieService.SendAsync<BlankDto, CategoryDto>(new()
             {
                 ActionType = ActionType.GET,

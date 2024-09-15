@@ -1,11 +1,12 @@
 ﻿using Cinema.Services.MovieAPI.Application.Services.Abstract;
+using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Dtos;
 
-namespace Cinema.Services.MovieAPI.Application.Commands.RemoveMovie
+namespace Cinema.Services.MovieAPI.Application.Commands.Movies.RemoveMovie
 {
-    public class RemoveMovieRequestHandler(IMovieService _movieService) : IRequestHandler<RemoveMovieRequest, RemoveMovieResponse>
+    public class RemoveMovieRequestHandler(IMovieService _movieService, MovieUnitOfWork _movieUnitOfWork) : IRequestHandler<RemoveMovieRequest, RemoveMovieResponse>
     {
         public async Task<RemoveMovieResponse> Handle(RemoveMovieRequest request, CancellationToken cancellationToken)
         {
@@ -16,7 +17,7 @@ namespace Cinema.Services.MovieAPI.Application.Commands.RemoveMovie
 
             _movieService.Table.Remove(movie);
 
-            await _movieService.SaveChangesAsync();
+            await _movieUnitOfWork.SaveChangesAsync();
 
 
             return new()

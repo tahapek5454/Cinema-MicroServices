@@ -26,10 +26,14 @@ namespace Cinema.Services.MovieAPI
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(BeforeHandlerBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AfterHandlerBehavior<,>));
 
-
+            // Repositories
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IMovieImageRepository, MovieImageRepository>();
+
+            // Services
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IMovieImageService, MovieImageService>();
+            services.AddScoped<MovieUnitOfWork>();
             
         }
 

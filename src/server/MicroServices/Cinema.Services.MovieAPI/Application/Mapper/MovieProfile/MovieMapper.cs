@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Cinema.Services.MovieAPI.Application.Commands.AddMovie;
+using Cinema.Services.MovieAPI.Application.Commands.Movies.AddMovie;
 using Cinema.Services.MovieAPI.Application.Dtos.Movies;
 using Cinema.Services.MovieAPI.Domain.Entities;
 using SharedLibrary.Extensions;
