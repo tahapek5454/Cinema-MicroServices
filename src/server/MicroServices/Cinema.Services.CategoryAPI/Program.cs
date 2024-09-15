@@ -17,16 +17,21 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
+
+// Services
+builder.Services.AddCategoryServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
+
+// Swaggers
 builder.Services.AddCustomSwaggerGenService();
 
+// HttpContextAccessor
 builder.Services.AddHttpContextAccessor();
 MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
 builder.Services.AddHttpClient();
 
-builder.Services.AddCategoryServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
 
+// Authentication
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
 builder.Services.AddCustomTokenAuth(tokenOptions);
