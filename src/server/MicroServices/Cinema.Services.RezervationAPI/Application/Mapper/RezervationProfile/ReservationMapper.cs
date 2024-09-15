@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Cinema.Services.RezervationAPI.Application.Commands.Reservations.CreateReservation;
 using Cinema.Services.RezervationAPI.Application.Dtos;
-using Cinema.Services.RezervationAPI.Application.Request;
 using Cinema.Services.RezervationAPI.Domain.Entities;
 
 namespace Cinema.Services.RezervationAPI.Application.Mapper.RezervationProfile
@@ -15,7 +15,7 @@ namespace Cinema.Services.RezervationAPI.Application.Mapper.RezervationProfile
                 .ForMember(dest => dest.SeatIds, opt => opt.MapFrom(src => ConvertStringToList(src)));
 
 
-            CreateMap<ReservationRequest, Reservation>()
+            CreateMap<CreateReservationRequest, Reservation>()
                 .ForMember(dest => dest.SeatIds, opt => opt.MapFrom(src => string.Join(",", src.SeatIds)));
 
         }

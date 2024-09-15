@@ -1,107 +1,32 @@
-﻿using Cinema.Services.FileAPI.Application.Dtos;
-using Cinema.Services.FileAPI.Application.Services.Abstract;
-using Cinema.Services.FileAPI.Domain.Entities;
-using Cinema.Services.FileAPI.Storages.Abstract;
-using MassTransit;
-using MassTransit.Initializers;
+﻿using Cinema.Services.FileAPI.Application.Commands.MovieImages.DeleteImageFile;
+using Cinema.Services.FileAPI.Application.Commands.MovieImages.UploadImageFile;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Events.MovieImageEvents;
-using SharedLibrary.Models.Dtos;
-using SharedLibrary.Settings;
 
 
 namespace Cinema.Services.FileAPI.Presentation.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MovieImagesController(IMovieImageService _movieImageService, IStorageService _storageService, ISendEndpointProvider _sendEndpointProvider) : ControllerBase
+    public class MovieImagesController(IMediator _mediator) : ControllerBase
     {
         [HttpPost, Authorize(Roles = "admin")]
-        public async Task<IActionResult> UploadImageFile([FromQuery] UploadImageFileRequestDto uploadImageFileRequestDto)
+        public async Task<IActionResult> UploadImageFile([FromQuery] UploadImageFileRequest request)
         {
-            var formFileCollection = Request.Form.Files;
+            request.FormFileCollection = Request.Form.Files;
 
-            if (formFileCollection == null)
-                return BadRequest(ResponseDto<BlankDto>.Fail("Couldn't Access Files", true, 500));
+            _ = await _mediator.Send(request);
 
-            var result = await _storageService.UploadAsync("images", formFileCollection);
-
-            List<MovieImage> images = new List<MovieImage>();
-
-            result.ForEach(item =>
-            {
-                MovieImage image = new MovieImage()
-                {
-                    FileName = item.fileName,
-                    Path = item.pathOrContainerName,
-                    Storage = _storageService.StorageName,
-                    RelationId = uploadImageFileRequestDto.RelationId
-                };
-
-                images.Add(image);
-            });
-
-            if (!images.Any())
-            {
-                foreach (var item in result)
-                    await _storageService.DeleteAsync("images", item.fileName);
-
-                return BadRequest(ResponseDto<BlankDto>.Fail("Couldn't Save Files", true, 500));
-            }
-
-            await _movieImageService.Table.AddRangeAsync(images);
-            await _movieImageService.SaveChangesAsync();
-
-            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));
-
-            images.ForEach(async image =>
-            {
-                MovieImageUploadStartedEvent movieImageUploadStartedEvent = new MovieImageUploadStartedEvent()
-                {
-                    FileId = image.Id,
-                    FileName = image.FileName,
-                    Path = image.Path,
-                    RelationId = image.RelationId,
-                    Storage = image.Storage,
-
-                };
-
-                await sendEndpoint.Send(movieImageUploadStartedEvent);
-            });
-
-            return Ok(ResponseDto<BlankDto>.Sucess(201));
+            return Ok();
         }
 
         [HttpDelete, Authorize(Roles = "admin")]
-        public async Task<IActionResult> DeleteImageFile(string fileName)
+        public async Task<IActionResult> DeleteImageFile([FromBody] DeleteImageFileRequest request)
         {
-            await _storageService.DeleteAsync("images", fileName);
+            _ = await _mediator.Send(request);
 
-            var file = await _movieImageService.Table.FirstOrDefaultAsync(x => x.FileName.Equals(fileName));
-
-            MovieImageDeleteStartedEvent movieImageDeleteStartedEvent = new MovieImageDeleteStartedEvent()
-            {
-                FileId = file.Id,
-                FileName = file.FileName,
-                Path = file.Path,
-                RelationId = file.RelationId,
-                Storage = file.Storage,
-
-            };
-
-            if (file is null)
-                throw new Exception("File Not Found");
-
-            _movieImageService.Table.Remove(file);
-            await _movieImageService.SaveChangesAsync();
-
-            var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));
-
-            await sendEndpoint.Send(movieImageDeleteStartedEvent);
-
-            return Ok(ResponseDto<BlankDto>.Sucess(201));
+            return Ok();
 
         }
     }

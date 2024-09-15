@@ -1,12 +1,10 @@
 ﻿using Cinema.Services.FileAPI.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Services;
 
 namespace Cinema.Services.FileAPI.Application.Services.Abstract
 {
-    public interface IMovieImageService
+    public interface IMovieImageService: IBaseEntityService<MovieImage>
     {
-        public DbSet<MovieImage> Table { get; }
-        public Task<int> SaveChangesAsync();
-        public int SaveChanges();
+
     }
 }

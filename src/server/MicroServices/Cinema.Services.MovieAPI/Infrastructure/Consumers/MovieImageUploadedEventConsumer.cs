@@ -1,13 +1,14 @@
 ﻿using Cinema.Services.MovieAPI.Application.Mapper;
+using Cinema.Services.MovieAPI.Application.Services.Abstract;
 using Cinema.Services.MovieAPI.Domain.Entities;
-using Cinema.Services.MovieAPI.Persistence.Data.Contexts;
+using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 using MassTransit;
 using SharedLibrary.Events.MovieImageEvents;
 using SharedLibrary.Settings;
 
 namespace Cinema.Services.MovieAPI.Infrastructure.Consumers
 {
-    public class MovieImageUploadedEventConsumer(AppDbContext _appDbContext, ISendEndpointProvider _sendEndpointProvider) : IConsumer<MovieImageUploadedEvent>
+    public class MovieImageUploadedEventConsumer(IMovieImageService _movieImageService, MovieUnitOfWork _movieUnitOfWork, ISendEndpointProvider _sendEndpointProvider) : IConsumer<MovieImageUploadedEvent>
     {
         public async Task Consume(ConsumeContext<MovieImageUploadedEvent> context)
         {
@@ -16,8 +17,8 @@ namespace Cinema.Services.MovieAPI.Infrastructure.Consumers
                    (new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));
             if (newMovieFile != null)
             {
-                await _appDbContext.Set<MovieImage>().AddAsync(newMovieFile);
-                await _appDbContext.SaveChangesAsync();
+                await _movieImageService.AddAsync(newMovieFile);
+                await _movieUnitOfWork.SaveChangesAsync();
 
                 MovieImageReceivedEvent movieImageReceivedEvent = new(context.Message.CorrelationId);
 

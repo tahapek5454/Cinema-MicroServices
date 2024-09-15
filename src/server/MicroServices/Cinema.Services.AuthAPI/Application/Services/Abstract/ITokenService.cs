@@ -5,7 +5,7 @@ namespace Cinema.Services.AuthAPI.Application.Services.Abstract
 {
     public interface ITokenService
     {
-        Task<LoginResponse> CreateTokenAsync(User user);
+        Task<TokenDto> CreateTokenAsync(User user);
 
     }
 }

@@ -1,91 +1,65 @@
-﻿using Cinema.Services.CategoryAPI.Application.Dtos.Categories;
-using Cinema.Services.CategoryAPI.Application.Mapper;
-using Cinema.Services.CategoryAPI.Application.Services.Abstract;
-using Cinema.Services.CategoryAPI.Domain.Entities;
+﻿using Cinema.Services.CategoryAPI.Application.Commands.Categories.AddGategory;
+using Cinema.Services.CategoryAPI.Application.Commands.Categories.RemoveGategory;
+using Cinema.Services.CategoryAPI.Application.Commands.Categories.UpdateGategory;
+using Cinema.Services.CategoryAPI.Application.Queries.Categories.GetAllCategories;
+using Cinema.Services.CategoryAPI.Application.Queries.Categories.GetCategoriesWithPagination;
+using Cinema.Services.CategoryAPI.Application.Queries.Categories.GetCategoryById;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using SharedLibrary.Models.Dtos;
 
 namespace Cinema.Services.CategoryAPI.Presentation.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CategoriesController(ICategoryService _categoryService) : ControllerBase
+    public class CategoriesController(IMediator _mediator) : ControllerBase
     {
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetGategoryById([FromRoute] int id)
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetCategoryById([FromRoute] GetCategoryByIdRequest request)
         {
-            var category = await _categoryService.Table.FirstOrDefaultAsync(x => x.Id == id);
+            var r = await _mediator.Send(request);
 
-            if (category is null)
-                throw new Exception("Category is not found");
-
-            var categoryDto = ObjectMapper.Mapper.Map<CategoryDto>(category);
-
-            return Ok(ResponseDto<CategoryDto>.Sucess(categoryDto, 200));
+            return Ok(r);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGategoriesWithPagination([FromQuery] PaginationDto paginationDto)
+        public async Task<IActionResult> GetCategoriesWithPagination([FromQuery] GetCategoriesWithPaginationRequest request)
         {
-            var categories = await _categoryService.Table
-                .Skip((paginationDto.Page - 1) * paginationDto.Size)
-                .Take(paginationDto.Size)
-                .ToListAsync();
+            var r = await _mediator.Send(request);
 
-            var categoryDtos = ObjectMapper.Mapper.Map<List<CategoryDto>>(categories);
-
-            return Ok(ResponseDto<List<CategoryDto>>.Sucess(categoryDtos, 200));
+            return Ok(r);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllGategories()
+        public async Task<IActionResult> GetAllCategories([FromQuery] GetAllCategoriesRequest request)
         {
-            var categories = await _categoryService.Table.ToListAsync();
+            var r = await _mediator.Send(request);
 
-            var categoryDtos = ObjectMapper.Mapper.Map<List<CategoryDto>>(categories);
-
-            return Ok(ResponseDto<List<CategoryDto>>.Sucess(categoryDtos, 200));
+            return Ok(r);
         }
 
         [HttpPost, Authorize(Roles = "admin")]
-        public async Task<IActionResult> AddGategory([FromBody] AddCategoryDto addCategoryDto)
+        public async Task<IActionResult> AddCategory([FromBody] AddCategoryRequest request)
         {
-            var newCategory = ObjectMapper.Mapper.Map<Category>(addCategoryDto);
+            _ = await _mediator.Send(request);
 
-            await _categoryService.Table.AddAsync(newCategory);
-
-            await _categoryService.SaveChangesAsync();
-
-            return Created($"GetMovieById/{newCategory.Id}", ResponseDto<BlankDto>.Sucess(200));
+            return Created();
         }
 
         [HttpPut, Authorize(Roles = "admin")]
-        public async Task<IActionResult> UpdateGategory([FromBody] UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> UpdateGategory([FromBody] UpdateGategoryRequest request)
         {
-            var updatedCategory = ObjectMapper.Mapper.Map<Category>(updateCategoryDto);
+            _ = await _mediator.Send(request);
 
-            _categoryService.Table.Update(updatedCategory);
-
-            await _categoryService.SaveChangesAsync();
-
-            return Ok(ResponseDto<BlankDto>.Sucess(200));
+            return Ok();
         }
 
-        [HttpDelete("{id}"), Authorize(Roles = "admin")]
-        public async Task<IActionResult> RemoveGategory([FromRoute] int id)
+        [HttpDelete("{Id}"), Authorize(Roles = "admin")]
+        public async Task<IActionResult> RemoveGategory([FromRoute] RemoveGategoryRequest request)
         {
-            var movie = await _categoryService.Table.FirstOrDefaultAsync(x => x.Id == id);
+            _ = await _mediator.Send(request);
 
-            if (movie is null)
-                throw new Exception("Category is not found");
-
-            _categoryService.Table.Remove(movie);
-
-            await _categoryService.SaveChangesAsync();
-
-            return Ok(ResponseDto<BlankDto>.Sucess(200));
+            return Ok();
         }
     }
 }

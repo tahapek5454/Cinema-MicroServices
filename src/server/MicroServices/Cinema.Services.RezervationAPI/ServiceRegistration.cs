@@ -1,10 +1,15 @@
-﻿using Cinema.Services.RezervationAPI.Application.Services.Abstract;
+﻿using Cinema.Services.RezervationAPI.Application.Repositories;
+using Cinema.Services.RezervationAPI.Application.Services.Abstract;
 using Cinema.Services.RezervationAPI.Infrastructure.Consumers;
 using Cinema.Services.RezervationAPI.Infrastructure.Services.Concrete;
 using Cinema.Services.RezervationAPI.Persistence.Data.Contexts;
+using Cinema.Services.RezervationAPI.Persistence.Repositories;
 using MassTransit;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Behaviors;
 using SharedLibrary.Settings;
+using System.Reflection;
 
 namespace Cinema.Services.SessionAPI
 {
@@ -17,7 +22,17 @@ namespace Cinema.Services.SessionAPI
                 options.UseSqlServer(connectionString);
             });
 
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(BeforeHandlerBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AfterHandlerBehavior<,>));
+
+
+            // Repositories
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+
+            // Services
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<ReservationUnitOfWork>();
 
         }
 

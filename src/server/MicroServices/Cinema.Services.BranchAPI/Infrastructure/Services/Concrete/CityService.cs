@@ -1,25 +1,16 @@
-﻿using Cinema.Services.BranchAPI.Application.Services.Abstract;
+﻿using Cinema.Services.BranchAPI.Application.Repositories;
+using Cinema.Services.BranchAPI.Application.Services.Abstract;
 using Cinema.Services.BranchAPI.Domain.Entities;
-using Cinema.Services.BranchAPI.Persistence.Data.Context;
-using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Services;
 
 namespace Cinema.Services.BranchAPI.Infrastructure.Services.Concrete
 {
-    public class CityService : BaseService, ICityService
+    public class CityService : BaseEntityService<City>, ICityService
     {
-        private readonly AppDbContext _appDbContext;
-        public CityService(IHttpClientFactory _httpClientFactory, AppDbContext appDbContext) : base(_httpClientFactory)
+        private readonly ICityRepository _cityRepository;
+        public CityService(IHttpClientFactory _httpClientFactory, ICityRepository repository) : base(_httpClientFactory, repository)
         {
-            _appDbContext = appDbContext;
+            _cityRepository = repository;
         }
-
-        public DbSet<City> Table => _appDbContext.Set<City>();
-
-        public int SaveChanges()
-            => _appDbContext.SaveChanges();
-
-        public async Task<int> SaveChangesAsync()
-            => await _appDbContext.SaveChangesAsync();
     }
 }

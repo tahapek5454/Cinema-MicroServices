@@ -1,9 +1,9 @@
-﻿using Cinema.Services.MovieAPI.Application.Commands.AddMovie;
-using Cinema.Services.MovieAPI.Application.Commands.RemoveMovie;
-using Cinema.Services.MovieAPI.Application.Commands.UpdateMovie;
-using Cinema.Services.MovieAPI.Application.Queries.GetAllMovies;
-using Cinema.Services.MovieAPI.Application.Queries.GetMovieById;
-using Cinema.Services.MovieAPI.Application.Queries.GetMoviesWithPagination;
+﻿using Cinema.Services.MovieAPI.Application.Commands.Movies.AddMovie;
+using Cinema.Services.MovieAPI.Application.Commands.Movies.RemoveMovie;
+using Cinema.Services.MovieAPI.Application.Commands.Movies.UpdateMovie;
+using Cinema.Services.MovieAPI.Application.Queries.Movies.GetAllMovies;
+using Cinema.Services.MovieAPI.Application.Queries.Movies.GetMovieById;
+using Cinema.Services.MovieAPI.Application.Queries.Movies.GetMoviesWithPagination;
 using Cinema.Services.MovieAPI.Application.Services.Abstract;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -19,21 +19,21 @@ namespace Cinema.Services.MovieAPI.API.Controllers
         public async Task<IActionResult> GetMovieById([FromRoute] GetMovieByIdRequest request)
         {
             var r = await _mediator.Send(request);
-            return Ok(r);
+            return Ok(r.Result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetMoviesWithPagination([FromQuery] GetMoviesWithPaginationRequest request)
         {
             var r = await _mediator.Send(request);
-            return Ok(r);
+            return Ok(r.Result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllMovies([FromQuery] GetAllMoviesRequest request)
         {
             var r = await _mediator.Send(request);
-            return Ok(r);
+            return Ok(r.Result);
         }
 
         [HttpPost, Authorize(Roles = "admin")]
@@ -49,7 +49,7 @@ namespace Cinema.Services.MovieAPI.API.Controllers
         {
             var r = await _mediator.Send(request);
 
-            return Ok(r);
+            return Ok(r.Result);
         }
 
         [HttpDelete("{id}"), Authorize(Roles = "admin")]
@@ -57,7 +57,7 @@ namespace Cinema.Services.MovieAPI.API.Controllers
         {
             var r = await _mediator.Send(request);
 
-            return Ok(r);
+            return Ok(r.Result);
         }
     }
 }
