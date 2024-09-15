@@ -1,12 +1,17 @@
-﻿using Cinema.Services.FileAPI.Application.Services.Abstract;
+﻿using Cinema.Services.FileAPI.Application.Repositories;
+using Cinema.Services.FileAPI.Application.Services.Abstract;
 using Cinema.Services.FileAPI.Infrastructure.Consumer;
 using Cinema.Services.FileAPI.Infrastructure.Services.Concrete;
 using Cinema.Services.FileAPI.Persistence.Data.Contexts;
+using Cinema.Services.FileAPI.Persistence.Repositories;
 using Cinema.Services.FileAPI.Storages.Abstract;
 using Cinema.Services.FileAPI.Storages.Concrete;
 using MassTransit;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Behaviors;
 using SharedLibrary.Settings;
+using System.Reflection;
 
 namespace Cinema.Services.FileAPI
 {
@@ -19,8 +24,17 @@ namespace Cinema.Services.FileAPI
                 options.UseSqlServer(connectionString);
             });
 
+            serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
+            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(BeforeHandlerBehavior<,>));
+            serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(AfterHandlerBehavior<,>));
+
+            // Repositories
+            serviceCollection.AddScoped<IMovieImageRepository, MovieImageRepository>();
+
+            // Services
             serviceCollection.AddScoped<IStorageService, StorageService>();
             serviceCollection.AddScoped<IMovieImageService, MovieImageService>();
+            serviceCollection.AddScoped<FileUnitOfWork>();
         }
 
         public static void AddStorage<T>(this IServiceCollection serviceCollection)

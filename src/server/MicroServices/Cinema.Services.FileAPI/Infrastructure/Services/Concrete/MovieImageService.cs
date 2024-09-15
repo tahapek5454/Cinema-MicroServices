@@ -1,18 +1,16 @@
-﻿using Cinema.Services.FileAPI.Application.Services.Abstract;
+﻿using Cinema.Services.FileAPI.Application.Repositories;
+using Cinema.Services.FileAPI.Application.Services.Abstract;
 using Cinema.Services.FileAPI.Domain.Entities;
-using Cinema.Services.FileAPI.Persistence.Data.Contexts;
-using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Services;
 
 namespace Cinema.Services.FileAPI.Infrastructure.Services.Concrete
 {
-    public class MovieImageService(AppDbContext appDbContext) : IMovieImageService
+    public class MovieImageService : BaseEntityService<MovieImage>, IMovieImageService
     {
-        public DbSet<MovieImage> Table => appDbContext.Set<MovieImage>();
-
-        public int SaveChanges()
-            => appDbContext.SaveChanges();
-
-        public async Task<int> SaveChangesAsync()
-            => await appDbContext.SaveChangesAsync();
+        private readonly IMovieImageRepository _repository;
+        public MovieImageService(IHttpClientFactory _httpClientFactory, IMovieImageRepository repository) : base(_httpClientFactory, repository)
+        {
+            _repository = repository;
+        }
     }
 }
