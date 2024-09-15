@@ -5,6 +5,11 @@ using Cinema.Services.SessionAPI.Infrastructure.Consumers;
 using Cinema.Services.SessionAPI.Infrastructure.Services.Concrete;
 using Cinema.Services.SessionAPI.Persistence.Data.Contexts;
 using Cinema.Services.SessionAPI.Application.Services.Abstract;
+using Cinema.Services.SessionAPI.Application.Repositories;
+using Cinema.Services.SessionAPI.Persistence.Repositories;
+using MediatR;
+using SharedLibrary.Behaviors;
+using System.Reflection;
 
 namespace Cinema.Services.SessionAPI
 {
@@ -18,9 +23,26 @@ namespace Cinema.Services.SessionAPI
             });
 
 
+
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(BeforeHandlerBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AfterHandlerBehavior<,>));
+
+            // Repositories
+            services.AddScoped<ISeatRepository, SeatRepository>();
+            services.AddScoped<IMovieTheaterRepository, MovieTheaterRepository>();
+            services.AddScoped<ISeatSessionStatusRepository, SeatSessionStatusRepository>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
+
+
+
+            // Services
             services.AddScoped<ISessionService, SessionService>();
             services.AddScoped<ISeatSessionStatusService, SeatSessionStatusService>();
             services.AddScoped<ISeatService, SeatService>();
+            services.AddScoped<IMovieTheaterService, MovieTheaterService>();
+            services.AddScoped<SessionUnitOfWork>();
+
         }
 
 

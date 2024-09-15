@@ -5,9 +5,9 @@ using SharedLibrary.Services;
 
 namespace Cinema.Services.SessionAPI.Infrastructure.Services.Concrete
 {
-    public class SeatService : BaseEntityService<Seat>, ISeatService
+    public class MovieTheaterService : BaseEntityService<MovieTheater>, IMovieTheaterService
     {
-        public SeatService(IHttpClientFactory _httpClientFactory, ISeatRepository repository) : base(_httpClientFactory, repository)
+        public MovieTheaterService(IHttpClientFactory _httpClientFactory, IMovieTheaterRepository repository) : base(_httpClientFactory, repository)
         {
         }
     }
