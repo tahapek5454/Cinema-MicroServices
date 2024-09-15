@@ -1,6 +1,8 @@
-﻿namespace Cinema.Services.RezervationAPI.Application.Request
+﻿using MediatR;
+
+namespace Cinema.Services.RezervationAPI.Application.Commands.Reservations.CreateReservation
 {
-    public class ReservationRequest
+    public class CreateReservationRequest: IRequest<CreateReservationResponse>
     {
         public int SessionId { get; set; }
         public int UserId { get; set; }

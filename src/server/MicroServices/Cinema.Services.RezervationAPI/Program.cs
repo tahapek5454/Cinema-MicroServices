@@ -2,6 +2,7 @@ using Cinema.Services.RezervationAPI.Persistence.Data.Contexts;
 using Cinema.Services.SessionAPI;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
+using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,16 +17,25 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddHttpClient();
-
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddCustomSwaggerGenService();
 
+// Services
 builder.Services.AddReservationService(builder.Configuration.GetConnectionString("MSSQL"));
+
+// Masstransit
 builder.Services.AddReservationMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ"));
 
+// Swager
+builder.Services.AddCustomSwaggerGenService();
+
+
+// HttpAccessor
+builder.Services.AddHttpContextAccessor();
+MapFunc.InitializeHttpContextAccessor(builder.Services.BuildServiceProvider());
+builder.Services.AddHttpClient();
+
+
+// Authentication
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
 builder.Services.AddCustomTokenAuth(tokenOptions);
@@ -41,6 +51,8 @@ app.UseCors("CorsPolicy");
 app.UseCustomExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseLanguage();
 
 app.UseAuthentication();
 app.UseAuthorization();
