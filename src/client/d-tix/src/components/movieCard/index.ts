@@ -8,4 +8,9 @@ export default class MovieCard extends Vue {
   goToDetail(){
     this.$router.push({path:'/movieDetail'});
   }
+
+  goToTicketBuy(){
+    this.$router.push({path:'/ticketBuy'});
+
+  }
 }

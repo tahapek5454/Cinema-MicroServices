@@ -10,7 +10,7 @@
         <button v-if="!isDetail" @click="goToDetail" class="tw-text-xs md:tw-text-sm tw-bg-gray hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full tw-uppercase">
           Hemen İncele
         </button>
-        <button class="tw-text-xs md:tw-text-sm tw-bg-red hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full tw-uppercase">
+        <button @click="goToTicketBuy" class="tw-text-xs md:tw-text-sm tw-bg-red hover:tw-bg-blue-700 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full tw-uppercase">
           Bilet Al
         </button>
       </div>

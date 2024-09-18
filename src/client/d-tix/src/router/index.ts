@@ -3,6 +3,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import HomeView from '../views/home/index.vue'
 import MovieDetailView from '@/views/movieDetail/index.vue'
 import PlayGroundView from '@/views/playGround/index.vue'
+import TicketBuy from '@/views/ticketBuy/index.vue'
 import AuthView from '@/views/auth/index.vue'
 
 Vue.use(VueRouter)
@@ -32,6 +33,11 @@ const routes: Array<RouteConfig> = [
     path: '/playground',
     name: 'playground',
     component: PlayGroundView
+  },
+  {
+    path: '/ticketBuy',
+    name: 'ticketBuy',
+    component: TicketBuy
   }
 ]
 

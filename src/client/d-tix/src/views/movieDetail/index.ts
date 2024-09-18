@@ -12,7 +12,8 @@ export default class MovieDetailView extends Vue {
   basePath: string = '/movieCardImages/';
   moviePath: string= this.basePath+'dw.jpg';
 
-  show(){
-    this.$toast.success("Bilet aldın");
+  goToTicketBuy(){
+    this.$router.push({path:'/ticketBuy'});
+
   }
 }
