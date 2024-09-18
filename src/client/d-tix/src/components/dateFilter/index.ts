@@ -15,7 +15,10 @@ export default class DateFilter extends Vue {
 
   private generateDays(index:number): string[] {
     const today = new Date();
-    today.setDate(today.getDate() + index); // Yarın için başlangıç tarihi
+    today.setDate(today.getDate() + index); 
+    this.selectDate(today.toLocaleDateString('en-GB', { day: '2-digit', month: 'short' }));
+    this.filterResults();
+
 
     const days: string[] = [];
     for (let i = 0; i < this.daysVisible; i++) {
@@ -53,33 +56,33 @@ export default class DateFilter extends Vue {
   }
   
   sessions: Session[] = [
-    { time: '10:00', date: '15 Sept' },
-    { time: '13:00', date: '15 Sept' },
-    { time: '15:00', date: '15 Sept' },
-    { time: '17:00', date: '15 Sept' },
-    { time: '19:00', date: '15 Sept' },
-    { time: '19:40', date: '15 Sept' },
-    { time: '20:00', date: '15 Sept' },
-    { time: '21:00', date: '15 Sept' },
-    { time: '23:00', date: '15 Sept' },
-    { time: '09:00', date: '16 Sept' },
-    { time: '13:00', date: '16 Sept' },
-    { time: '15:00', date: '16 Sept' },
-    { time: '17:00', date: '16 Sept' },
-    { time: '19:00', date: '16 Sept' },
-    { time: '19:40', date: '16 Sept' },
-    { time: '20:00', date: '16 Sept' },
-    { time: '21:00', date: '16 Sept' },
-    { time: '23:00', date: '16 Sept' },
-    { time: '11:00', date: '17 Sept' },
-    { time: '13:00', date: '17 Sept' },
-    { time: '15:00', date: '17 Sept' },
-    { time: '17:00', date: '17 Sept' },
-    { time: '19:00', date: '17 Sept' },
-    { time: '19:40', date: '17 Sept' },
-    { time: '12:00', date: '18 Sept' },
-    { time: '13:00', date: '18 Sept' },
-    { time: '15:00', date: '18 Sept' },
+    { time: '10:00', date: '19 Sept' },
+    { time: '13:00', date: '19 Sept' },
+    { time: '15:00', date: '19 Sept' },
+    { time: '17:00', date: '19 Sept' },
+    { time: '19:00', date: '19 Sept' },
+    { time: '19:40', date: '19 Sept' },
+    { time: '20:00', date: '19 Sept' },
+    { time: '21:00', date: '19 Sept' },
+    { time: '23:00', date: '19 Sept' },
+    { time: '09:00', date: '20 Sept' },
+    { time: '13:00', date: '20 Sept' },
+    { time: '15:00', date: '20 Sept' },
+    { time: '17:00', date: '20 Sept' },
+    { time: '19:00', date: '20 Sept' },
+    { time: '19:40', date: '20 Sept' },
+    { time: '20:00', date: '20 Sept' },
+    { time: '21:00', date: '20 Sept' },
+    { time: '23:00', date: '20 Sept' },
+    { time: '11:00', date: '21 Sept' },
+    { time: '13:00', date: '21 Sept' },
+    { time: '15:00', date: '21 Sept' },
+    { time: '17:00', date: '21 Sept' },
+    { time: '19:00', date: '21 Sept' },
+    { time: '19:40', date: '21 Sept' },
+    { time: '12:00', date: '22 Sept' },
+    { time: '13:00', date: '23 Sept' },
+    { time: '15:00', date: '23 Sept' },
     { time: '17:00', date: '18 Sept' },
     { time: '19:00', date: '18 Sept' },
     { time: '19:40', date: '18 Sept' },
