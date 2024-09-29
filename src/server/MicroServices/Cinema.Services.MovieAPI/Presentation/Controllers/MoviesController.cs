@@ -4,7 +4,6 @@ using Cinema.Services.MovieAPI.Application.Commands.Movies.UpdateMovie;
 using Cinema.Services.MovieAPI.Application.Queries.Movies.GetAllMovies;
 using Cinema.Services.MovieAPI.Application.Queries.Movies.GetMovieById;
 using Cinema.Services.MovieAPI.Application.Queries.Movies.GetMoviesWithPagination;
-using Cinema.Services.MovieAPI.Application.Services.Abstract;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +12,7 @@ namespace Cinema.Services.MovieAPI.API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class MoviesController(IMediator _mediator, IMovieService _movieService) : ControllerBase
+    public class MoviesController(IMediator _mediator) : ControllerBase
     {
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetMovieById([FromRoute] GetMovieByIdRequest request)

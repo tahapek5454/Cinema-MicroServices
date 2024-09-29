@@ -8,6 +8,7 @@ using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Behaviors;
+using SharedLibrary.Extensions;
 using SharedLibrary.Settings;
 using System.Reflection;
 
@@ -29,6 +30,7 @@ namespace Cinema.Services.MovieAPI
             // Repositories
             services.AddScoped<IMovieRepository, MovieRepository>();
             services.AddScoped<IMovieImageRepository, MovieImageRepository>();
+            services.AddSharedRepositories();
 
             // Services
             services.AddScoped<IMovieService, MovieService>();
