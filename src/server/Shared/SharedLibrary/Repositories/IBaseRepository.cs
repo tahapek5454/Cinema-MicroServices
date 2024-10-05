@@ -21,6 +21,7 @@ namespace SharedLibrary.Repositories
            where TRequest : class;
         public void Delete(int id);
         public void DeleteRange(params int[] ids);
+        public void DeleteRange(IEnumerable<int> ids);
         public Task DeleteAsync(int id);
         public Task<int> SaveChangesAsync();
         public int SaveChanges();

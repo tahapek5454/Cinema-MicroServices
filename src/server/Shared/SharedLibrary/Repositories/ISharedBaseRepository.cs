@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver.Linq;
+﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using SharedLibrary.Models.Entities;
 using System.Linq.Expressions;
 
@@ -17,5 +18,6 @@ namespace SharedLibrary.Repositories
         Task<T> DeleteAsync(T entity);
         Task<T> DeleteAsync(int id);
         Task<T> DeleteAsync(Expression<Func<T, bool>> predicate);
+        Task<DeleteResult> DeleteRangeByIdsAsync(IEnumerable<int> ids);
     }
 }

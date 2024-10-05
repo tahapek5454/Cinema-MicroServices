@@ -55,6 +55,13 @@ namespace SharedLibrary.Repositories
                 _context.RemoveRange(entities);
         }
 
+        public void DeleteRange(IEnumerable<int> ids)
+        {
+            var entities = Table.Where(x => ids.Contains(x.Id)).ToList();
+            if (entities.Any())
+                _context.RemoveRange(entities);
+        }
+
         public IEnumerable<T> GetAll(bool asNoTracking = false)
         {
             if(asNoTracking)

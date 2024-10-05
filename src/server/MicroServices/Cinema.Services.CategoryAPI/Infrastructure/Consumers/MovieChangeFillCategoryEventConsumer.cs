@@ -38,7 +38,12 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
 
             if (movieIds.Count != categoryIds.Count)
             {
-                // TODO: Send MovieAddNotReceivedFromCategoryEvent
+                await sendEndpoint.Send(new MovieChangeNotReceivedFromCategoryEvent(context.Message.CorrelationId)
+                {
+                    CategoryIds = categoryIds,
+                    CrudStatus = context.Message.CrudStatus,
+                    MovieIds = movieIds,
+                });
                 return;
             }
 
@@ -48,16 +53,26 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
 
                 if (category is null)
                 {
-                    // TODO: Send MovieAddNotReceivedFromCategoryEvent
-                    break; // Toplu Transaction oldugundan digerleri de iptal edilmelidir.
+                    await sendEndpoint.Send(new MovieChangeNotReceivedFromCategoryEvent(context.Message.CorrelationId)
+                    {
+                        CategoryIds = categoryIds,
+                        CrudStatus = context.Message.CrudStatus,
+                        MovieIds = movieIds,
+                    });
+                    break; 
                 }
 
                 var targetMovie = await _sharedMovieRepository.GetByIdAsync(movieId);
 
                 if (targetMovie is null)
                 {
-                    // TODO: Send MovieAddNotReceivedFromCategoryEvent
-                    break; // Toplu Transaction oldugundan digerleri de iptal edilmelidir.
+                    await sendEndpoint.Send(new MovieChangeNotReceivedFromCategoryEvent(context.Message.CorrelationId)
+                    {
+                        CategoryIds = categoryIds,
+                        CrudStatus = context.Message.CrudStatus,
+                        MovieIds = movieIds,
+                    });
+                    break;
                 }
 
                 targetMovie.Category = new()

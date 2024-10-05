@@ -18,6 +18,7 @@ namespace SharedLibrary.Settings
         public const string MovieChangeStateMachineQueue = "movie_change_state_machine_queue";
         public const string Category_MovieChangeQueue = "category_movie_change_queue";
         public const string File_MovieChangeQueue = "file_movie_change_queue";
+        public const string Movie_MovieChangeRollBackMessageQueue = "movie_movie_change_rollback_message_queue";
 
     }
 }

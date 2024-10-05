@@ -51,6 +51,12 @@ namespace SharedLibrary.Repositories
         public async Task<T> DeleteAsync(Expression<Func<T, bool>> predicate)
             => await _collection.FindOneAndDeleteAsync(predicate);
 
+        public async Task<DeleteResult> DeleteRangeByIdsAsync(IEnumerable<int> ids)
+        {
+            var filter = Builders<T>.Filter.In("_id", ids);
+            return await _collection.DeleteManyAsync(filter);
+        }
+
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate = null) 
             => predicate == null
                 ? _collection.AsQueryable()

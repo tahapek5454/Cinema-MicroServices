@@ -35,6 +35,9 @@ namespace SharedLibrary.Services
         public  void DeleteRange(params int[] ids)
             =>  _repository.DeleteRange(ids);
 
+        public void DeleteRange(IEnumerable<int> ids)
+            => _repository.DeleteRange(ids);
+
         public IEnumerable<T> GetAll(bool asNoTracking = false)
             => _repository.GetAll(asNoTracking);
 

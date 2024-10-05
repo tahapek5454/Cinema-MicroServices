@@ -3,6 +3,7 @@ using SagaStateMachine.Host.StateInstances;
 using SharedLibrary.Events.MovieChangeEvents;
 using SharedLibrary.Events.MovieChangeEvents.AddMovieEvents;
 using SharedLibrary.Helpers;
+using SharedLibrary.Messages;
 using SharedLibrary.Settings;
 
 namespace SagaStateMachine.Host.StateMachines
@@ -12,10 +13,12 @@ namespace SagaStateMachine.Host.StateMachines
      
         public Event<MovieChangeStartedEvent> MovieChangeStartedEvent { get; set; }
         public Event<MovieChangeReceivedFromCategoryEvent> MovieChangeReceivedFromCategoryEvent { get; set; }
+        public Event<MovieChangeNotReceivedFromCategoryEvent> MovieChangeNotReceivedFromCategoryEvent { get; set; }
         public Event<MovieChangeReceivedFromFileEvent> MovieChangeReceivedFromFileEvent { get; set; }
 
         public State MovieChanged { get; set; }
         public State MovieChangeReservedFromCategory { get; set; }
+        public State MovieChangeNotReservedFromCategory { get; set; }
         public State MovieChangeReservedFromFile { get; set; }
     
 
@@ -32,6 +35,11 @@ namespace SagaStateMachine.Host.StateMachines
             });
 
             Event(() => MovieChangeReceivedFromCategoryEvent, (instance) =>
+            {
+                instance.CorrelateById(@event => @event.Message.CorrelationId);
+            });
+
+            Event(() => MovieChangeNotReceivedFromCategoryEvent, (instance) =>
             {
                 instance.CorrelateById(@event => @event.Message.CorrelationId);
             });
@@ -71,8 +79,14 @@ namespace SagaStateMachine.Host.StateMachines
                     MovieIds = context.Message.MovieIds,
                     CrudStatus = context.Message.CrudStatus,
                     
+                }),
+                When(MovieChangeNotReceivedFromCategoryEvent)
+                .TransitionTo(MovieChangeNotReservedFromCategory)
+                .Send(new Uri($"queue:{RabbitMQSettings.Movie_MovieChangeRollBackMessageQueue}"), context => new MovieRollBackMessage()
+                {
+                    MovieIds = context.Message.MovieIds,
+                    CrudStatus = context.Message.CrudStatus,    
                 })
-        
                 );
 
             During(
