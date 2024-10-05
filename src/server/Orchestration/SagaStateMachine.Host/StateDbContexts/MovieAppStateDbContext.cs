@@ -14,6 +14,7 @@ namespace SagaStateMachine.Host.StateDbContexts
             {
                 yield return new MovieImageStateMap();
                 yield return new ReservationStateMap();
+                yield return new MovieChangeStateMap();
             }
         }
     }

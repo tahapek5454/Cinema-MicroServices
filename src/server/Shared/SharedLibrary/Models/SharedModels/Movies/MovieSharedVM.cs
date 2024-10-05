@@ -1,6 +1,8 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using SharedLibrary.Attributes;
 using SharedLibrary.Models.Entities;
+using SharedLibrary.Models.SharedModels.Categories;
+using SharedLibrary.Models.SharedModels.Images;
 
 namespace SharedLibrary.Models.SharedModels.Movies
 {
@@ -36,5 +38,14 @@ namespace SharedLibrary.Models.SharedModels.Movies
         [BsonRepresentation(MongoDB.Bson.BsonType.Int32)]
         [BsonElement(Order = 7)]
         public int CategoryId { get; set; }
+
+
+        [BsonElement(Order = 8)]
+        public CategorySharedVM? Category { get; set; }
+
+
+        [BsonElement(Order = 9)]
+        public List<MovieImageSharedVM>? MovieImages { get; set; }
+
     }
 }

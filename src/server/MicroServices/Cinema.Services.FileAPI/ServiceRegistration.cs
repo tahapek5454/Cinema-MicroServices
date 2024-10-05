@@ -10,6 +10,7 @@ using MassTransit;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Behaviors;
+using SharedLibrary.Extensions;
 using SharedLibrary.Settings;
 using System.Reflection;
 
@@ -30,6 +31,8 @@ namespace Cinema.Services.FileAPI
 
             // Repositories
             serviceCollection.AddScoped<IMovieImageRepository, MovieImageRepository>();
+            serviceCollection.AddSharedRepositories();
+
 
             // Services
             serviceCollection.AddScoped<IStorageService, StorageService>();
@@ -50,6 +53,7 @@ namespace Cinema.Services.FileAPI
             {
 
                 configure.AddConsumer<MovieImageRollbackMessageConsumer>();
+                configure.AddConsumer<MovieChangeFillMovieImageEventConsumer>();
 
                 configure.UsingRabbitMq((context, configurator) =>
                 {
@@ -58,6 +62,12 @@ namespace Cinema.Services.FileAPI
                     configurator.ReceiveEndpoint(RabbitMQSettings.File_MovieImageRollbackMessageQueue, e =>
                     {
                         e.ConfigureConsumer<MovieImageRollbackMessageConsumer>(context);
+                        e.DiscardSkippedMessages();
+                    });
+
+                    configurator.ReceiveEndpoint(RabbitMQSettings.File_MovieChangeQueue, e =>
+                    {
+                        e.ConfigureConsumer<MovieChangeFillMovieImageEventConsumer>(context);
                         e.DiscardSkippedMessages();
                     });
                 });

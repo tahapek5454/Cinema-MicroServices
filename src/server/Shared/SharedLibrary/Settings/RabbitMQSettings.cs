@@ -14,5 +14,10 @@ namespace SharedLibrary.Settings
         public const string Session_ReservedQueue = "session_reserved_queue";
         public const string Reservation_ReservationRollbackMessageQueue = "reservation_reservation_rollback_message_queue";
 
+        // Movie Change Queue
+        public const string MovieChangeStateMachineQueue = "movie_change_state_machine_queue";
+        public const string Category_MovieChangeQueue = "category_movie_change_queue";
+        public const string File_MovieChangeQueue = "file_movie_change_queue";
+
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,9 @@ builder.Services.AddEndpointsApiExplorer();
 // Services
 builder.Services.AddCategoryServices(builder.Configuration.GetConnectionString("MSSQL") ?? string.Empty);
 
+// Mongo
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
+
 // Swaggers
 builder.Services.AddCustomSwaggerGenService();
 
@@ -35,6 +39,9 @@ builder.Services.AddHttpClient();
 builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection("TokenOptions"));
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
 builder.Services.AddCustomTokenAuth(tokenOptions);
+
+// MassTransit
+builder.Services.AddMovieMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ") ?? string.Empty);
 
 var app = builder.Build();
 

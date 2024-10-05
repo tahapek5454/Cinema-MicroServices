@@ -3,6 +3,7 @@ using Cinema.Services.MovieAPI.Application.Commands.Movies.AddMovie;
 using Cinema.Services.MovieAPI.Application.Dtos.Movies;
 using Cinema.Services.MovieAPI.Domain.Entities;
 using SharedLibrary.Extensions;
+using SharedLibrary.Models.SharedModels.Movies;
 
 namespace Cinema.Services.MovieAPI.Application.Mapper.MovieProfile
 {
@@ -11,6 +12,10 @@ namespace Cinema.Services.MovieAPI.Application.Mapper.MovieProfile
         public MovieMapper()
         {
             CreateMap<Movie, MovieDto>()
+                .ForMember(dest => dest.Name, opt => opt.MapFromLanguage(opt.DestinationMember))
+                .ForMember(dest => dest.Description, opt => opt.MapFromLanguage(opt.DestinationMember));
+
+            CreateMap<Movie, MovieSharedVM>()
                 .ForMember(dest => dest.Name, opt => opt.MapFromLanguage(opt.DestinationMember))
                 .ForMember(dest => dest.Description, opt => opt.MapFromLanguage(opt.DestinationMember));
 

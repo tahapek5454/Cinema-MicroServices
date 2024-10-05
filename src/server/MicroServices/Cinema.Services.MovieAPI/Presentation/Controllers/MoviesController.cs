@@ -34,8 +34,8 @@ namespace Cinema.Services.MovieAPI.API.Controllers
             var r = await _mediator.Send(request);
             return Ok(r.Result);
         }
-
-        [HttpPost, Authorize(Roles = "admin")]
+        // Authorize(Roles = "admin")
+        [HttpPost]
         public async Task<IActionResult> AddMovie([FromBody] AddMovieRequest request)
         {
             var r = await _mediator.Send(request);
