@@ -67,6 +67,7 @@ namespace SagaStateMachine.Host.StateMachines
                     CategoryIds = StringListConvert.ConvertToList<int>(context.Message.CategoryIds),  
                     MovieIds = StringListConvert.ConvertToList<int>(context.Message.MovieIds),
                     CrudStatus = context.Message.CrudStatus,
+                    UpdateResults = context.Message.UpdateResults,
                 })
                 );
 
@@ -85,7 +86,8 @@ namespace SagaStateMachine.Host.StateMachines
                 .Send(new Uri($"queue:{RabbitMQSettings.Movie_MovieChangeRollBackMessageQueue}"), context => new MovieRollBackMessage()
                 {
                     MovieIds = context.Message.MovieIds,
-                    CrudStatus = context.Message.CrudStatus,    
+                    CrudStatus = context.Message.CrudStatus, 
+                    UpdateResults = context.Message.UpdateResults
                 })
                 );
 

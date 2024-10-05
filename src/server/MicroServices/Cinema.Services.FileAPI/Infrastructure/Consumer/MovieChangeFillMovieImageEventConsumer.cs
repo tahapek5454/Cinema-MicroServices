@@ -19,9 +19,10 @@ namespace Cinema.Services.FileAPI.Infrastructure.Consumer
             switch (context.Message.CrudStatus)
             {
                 case SharedLibrary.Enums.CRUDStatusEnum.Insert:
-                    await Insert(context, sendEndpoint);
+                    await Insert(context.Message, sendEndpoint);
                     break;
                 case SharedLibrary.Enums.CRUDStatusEnum.Update:
+                    await Update(context.Message, sendEndpoint);
                     break;
                 case SharedLibrary.Enums.CRUDStatusEnum.Delete:
                     break;
@@ -33,9 +34,9 @@ namespace Cinema.Services.FileAPI.Infrastructure.Consumer
 
         }
 
-        private async Task Insert(ConsumeContext<MovieChangeFillMovieImageEvent> context, ISendEndpoint sendEndpoint)
+        private async Task Insert(MovieChangeFillMovieImageEvent message, ISendEndpoint sendEndpoint)
         {
-            foreach (var movieId in context.Message.MovieIds)
+            foreach (var movieId in message.MovieIds)
             {
                 var images = _movieImageService.Table.Where(x => x.RelationId.Equals(movieId)).ToList();
 
@@ -55,11 +56,45 @@ namespace Cinema.Services.FileAPI.Infrastructure.Consumer
                     Path = x.Path,
                     Storage = x.Storage
                 }).ToList();
+
+                await _sharedMovieRepository.UpdateAsync(movie.Id, movie);
             }
 
-            await sendEndpoint.Send(new MovieChangeReceivedFromFileEvent(context.Message.CorrelationId)
+            await sendEndpoint.Send(new MovieChangeReceivedFromFileEvent(message.CorrelationId)
             {
-                MovieIds = context.Message.MovieIds,
+                MovieIds = message.MovieIds,
+            });
+        }
+
+        private async Task Update(MovieChangeFillMovieImageEvent message, ISendEndpoint sendEndpoint)
+        {
+            foreach (var movieId in message.MovieIds)
+            {
+                var images = _movieImageService.Table.Where(x => x.RelationId.Equals(movieId)).ToList();
+
+                if (!images.Any())
+                    continue;
+
+                var movie = await _sharedMovieRepository.GetByIdAsync(movieId);
+
+                if (movie is null)
+                    continue;
+
+                movie.MovieImages = images.Select(x => new SharedLibrary.Models.SharedModels.Images.MovieImageSharedVM()
+                {
+                    Id = x.Id,
+                    FileName = x.FileName,
+                    MovieId = movieId,
+                    Path = x.Path,
+                    Storage = x.Storage
+                }).ToList();
+
+                await _sharedMovieRepository.UpdateAsync(movie.Id, movie);
+            }
+
+            await sendEndpoint.Send(new MovieChangeReceivedFromFileEvent(message.CorrelationId)
+            {
+                MovieIds = message.MovieIds,
             });
         }
     }

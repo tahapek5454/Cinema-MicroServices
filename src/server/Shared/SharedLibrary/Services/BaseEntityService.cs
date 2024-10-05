@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Models.Dtos;
 using SharedLibrary.Models.Entities;
 using SharedLibrary.Repositories;
 
@@ -59,7 +60,7 @@ namespace SharedLibrary.Services
         public T Update(T entity)
             => _repository.Update(entity);
 
-        public int UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
+        public List<UpdateResultDto> UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
             where TModel : class
             where TRequest : class
             => _repository.UpdateAdvance(model, request);

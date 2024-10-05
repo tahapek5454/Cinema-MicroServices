@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Models.Dtos;
 using SharedLibrary.Models.Entities;
 
 namespace SharedLibrary.Services
@@ -16,7 +17,7 @@ namespace SharedLibrary.Services
         public Task AddRangeAsync(IEnumerable<T> entities);
         public T Update(T entity);
         public Task<T> UpdateAsync(T entity);
-        int UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
+        List<UpdateResultDto> UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
            where TModel : class
            where TRequest : class;
         public void Delete(int id);

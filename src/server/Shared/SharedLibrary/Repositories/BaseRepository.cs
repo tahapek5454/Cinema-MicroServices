@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SharedLibrary.Models.Dtos;
 using SharedLibrary.Models.Entities;
 
 namespace SharedLibrary.Repositories
@@ -101,10 +102,13 @@ namespace SharedLibrary.Repositories
             return entity;
         }
 
-        public int UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
+        public List<UpdateResultDto> UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
             where TModel : class
             where TRequest : class
         {
+
+            List<UpdateResultDto> updateResults = new List<UpdateResultDto>();
+
             var entityType = typeof(TModel);
             var requestType = typeof(TRequest);
 
@@ -121,14 +125,26 @@ namespace SharedLibrary.Repositories
                 var entityProperty = entityProperties.FirstOrDefault(p => p.Name == requestProperty.Name);
                 var updatedValue = requestProperty.GetValue(request);
 
-                if (entityProperty != null && updatedValue != null && requestProperty != pk)
+                if (entityProperty != null && updatedValue != null && requestProperty.Name != pk.Name)
                 {
+                    var updateResult = new UpdateResultDto()
+                    {
+                        PropertyTypeName = entityProperty.PropertyType.Name,
+                        PorpertyName = entityProperty.Name,
+                        OldValue = entityProperty.GetValue(model),
+                        NewValue = updatedValue,
+                        ModelPk = pk.GetValue(model) == null ? null : (int)pk.GetValue(model),
+                        ModelTypeName = entityType.Name,
+                    };
+
+                    updateResults.Add(updateResult);    
+
                     entityProperty.SetValue(model, updatedValue);
                     updatedPropertyCount++;
                 }
             }
 
-            return updatedPropertyCount;
+            return updateResults;
         }
 
         public async Task<T> UpdateAsync(T entity)
