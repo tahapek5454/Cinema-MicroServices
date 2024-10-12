@@ -3,10 +3,11 @@ using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 
 namespace Cinema.Services.MovieAPI.Application.Commands.Movies.RemoveMovie
 {
-    public class RemoveMovieRequestHandler(IMovieService _movieService, MovieUnitOfWork _movieUnitOfWork) : IRequestHandler<RemoveMovieRequest, RemoveMovieResponse>
+    public class RemoveMovieRequestHandler(IMovieService _movieService, MovieUnitOfWork _movieUnitOfWork ,ISharedMovieRepository _sharedMovieRepository) : IRequestHandler<RemoveMovieRequest, RemoveMovieResponse>
     {
         public async Task<RemoveMovieResponse> Handle(RemoveMovieRequest request, CancellationToken cancellationToken)
         {
@@ -19,6 +20,13 @@ namespace Cinema.Services.MovieAPI.Application.Commands.Movies.RemoveMovie
 
             await _movieUnitOfWork.SaveChangesAsync();
 
+
+            await _sharedMovieRepository.DeleteAsync(request.Id);
+
+            // Silme işlemini MovieChange sürecine şimdilik dahil etmedim.
+            // Eğer Session Reservation süreçlerinde read modelinde Momive nesnesi bulunacaksa
+            // Olası Movie Update ve Delete lerinde FillFromSession süreci eklenmeli ve güncellenmeli
+            // Şimdilik buraya girmiyorum.
 
             return new()
             {
