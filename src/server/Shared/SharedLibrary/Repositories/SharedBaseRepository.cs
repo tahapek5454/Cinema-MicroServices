@@ -25,6 +25,7 @@ namespace SharedLibrary.Repositories
                 collectionName = typeof(T).Name.ToLowerInvariant();
             }
             this._collection = db.GetCollection<T>(collectionName);
+
         }
 
         public IMongoQueryable<T> Query()

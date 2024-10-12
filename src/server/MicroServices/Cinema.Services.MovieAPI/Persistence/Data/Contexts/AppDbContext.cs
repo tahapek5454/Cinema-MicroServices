@@ -27,7 +27,7 @@ namespace Cinema.Services.MovieAPI.Persistence.Data.Contexts
                 _ = data.State switch
                 {
                     EntityState.Added => data.Entity.CreatedDate = DateTime.Now,
-                    EntityState.Modified => data.Entity.CreatedDate = DateTime.Now,
+                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.Now,
                     _ => DateTime.Now
                 };
             }

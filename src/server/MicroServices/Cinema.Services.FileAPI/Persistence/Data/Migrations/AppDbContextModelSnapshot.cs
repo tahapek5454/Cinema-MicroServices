@@ -22,7 +22,7 @@ namespace Cinema.Services.FileAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Cinema.Services.FileAPI.Models.MovieImage", b =>
+            modelBuilder.Entity("Cinema.Services.FileAPI.Domain.Entities.MovieImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

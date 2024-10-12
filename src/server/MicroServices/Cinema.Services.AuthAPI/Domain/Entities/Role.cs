@@ -12,6 +12,6 @@ namespace Cinema.Services.AuthAPI.Domain.Entities
 
 
         [NotMapped]
-        public override DateTime UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
+        public override DateTime? UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
     }
 }

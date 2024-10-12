@@ -34,11 +34,11 @@ namespace Cinema.Services.MovieAPI.Application.Commands.Movies.UpdateMovie
             await _movieUnitOfWork.SaveChangesAsync();
 
             var sharedMovie = ObjectMapper.Mapper.Map<MovieSharedVM>(movie);
+            var oldMovieShared = await _sharedMovieRepository.GetByIdAsync(sharedMovie.Id);
             await _sharedMovieRepository.UpdateAsync(sharedMovie.Id, sharedMovie);
 
             var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint
                 (new Uri($"queue:{RabbitMQSettings.MovieChangeStateMachineQueue}"));
-
 
             await sendEndpoint.Send(new MovieChangeStartedEvent()
             {
@@ -46,7 +46,8 @@ namespace Cinema.Services.MovieAPI.Application.Commands.Movies.UpdateMovie
                 CreatedTime = DateTime.Now,
                 CrudStatus = SharedLibrary.Enums.CRUDStatusEnum.Update,
                 MovieIds = movie.Id.ToString(),
-                UpdateResults = updateResults
+                UpdateResults = updateResults,
+                OldMovieValues = new() { oldMovieShared } 
             });
 
 

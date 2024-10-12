@@ -9,6 +9,6 @@ namespace Cinema.Services.CategoryAPI.Domain.Entities
         public string? Name_EN { get; set; }
 
         [NotMapped]
-        public override DateTime UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
+        public override DateTime? UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
     }
 }

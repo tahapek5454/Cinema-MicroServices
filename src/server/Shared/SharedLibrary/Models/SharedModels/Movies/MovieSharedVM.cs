@@ -33,7 +33,7 @@ namespace SharedLibrary.Models.SharedModels.Movies
         [BsonRepresentation(MongoDB.Bson.BsonType.DateTime)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         [BsonElement(Order = 6)]
-        public DateTime UpdatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
 
         [BsonRepresentation(MongoDB.Bson.BsonType.Int32)]
         [BsonElement(Order = 7)]

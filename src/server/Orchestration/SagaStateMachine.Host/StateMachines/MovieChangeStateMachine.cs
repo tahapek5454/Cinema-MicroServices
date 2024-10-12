@@ -68,6 +68,7 @@ namespace SagaStateMachine.Host.StateMachines
                     MovieIds = StringListConvert.ConvertToList<int>(context.Message.MovieIds),
                     CrudStatus = context.Message.CrudStatus,
                     UpdateResults = context.Message.UpdateResults,
+                    OldMovieValues = context.Message.OldMovieValues,
                 })
                 );
 
@@ -87,7 +88,8 @@ namespace SagaStateMachine.Host.StateMachines
                 {
                     MovieIds = context.Message.MovieIds,
                     CrudStatus = context.Message.CrudStatus, 
-                    UpdateResults = context.Message.UpdateResults
+                    UpdateResults = context.Message.UpdateResults,
+                    OldMovieValues = context.Message.OldMovieValues
                 })
                 );
 

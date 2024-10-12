@@ -66,6 +66,9 @@ namespace SharedLibrary.Services
             => _repository.UpdateAdvance(model, request);
 
         public async Task<T> UpdateAsync(T entity)
-            => await _repository.UpdateAsync(entity);   
+            => await _repository.UpdateAsync(entity);
+
+        public List<UpdateResultDto> UpdatePartialRollback<TModel>(TModel model, List<UpdateResultDto> partial) where TModel : BaseEntity
+            => _repository.UpdatePartialRollback(model, partial);
     }
 }

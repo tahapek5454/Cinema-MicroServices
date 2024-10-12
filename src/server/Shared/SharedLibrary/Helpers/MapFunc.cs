@@ -16,7 +16,7 @@ namespace SharedLibrary.Helpers
         public static Func<object, object, MemberInfo, string> ReturnPropertyLanguageDynamic = ReturnPropertyDynamic;
         private static string ReturnPropertyDynamic(object entity, object vm, MemberInfo destinationProperty)
         {
-            if ((SystemLanguage)_accessor.HttpContext.Items["language"] == SystemLanguage.tr_TR)
+            if (_accessor?.HttpContext?.Items["language"] == null || (SystemLanguage)_accessor.HttpContext.Items["language"] == SystemLanguage.tr_TR)
                 return entity.GetType().GetProperty(destinationProperty.Name)?.GetValue(entity)?.ToString() ?? ""; // return default
 
             string destionationPropertyName = destinationProperty.Name.ToUpper();

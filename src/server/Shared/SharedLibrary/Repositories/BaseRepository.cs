@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Models.Dtos;
 using SharedLibrary.Models.Entities;
+using System.Collections.Generic;
+using System.Security;
+using System.Text.Json;
 
 namespace SharedLibrary.Repositories
 {
@@ -102,7 +105,7 @@ namespace SharedLibrary.Repositories
             return entity;
         }
 
-        public List<UpdateResultDto> UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
+        public List<UpdateResultDto> UpdateAdvance<TModel, TRequest>(TModel model, TRequest request) // should be use primitive types
             where TModel : class
             where TRequest : class
         {
@@ -130,7 +133,7 @@ namespace SharedLibrary.Repositories
                     var updateResult = new UpdateResultDto()
                     {
                         PropertyTypeName = entityProperty.PropertyType.Name,
-                        PorpertyName = entityProperty.Name,
+                        PropertyName = entityProperty.Name,
                         OldValue = entityProperty.GetValue(model),
                         NewValue = updatedValue,
                         ModelPk = pk.GetValue(model) == null ? null : (int)pk.GetValue(model),
@@ -145,6 +148,65 @@ namespace SharedLibrary.Repositories
             }
 
             return updateResults;
+        }
+
+        public List<UpdateResultDto> UpdatePartialRollback<TModel>(TModel model, List<UpdateResultDto> partial) where TModel : BaseEntity // should be use primitive types
+        {
+            var entityType = typeof(TModel);
+            var entityProperties = entityType.GetProperties();
+
+
+
+            foreach (var item in partial)
+            {
+                var property = entityProperties.FirstOrDefault(x => x.Name.Equals(item.PropertyName));
+
+                if (property is null) // Can be log
+                    return partial;
+
+                try
+                {
+                    var proptype = property.PropertyType;
+                    var oldValue = item.OldValue;
+
+                    if (oldValue is JsonElement jsonElement)
+                    {      
+                        
+                        object val = ConvertJsonElement(jsonElement, proptype);
+
+
+                        property.SetValue(model, val);
+                        
+                    
+                    }
+                    else
+                    {
+                        object? convertedValue = Convert.ChangeType(oldValue, proptype);
+
+                        if (convertedValue is null)
+                            return partial;
+
+                        property.SetValue(model, convertedValue);
+                    }
+
+                  
+                }
+                catch (Exception e)
+                {
+                    throw;
+                }
+        
+            }
+
+            return partial.Select(x => new UpdateResultDto()
+            {
+                ModelPk = x.ModelPk,
+                ModelTypeName = x.ModelTypeName,
+                OldValue = x.NewValue,
+                NewValue = x.OldValue,
+                PropertyName = x.PropertyName,
+                PropertyTypeName = x.PropertyTypeName
+            }).ToList();
         }
 
         public async Task<T> UpdateAsync(T entity)
@@ -166,5 +228,64 @@ namespace SharedLibrary.Repositories
         {
             return await _context.SaveChangesAsync();
         }
+
+
+
+        private object ConvertJsonElement(JsonElement jsonElement, Type targetType)
+        {
+            switch (jsonElement.ValueKind)
+            {
+                case JsonValueKind.Number:
+                    if (targetType == typeof(int))
+                        return jsonElement.GetInt32();
+                    if (targetType == typeof(long))
+                        return jsonElement.GetInt64();
+                    if (targetType == typeof(double))
+                        return jsonElement.GetDouble();
+                    break;
+
+                case JsonValueKind.String:
+                    if (targetType == typeof(string))
+                        return jsonElement.GetString();
+                    break;
+
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    if (targetType == typeof(bool))
+                        return jsonElement.GetBoolean();
+                    break;
+                case JsonValueKind.Array:
+                    return ConvertJsonArray(jsonElement, targetType);
+            }
+
+            throw new InvalidOperationException($"Cannot convert JsonElement of kind {jsonElement.ValueKind} to {targetType}");
+        }
+
+
+        private object ConvertJsonArray(JsonElement jsonArray, Type targetType)
+        {
+            if (targetType.IsArray)
+            {
+                Type elementType = targetType.GetElementType();
+                List<object> items = new List<object>();
+
+                foreach (var jsonElement in jsonArray.EnumerateArray())
+                {
+                    object item = ConvertJsonElement(jsonElement, elementType);
+                    items.Add(item);
+                }
+
+                Array array = Array.CreateInstance(elementType, items.Count);
+                for (int i = 0; i < items.Count; i++)
+                {
+                    array.SetValue(items[i], i);
+                }
+
+                return array;
+            }
+
+            throw new InvalidOperationException($"Cannot convert JsonArray to {targetType}");
+        }
+
     }
 }

@@ -29,7 +29,7 @@ namespace Cinema.Services.BranchAPI.Persistence.Data.Context
                 _ = data.State switch
                 {
                     EntityState.Added => data.Entity.CreatedDate = DateTime.Now,
-                    EntityState.Modified => data.Entity.CreatedDate = DateTime.Now,
+                    EntityState.Modified => data.Entity.UpdatedDate = DateTime.Now,
                     _ => DateTime.Now
                 };
             }

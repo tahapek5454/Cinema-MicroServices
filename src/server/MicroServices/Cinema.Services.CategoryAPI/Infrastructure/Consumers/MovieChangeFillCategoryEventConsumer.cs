@@ -1,6 +1,7 @@
 ﻿using Cinema.Services.CategoryAPI.Application.Services.Abstract;
 using MassTransit;
 using SharedLibrary.Events.MovieChangeEvents;
+using SharedLibrary.Models.SharedModels.Movies;
 using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 using SharedLibrary.Settings;
 
@@ -60,7 +61,7 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
                         CrudStatus = message.CrudStatus,
                         MovieIds = movieIds,
                     });
-                    break; 
+                    return; 
                 }
 
                 var targetMovie = await _sharedMovieRepository.GetByIdAsync(movieId);
@@ -73,7 +74,7 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
                         CrudStatus = message.CrudStatus,
                         MovieIds = movieIds,
                     });
-                    break;
+                    return;
                 }
 
                 targetMovie.Category = new()
@@ -107,7 +108,8 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
                     CategoryIds = categoryIds,
                     CrudStatus = message.CrudStatus,
                     MovieIds = movieIds,
-                    UpdateResults = updateReults
+                    UpdateResults = updateReults,
+                    OldMovieValues = message.OldMovieValues
                 });
                 return;
             }
@@ -119,10 +121,13 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
                     CategoryIds = categoryIds,
                     CrudStatus = message.CrudStatus,
                     MovieIds = movieIds,
-                    UpdateResults = updateReults
+                    UpdateResults = updateReults,
+                    OldMovieValues = message.OldMovieValues
                 });
                 return;
             }
+
+            List<MovieSharedVM> updatedMovie = [];
 
             foreach (var (movieId, categoryId) in movieIds.Zip(categoryIds, (movieId, categoryId) => (movieId, categoryId)))
             {
@@ -135,9 +140,10 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
                         CategoryIds = categoryIds,
                         CrudStatus = message.CrudStatus,
                         MovieIds = movieIds,
-                        UpdateResults = updateReults
+                        UpdateResults = updateReults,
+                        OldMovieValues = message.OldMovieValues
                     });
-                    break;
+                    return;
                 }
 
                 var targetMovie = await _sharedMovieRepository.GetByIdAsync(movieId);
@@ -149,9 +155,10 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
                         CategoryIds = categoryIds,
                         CrudStatus = message.CrudStatus,
                         MovieIds = movieIds,
-                        UpdateResults = updateReults
+                        UpdateResults = updateReults,
+                        OldMovieValues = message.OldMovieValues
                     });
-                    break;
+                    return;
                 }
 
                 targetMovie.Category = new()
@@ -160,7 +167,12 @@ namespace Cinema.Services.CategoryAPI.Infrastructure.Consumers
                     Name = category.Name,
                 };
 
-                await _sharedMovieRepository.UpdateAsync(movieId, targetMovie);
+                updatedMovie.Add(targetMovie);
+            }
+
+            foreach (var item in updatedMovie)
+            {
+                await _sharedMovieRepository.UpdateAsync(item.Id, item);
             }
 
             await sendEndpoint.Send(new MovieChangeReceivedFromCategoryEvent(message.CorrelationId)

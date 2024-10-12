@@ -11,6 +11,6 @@ namespace Cinema.Services.FileAPI.Domain.Entities
         public int RelationId { get; set; }
 
         [NotMapped]
-        public override DateTime UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
+        public override DateTime? UpdatedDate { get => base.UpdatedDate; set => base.UpdatedDate = value; }
     }
 }

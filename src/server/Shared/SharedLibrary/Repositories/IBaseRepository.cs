@@ -20,6 +20,9 @@ namespace SharedLibrary.Repositories
         List<UpdateResultDto> UpdateAdvance<TModel, TRequest>(TModel model, TRequest request)
            where TModel : class
            where TRequest : class;
+
+        List<UpdateResultDto> UpdatePartialRollback<TModel>(TModel model, List<UpdateResultDto> partial)
+           where TModel : BaseEntity;
         public void Delete(int id);
         public void DeleteRange(params int[] ids);
         public void DeleteRange(IEnumerable<int> ids);

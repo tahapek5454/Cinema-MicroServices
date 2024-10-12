@@ -1,5 +1,6 @@
 ﻿using SharedLibrary.Enums;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Models.SharedModels.Movies;
 
 namespace SharedLibrary.Events.MovieChangeEvents
 {
@@ -11,5 +12,6 @@ namespace SharedLibrary.Events.MovieChangeEvents
         public DateTime CreatedTime { get; set; }
 
         public List<UpdateResultDto>? UpdateResults { get; set; }
+        public List<MovieSharedVM>? OldMovieValues { get; set; }
     }
 }
