@@ -5,11 +5,13 @@ using Cinema.Services.FileAPI.Storages.Abstract;
 using MassTransit;
 using MediatR;
 using SharedLibrary.Events.MovieImageEvents;
+using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 using SharedLibrary.Settings;
+using System.Collections.Generic;
 
 namespace Cinema.Services.FileAPI.Application.Commands.MovieImages.UploadImageFile
 {
-    public class UploadImageFileRequestHandler(IStorageService _storageService, IMovieImageService _movieImageService, ISendEndpointProvider _sendEndpointProvider, FileUnitOfWork _fileUnitOfWork) : IRequestHandler<UploadImageFileRequest, UploadImageFileResponse>
+    public class UploadImageFileRequestHandler(IStorageService _storageService, IMovieImageService _movieImageService, ISendEndpointProvider _sendEndpointProvider, FileUnitOfWork _fileUnitOfWork, ISharedMovieRepository _sharedMovieRepository) : IRequestHandler<UploadImageFileRequest, UploadImageFileResponse>
     {
         public async Task<UploadImageFileResponse> Handle(UploadImageFileRequest request, CancellationToken cancellationToken)
         {   
@@ -43,6 +45,24 @@ namespace Cinema.Services.FileAPI.Application.Commands.MovieImages.UploadImageFi
 
             await _movieImageService.Table.AddRangeAsync(images);
             await _fileUnitOfWork.SaveChangesAsync();
+
+            var movieShared = await _sharedMovieRepository.GetByIdAsync(request.RelationId);
+
+            if(movieShared != null)
+            {
+                movieShared.MovieImages ??= new List<SharedLibrary.Models.SharedModels.Images.MovieImageSharedVM>();
+
+                movieShared.MovieImages.AddRange(images.Select(x => new SharedLibrary.Models.SharedModels.Images.MovieImageSharedVM()
+                {
+                    FileName = x.FileName,
+                    Id = x.Id,
+                    MovieId = x.RelationId,
+                    Path = x.Path,
+                    Storage = x.Storage
+                }));
+
+                await _sharedMovieRepository.UpdateAsync(movieShared.Id,movieShared);
+            }
 
             var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{RabbitMQSettings.FileStateMachineQueue}"));
 
