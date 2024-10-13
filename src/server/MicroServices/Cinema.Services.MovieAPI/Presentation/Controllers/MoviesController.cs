@@ -18,21 +18,21 @@ namespace Cinema.Services.MovieAPI.API.Controllers
         public async Task<IActionResult> GetMovieById([FromRoute] GetMovieByIdRequest request)
         {
             var r = await _mediator.Send(request);
-            return Ok(r.Result);
+            return Ok(r.Result.Data);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetMoviesWithPagination([FromQuery] GetMoviesWithPaginationRequest request)
         {
             var r = await _mediator.Send(request);
-            return Ok(r.Result);
+            return Ok(new { r.Result.Data, r.TotalCount });
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllMovies([FromQuery] GetAllMoviesRequest request)
         {
             var r = await _mediator.Send(request);
-            return Ok(r.Result);
+            return Ok(r.Result.Data);
         }
         // Authorize(Roles = "admin")
         [HttpPost]
