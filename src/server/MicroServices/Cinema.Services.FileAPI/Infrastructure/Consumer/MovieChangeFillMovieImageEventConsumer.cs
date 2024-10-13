@@ -1,4 +1,6 @@
 ﻿using Cinema.Services.FileAPI.Application.Services.Abstract;
+using Cinema.Services.FileAPI.Infrastructure.Services.Concrete;
+using Cinema.Services.FileAPI.Storages.Abstract;
 using MassTransit;
 using SharedLibrary.Events.MovieChangeEvents;
 using SharedLibrary.Events.MovieChangeEvents.AddMovieEvents;
@@ -7,7 +9,11 @@ using SharedLibrary.Settings;
 
 namespace Cinema.Services.FileAPI.Infrastructure.Consumer
 {
-    public class MovieChangeFillMovieImageEventConsumer(IMovieImageService _movieImageService,  ISharedMovieRepository _sharedMovieRepository, ISendEndpointProvider _sendEndpointProvider) : IConsumer<MovieChangeFillMovieImageEvent>
+    public class MovieChangeFillMovieImageEventConsumer(IMovieImageService _movieImageService,
+        ISharedMovieRepository _sharedMovieRepository,
+        ISendEndpointProvider _sendEndpointProvider,
+        IStorageService _storageService,
+        FileUnitOfWork _fileUnitOfWork) : IConsumer<MovieChangeFillMovieImageEvent>
     {
         public async Task Consume(ConsumeContext<MovieChangeFillMovieImageEvent> context)
         {
@@ -25,6 +31,7 @@ namespace Cinema.Services.FileAPI.Infrastructure.Consumer
                     await Update(context.Message, sendEndpoint);
                     break;
                 case SharedLibrary.Enums.CRUDStatusEnum.Delete:
+                    await Delete(context.Message, sendEndpoint);
                     break;
                 default:
                     break;
@@ -90,6 +97,32 @@ namespace Cinema.Services.FileAPI.Infrastructure.Consumer
                 }).ToList();
 
                 await _sharedMovieRepository.UpdateAsync(movie.Id, movie);
+            }
+
+            await sendEndpoint.Send(new MovieChangeReceivedFromFileEvent(message.CorrelationId)
+            {
+                MovieIds = message.MovieIds,
+            });
+        }
+
+
+        private async Task Delete(MovieChangeFillMovieImageEvent message, ISendEndpoint sendEndpoint)
+        {
+            foreach (var movieId in message.MovieIds)
+            {
+                var images = _movieImageService.Table.Where(x => x.RelationId.Equals(movieId)).ToList();
+
+                foreach (var image in images)
+                {
+                    await _storageService.DeleteAsync("images", image.FileName);
+                }
+
+                if (images.Any())
+                {
+                    _movieImageService.Table.RemoveRange(images);
+                    await _fileUnitOfWork.SaveChangesAsync();
+                }
+
             }
 
             await sendEndpoint.Send(new MovieChangeReceivedFromFileEvent(message.CorrelationId)
