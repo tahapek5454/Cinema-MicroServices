@@ -11,7 +11,7 @@ namespace Cinema.Services.FileAPI.Presentation.Controllers
     [ApiController]
     public class MovieImagesController(IMediator _mediator) : ControllerBase
     {
-        [HttpPost, Authorize(Roles = "admin")]
+        [HttpPost]
         public async Task<IActionResult> UploadImageFile([FromQuery] UploadImageFileRequest request)
         {
             request.FormFileCollection = Request.Form.Files;
@@ -21,7 +21,7 @@ namespace Cinema.Services.FileAPI.Presentation.Controllers
             return Ok();
         }
 
-        [HttpDelete, Authorize(Roles = "admin")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteImageFile([FromBody] DeleteImageFileRequest request)
         {
             _ = await _mediator.Send(request);

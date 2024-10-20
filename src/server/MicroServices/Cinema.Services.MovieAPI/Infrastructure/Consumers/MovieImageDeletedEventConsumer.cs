@@ -4,6 +4,7 @@ using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Events.MovieImageEvents;
+using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 
 namespace Cinema.Services.MovieAPI.Infrastructure.Consumers
 {
@@ -18,6 +19,8 @@ namespace Cinema.Services.MovieAPI.Infrastructure.Consumers
 
             _movieImageService.Table.Remove(image);
             await _movieUnitOfWork.SaveChangesAsync();
+
+            // TODO: When Image Removed you should remove from shared
         }
     }
 }

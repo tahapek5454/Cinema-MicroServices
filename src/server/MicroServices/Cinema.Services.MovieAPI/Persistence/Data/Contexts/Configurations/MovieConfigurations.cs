@@ -1,6 +1,7 @@
 ﻿using Cinema.Services.MovieAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SharedLibrary.Models.SharedModels.Movies;
 
 namespace Cinema.Services.MovieAPI.Persistence.Data.Contexts.Configurations
 {
@@ -96,6 +97,62 @@ namespace Cinema.Services.MovieAPI.Persistence.Data.Contexts.Configurations
                 UpdatedDate = new DateTime(2024, 2, 5),
                 Time = 1.35,
                 CategoryId = 1
+            };
+
+            yield return new Movie()
+            {
+                Id = 7,
+                Name = "Alien",
+                Name_EN = "Alien",
+                Description = "Bir grup genç uzay kolonizatörü, terk edilmiş bir uzay istasyonunun derinliklerini araştırırken evrendeki en korkunç yaşam formuyla yüz yüze gelir.Bir grup genç uzay kolonizatörü, terk edilmiş bir uzay istasyonunun derinliklerini araştırırken evrendeki en korkunç yaşam formuyla yüz yüze gelir.",
+                Description_EN = "While exploring the depths of an abandoned space station, a group of young space colonisers come face to face with the most terrifying life form in the universe.While exploring the depths of an abandoned space station, a group of young space colonisers come face to face with the most terrifying life form in the universe.",
+                Point = 7.5,
+                CreatedDate = new DateTime(2024, 10, 20),
+                UpdatedDate = new DateTime(2024, 10, 20),
+                Time = 1.35,
+                CategoryId = 4,
+            };
+
+            yield return new Movie()
+            {
+                Id = 8,
+                Name = "Deadpool & Wolverine",
+                Name_EN = "Deadpool & Wolverine",
+                Description = "Wolverine yaralarından kurtulmaya çalışırken yolu boşboğaz Deadpool ile kesişir. Ortak bir düşmanı yenmek için takım olurlar.",
+                Description_EN = "Wolverine is recovering from his injuries when he crosses paths with the loud-mouthed Deadpool. They team up to defeat a common enemy.",
+                Point = 7.5,
+                CreatedDate = new DateTime(2024, 10, 20),
+                UpdatedDate = new DateTime(2024, 10, 20),
+                Time = 2.07,
+                CategoryId = 5,
+            };
+
+            yield return new Movie()
+            {
+                Id = 9,
+                Name = "Garfield",
+                Name_EN = "Garfield",
+                Description = "Karikatürist Jim Davis tarafından 1978 yılında yaratılan ve hikâyeleri karikatür sayfalarından televizyona kadar uzanan Garfield'ın animasyon filmi, kayıp babası Vic ile yolları yeniden kesişen Garfield'ın, arkadaşı Ollie ile birlikte yaşadığı maceraları konu ediniyor.",
+                Description_EN = "The animated film of Garfield, created by cartoonist Jim Davis in 1978 and whose stories have spread from the cartoon pages to television, is about the adventures of Garfield, whose paths cross again with his missing father Vic, together with his friend Ollie.",
+                Point = 7.5,
+                CreatedDate = new DateTime(2024, 10, 20),
+                UpdatedDate = new DateTime(2024, 10, 20),
+                Time = 1.41,
+                CategoryId = 2
+            };
+
+            yield return new Movie()
+            {
+                Id = 10,
+                Name = "Ters Yüz 2",
+                Name_EN = "Inside Out 2",
+                Description = "Ters Yüz 2, artık bir ergen olan ve çok daha çılgın, kişiselleştirilmiş duygularla uğraşmak zorunda olan Genç Riley'nin maceralarını konu ediyor.",
+                Description_EN = "Inside Out 2 follows the adventures of Young Riley, who is now a teenager and has to deal with much crazier, personalised emotions.",
+                Point = 7.5,
+                CreatedDate = new DateTime(2024, 10, 20),
+                UpdatedDate = new DateTime(2024, 10, 20),
+                Time = 1.36,
+                CategoryId = 2
             };
         }
     }

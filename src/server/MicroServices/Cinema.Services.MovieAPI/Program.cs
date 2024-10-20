@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 using SharedLibrary.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +68,8 @@ app.MapControllers();
 
 ApplyPendigMigration();
 
+await ApplyMongoSeedDatas();
+
 app.Run();
 
 void ApplyPendigMigration()
@@ -77,4 +80,13 @@ void ApplyPendigMigration()
 
     if (_db.Database.GetPendingMigrations().Count() > 0)
         _db.Database.Migrate();
+}
+
+async Task ApplyMongoSeedDatas()
+{
+    using var scope = app.Services.CreateScope();
+
+    var _sharedMovieRepository = scope.ServiceProvider.GetRequiredService<ISharedMovieRepository>();
+
+    await _sharedMovieRepository.AddSeedDatas();
 }
