@@ -4,11 +4,12 @@ using Cinema.Services.MovieAPI.Domain.Entities;
 using Cinema.Services.MovieAPI.Infrastructure.Services.Concrete;
 using MassTransit;
 using SharedLibrary.Events.MovieImageEvents;
+using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 using SharedLibrary.Settings;
 
 namespace Cinema.Services.MovieAPI.Infrastructure.Consumers
 {
-    public class MovieImageUploadedEventConsumer(IMovieImageService _movieImageService, MovieUnitOfWork _movieUnitOfWork, ISendEndpointProvider _sendEndpointProvider) : IConsumer<MovieImageUploadedEvent>
+    public class MovieImageUploadedEventConsumer(IMovieImageService _movieImageService, MovieUnitOfWork _movieUnitOfWork, ISharedMovieRepository _sharedMovieRepository, ISendEndpointProvider _sendEndpointProvider) : IConsumer<MovieImageUploadedEvent>
     {
         public async Task Consume(ConsumeContext<MovieImageUploadedEvent> context)
         {
@@ -19,6 +20,22 @@ namespace Cinema.Services.MovieAPI.Infrastructure.Consumers
             {
                 await _movieImageService.AddAsync(newMovieFile);
                 await _movieUnitOfWork.SaveChangesAsync();
+
+                var sharedMovie = await _sharedMovieRepository.GetByIdAsync(context.Message.RelationId);
+
+                if(sharedMovie is not null)
+                {
+                    sharedMovie.MovieImages ??= new();
+
+                    sharedMovie.MovieImages.Add(new()
+                    {
+                        FileName = newMovieFile.FileName,
+                        Id = newMovieFile.Id,
+                        MovieId = newMovieFile.MovieId,
+                        Path = newMovieFile.Path,
+                        Storage = newMovieFile.Storage
+                    });
+                }
 
                 MovieImageReceivedEvent movieImageReceivedEvent = new(context.Message.CorrelationId);
 
