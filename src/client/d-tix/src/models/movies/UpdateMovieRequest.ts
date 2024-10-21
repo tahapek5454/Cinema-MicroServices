@@ -1,10 +1,10 @@
 export default class UpdateMovieRequest{
-    Id: number;
-    Name?: string;
-    Name_EN?: string;
-    Description?: string;
-    Description_EN?: string;
-    Point?: number;
-    Time?: number;
-    CategoryId?: number;
+    id: number;
+    name?: string;
+    name_EN?: string;
+    description?: string;
+    description_EN?: string;
+    point?: number;
+    time?: number;
+    categoryId?: number;
 }

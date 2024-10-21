@@ -1,5 +1,10 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import MovieCard from '@/components/movieCard/index.vue'; // @, /src'ye karşılık gelir
+import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
+import { MovieRepository } from '@/Repositories/MovieRepository';
+import MovieDto from '@/models/movies/MovieDto';
+
+const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as MovieRepository;
 
 @Component({
     components: {
@@ -9,20 +14,15 @@ import MovieCard from '@/components/movieCard/index.vue'; // @, /src'ye karşıl
 export default class MovieCardList extends Vue {
     @Prop({ default: false }) hasAnimation!: boolean;
 
-    basePath: string = '/movieCardImages/';
-    movieList: string[] = [
-        this.basePath+'alien.png',
-        this.basePath+'bayi.webp',
-        this.basePath+'dw.jpg',
-        this.basePath+'garfield.jpg',
-        this.basePath+'tersyuz.png',
-        this.basePath+'thor.jpg',
-        this.basePath+'transformers.webp',
-        this.basePath+'damat.webp',
-        this.basePath+'bergen.jpg',
-        this.basePath+'rafa.webp'
-    ]
+    movies: MovieDto[] = [];
     animation_status: Animation_Status = Animation_Status.Running;
+
+    async created() {
+        _movieRepository.GetMoviesWithPagination()
+        .then(r => {
+            this.movies = r.data;
+        });
+    }
 
     mounted() {
       this.animationSettings();   
@@ -40,8 +40,7 @@ export default class MovieCardList extends Vue {
             scrollerInner.appendChild(duplicatedItem);
         });
     }
-
-  
+ 
     pauseAnimation(){
         this.animation_status = Animation_Status.Paused;
     }

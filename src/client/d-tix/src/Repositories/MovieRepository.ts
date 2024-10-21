@@ -22,7 +22,7 @@ export class MovieRepository extends HttpClientService{
         return result;
     }
 
-    async GetMoviesWithPagination(Page:number, Size:number): Promise<MoviePaginationDto>{
+    async GetMoviesWithPagination(Page:number=1, Size:number=10): Promise<MoviePaginationDto>{
 
         const result : MoviePaginationDto = await this.getAsync({
             ...this.stableRequestParameter,

@@ -1,7 +1,7 @@
 export class MovieImageDto{
-    Id: number;
-    FileName: string;
-    Path: string;
-    Storage: string;
-    MovieId: number;
+    id: number;
+    fileName: string;
+    path: string;
+    storage: string;
+    movieId: number;
 }
