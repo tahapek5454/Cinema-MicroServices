@@ -3,7 +3,7 @@
 
         <div class="tw-flex tw-flex-col md:tw-flex-row tw-px-16 tw-mt-16 tw-justify-between">
             <div class="tw-flex tw-text-3xl">
-                Movie Title
+                {{movie.name}}
             </div>
 
             <div class="tw-flex tw-space-x-2 md:tw-space-x-8">
@@ -12,7 +12,7 @@
                         calendar_month
                     </span>
                     <span class="tw-text-sm md:tw-text-lg">
-                        06.09.2024
+                        {{DateValue}}
                     </span> 
                 </div>
 
@@ -21,7 +21,7 @@
                         schedule
                     </span>
                     <span class="tw-text-sm md:tw-text-lg">
-                        2 Saat 7 Dakika
+                        {{TimeValue}}
                     </span> 
                 </div>
 
@@ -30,7 +30,7 @@
                         movie
                     </span>
                     <span class="tw-text-sm md:tw-text-lg">
-                        Aksiyon
+                        {{ movie.category.name }}
                     </span> 
                 </div>
             </div>
@@ -38,7 +38,7 @@
 
         <div class="tw-flex tw-px-16 tw-mt-4 tw-mb-16 tw-flex-col md:tw-flex-row tw-space-y-10 md:tw-space-y-0">
             <div class="tw-basis-1/4" >
-                <MovieCard :path="moviePath" :isDetail="true"/>
+                <MovieCard :movie="movie" :isDetail="true"/>
             </div>
             <div class="tw-basis-3/4 tw-flex tw-flex-col">
                 <div class="tw-flex tw-flex-col tw-justify-center tw-items-start tw-space-y-8">
@@ -56,9 +56,8 @@
                         </span>
 
                     </div>
-                    <p class="tw-text-left tw-font-bold">Lorem ipsum dolor</p>
-                    <p class="tw-text-left tw-font-bold">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magni necessitatibus aperiam possimus consequatur harum. Aut itaque harum ducimus magnam tempore reiciendis provident cupiditate voluptatibus eos doloremque. Voluptatum modi molestias delectus.
-                    Nisi delectus soluta inventore ut quasi, deleniti esse vero, autem quidem beatae error, aspernatur similique voluptatum incidunt animi vitae sapiente cum totam ex debitis minus porro! Excepturi earum porro magnam?</p>
+                    <p class="tw-text-left tw-font-bold">{{ movie.name }}</p>
+                    <p class="tw-text-left tw-font-bold">{{ movie.description }}</p>
                     <p class="tw-text-left tw-font-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis incidunt, autem delectus ad minus laudantium veniam possimus dolorem atque ipsa dolore. Doloremque aspernatur minus quas distinctio quos hic molestias vitae.</p>
                 </div>
                 

@@ -21,7 +21,7 @@ export default class MovieCard extends Vue {
   }
 
   goToDetail(){
-    this.$router.push({path:'/movieDetail'});
+    this.$router.push({path:'/movieDetail', query: {id:''+this.movie.id}});
   }
 
   goToTicketBuy(){
