@@ -24,7 +24,12 @@ namespace Cinema.Services.FileAPI.Storages.Concrete.Local
         }
 
         public bool HasFile(string pathOrContainerName, string fileName)
-           => System.IO.File.Exists(Path.Combine(pathOrContainerName, fileName));
+        {
+            var mainPah = Path.Combine(_webHostEnviroment.WebRootPath, pathOrContainerName);
+            var fullPath = Path.Combine(mainPah, fileName);
+            return System.IO.File.Exists(fullPath);
+        }
+           
 
 
 

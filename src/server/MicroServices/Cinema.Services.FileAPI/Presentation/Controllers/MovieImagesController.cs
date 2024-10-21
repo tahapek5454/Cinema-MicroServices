@@ -1,13 +1,13 @@
 ﻿using Cinema.Services.FileAPI.Application.Commands.MovieImages.DeleteImageFile;
+using Cinema.Services.FileAPI.Application.Commands.MovieImages.RegisterImageFileInfo;
 using Cinema.Services.FileAPI.Application.Commands.MovieImages.UploadImageFile;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
 namespace Cinema.Services.FileAPI.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class MovieImagesController(IMediator _mediator) : ControllerBase
     {
@@ -16,6 +16,14 @@ namespace Cinema.Services.FileAPI.Presentation.Controllers
         {
             request.FormFileCollection = Request.Form.Files;
 
+            _ = await _mediator.Send(request);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterImageFileInfo([FromBody] RegisterImageFileInfoRequest request)
+        {
             _ = await _mediator.Send(request);
 
             return Ok();
