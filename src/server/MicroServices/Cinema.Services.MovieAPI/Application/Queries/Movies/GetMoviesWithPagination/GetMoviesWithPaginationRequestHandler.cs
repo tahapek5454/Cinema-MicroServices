@@ -13,6 +13,7 @@ namespace Cinema.Services.MovieAPI.Application.Queries.Movies.GetMoviesWithPagin
             var totalCount = _sharedMovieRepository.Get().Count();
 
             var movies =  _sharedMovieRepository.Get()
+                .OrderByDescending(x => x.CreatedDate)
                 .Skip((request.Page - 1) * request.Size)
                 .Take(request.Size)
                 .ToList();

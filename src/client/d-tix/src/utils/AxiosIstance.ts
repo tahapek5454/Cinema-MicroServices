@@ -3,9 +3,9 @@ import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
 
 
-const baseURL = 'https://localhost:7291';
+const baseURL = 'https://localhost:7135';
+const baseAuthUrl = 'https://localhost:7291';
 const loginUrl = '/api/Auth/login';
-
 
 let authValues: any = localStorage.getItem('authValues') ? JSON.parse(localStorage.getItem('authValues') as string) : null;
 
@@ -34,7 +34,7 @@ axiosInstance.interceptors.request.use(async req => {
 
 
         try {
-            const response = await axios.post(baseURL + '/api/Auth/RefreshToken', { RefreshToken: authValues?.refreshToken })
+            const response = await axios.post(baseAuthUrl + '/api/Auth/RefreshToken', { RefreshToken: authValues?.refreshToken })
             console.log('Yazicaz');
             localStorage.setItem('authValues', JSON.stringify(response.data.data));
             req.headers.Authorization = `Bearer ${response.data.data?.accessToken}`;
