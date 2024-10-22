@@ -13,7 +13,7 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
             return await Task.FromResult(movie);
         }
 
-        public async Task<MovieSharedVM?> GetMoviesWithPagination(string movieName)
+        public async Task<MovieSharedVM?> GetMoviesByName(string movieName)
         {
             var movie = _sharedMovieRepository.Query().FirstOrDefault(x => x.Name.Equals(movieName, StringComparison.CurrentCultureIgnoreCase));
 

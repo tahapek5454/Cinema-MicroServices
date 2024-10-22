@@ -283,20 +283,9 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
         }
         public async Task<AssistantResponse> MovieAssistant(string content, string? threadId)
         {
-            #region CreateAssistant
-            //AssistantCreationOptions assistantOptions = new()
-            //{
-            //    Name = "D-TIX Assistant",
-            //    Instructions = "Fonksiyonlara hangi değerlerin girileceği konusunda varsayımlarda bulunma. Bir kullanıcı talebi belirsizse açıklama iste.",
-            //    Tools = { AIChatTools.getHighestRatedMovieTool, AIChatTools.getMoviesWithPaginationTool },
-            //};
-
-            ////// create once after that can be get
-            //Assistant assistant = _assistantClient.CreateAssistant("gpt-4-turbo", assistantOptions);
-            #endregion
-
+            #region GetAssistant
             Assistant assistant = await _assistantClient.GetAssistantAsync(_assistanId);
-
+            #endregion
             AssistantThread thread = null;
 
             if (string.IsNullOrEmpty(threadId))
@@ -352,9 +341,23 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
                                     List<MovieSharedVM> result = new List<MovieSharedVM>();
 
                                     if (hasSize && hasSize)
-                                        result = await _appService.GetMoviesWithPagination(page: int.Parse(page.GetRawText()), size: int.Parse(size.GetRawText()));
+                                        result = await _appService.GetMoviesWithPagination(page: page.GetInt32(), size: size.GetInt32());
                                     else
                                         result = await _appService.GetMoviesWithPagination();
+
+                                    toolOutputs.Add(new ToolOutput(action.ToolCallId, JsonSerializer.Serialize(result)));
+                                    break;
+                                }
+
+                            case nameof(AppService.GetMoviesByName):
+                                {
+                                    using JsonDocument argumentsJson = JsonDocument.Parse(action.FunctionArguments);
+                                    bool hasMovieName = argumentsJson.RootElement.TryGetProperty("movieName", out JsonElement movieName);
+                                    MovieSharedVM result = null;
+
+                                    if (hasMovieName)
+                                        result = await _appService.GetMoviesByName(movieName.GetString());
+                                  
 
                                     toolOutputs.Add(new ToolOutput(action.ToolCallId, JsonSerializer.Serialize(result)));
                                     break;
@@ -419,6 +422,23 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
             }
 
             return new() { Response=responses.Any() ? responses.Pop() : string.Empty, ThreadId = thread.Id };
+        }
+
+        public async Task<bool> CreateAssistant()
+        {
+            #region CreateAssistant
+            AssistantCreationOptions assistantOptions = new()
+            {
+                Name = "D-TIX Assistant",
+                Instructions = "Fonksiyonlara hangi değerlerin girileceği konusunda varsayımlarda bulunma. Bir kullanıcı talebi belirsizse açıklama iste.",
+                Tools = { AIChatTools.getHighestRatedMovieTool, AIChatTools.getMoviesWithPaginationTool, AIChatTools.getMoviesByNameTool },
+            };
+
+            //// create once after that can be get
+            Assistant assistant = _assistantClient.CreateAssistant("gpt-4-turbo", assistantOptions);
+            #endregion
+
+            return await Task.FromResult(true);
         }
 
         private async Task<AssistantThread> CreateThreadAsync()

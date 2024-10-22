@@ -57,14 +57,32 @@ namespace Cinema.Services.AiAssistant.Helpers.ChatTools
                 "type": "object",
                 "properties": {
                     "page": {
-                        "type": "string",
+                        "type": "number",
                         "description": "Sayfalama mantığındaki sayıya denk gelir."
                     },
                     "size": {
-                        "type": "string",                   
+                        "type": "number",                   
                         "description": "Listelenecek verinin sayısını belirtir."
                     }
                 }
+            }
+            """),
+        };
+
+        public static FunctionToolDefinition getMoviesByNameTool = new()
+        {
+            FunctionName = nameof(AppService.GetMoviesByName),
+            Description = "Parametre olarak ismi verilen filmin bilgilerini döner. Bunu sana belirli isimlerdeki filmler hakkında bilgi almak istediklerinde, ilgili filmin varlığını kontrol etmek istediklerinde, ilgili filmin bilgilerini elde etmek için kullanabilirsin. Örneğin 'Garfield filmi hakkında bilgi verebilir misin?' sorusuna karşılık çağırabilirsin.",
+            Parameters = BinaryData.FromString("""
+            {
+                "type": "object",
+                "properties": {
+                    "movieName": {
+                        "type": "string",
+                        "description": "Seçilen filmin ismini belirtir."
+                    }
+                },
+                "required": [ "movieName" ]
             }
             """),
         };

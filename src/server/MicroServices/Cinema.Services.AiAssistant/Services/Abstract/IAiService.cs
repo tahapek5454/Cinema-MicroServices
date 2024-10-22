@@ -10,5 +10,6 @@ namespace Cinema.Services.AiAssistant.Services.Abstract
         Task<string> AssistantTest(string content);
 
         Task<AssistantResponse> MovieAssistant(string content, string? threadId);
+        Task<bool> CreateAssistant();
     }
 }

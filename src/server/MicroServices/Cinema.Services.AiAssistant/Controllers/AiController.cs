@@ -38,5 +38,14 @@ namespace Cinema.Services.AiAssistant.Controllers
 
             return Ok(r);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> CreateAssistant()
+        {
+            var r = await _aiService.CreateAssistant();
+
+            return Ok(r);
+        }
     }
 }
