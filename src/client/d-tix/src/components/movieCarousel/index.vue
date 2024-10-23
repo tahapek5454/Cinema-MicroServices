@@ -1,7 +1,8 @@
-<template>
-    <div class="tw-h-128 tw-w-[2048px]  tw-group tw-relative tw-overflow-hidden">
+<!-- tw-h-128 lg:tw-h-[54rem] tw-w-[2048px] -->
+<template> 
+    <div class="tw-w-screen  tw-h-[calc(100vh-100px)]  tw-group tw-relative tw-overflow-hidden">
         <img :src="slides[selectedIndex]" alt="image" class="tw-h-full tw-w-full tw-object-cover">
-        <div class="tw-absolute tw-bottom-0 tw-w-full tw-bg-gradient-to-b tw-from-transparent tw-to-black">
+        <div class="tw-absolute tw-bottom-0 tw-w-full tw-bg-gradient-to-b tw-from-transparent  tw-to-black">
             <div class="tw-container tw-ml-8 bigmd:tw-ml-24 ">
                 <h1 class="tw-text-6xl tw-uppercase tw-text-red group-hover:tw-mb-1 tw-duration-500">
                     The Dark Knight
