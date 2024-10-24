@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import C from '@/components/dateFilter/index.vue';
+import C from '@/components/chat/index.vue';
 import { VoieceService } from '@/services/VoiceService';
 
 
