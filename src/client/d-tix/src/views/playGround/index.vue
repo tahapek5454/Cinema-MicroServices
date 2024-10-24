@@ -12,7 +12,7 @@
           <div class="tw-p-4 tw-w-full tw-h-[37rem] tw-rounded-lg tw-bg-background tw-space-y-20 tw-text-xs tw-text-white2 tw-overflow-y-auto" >
 
             <div class="tw-flex">
-              <span class="tw-text-xl material-symbols-outlined tw-cursor-pointer hover:tw-text-rose-900 tw-duration-500">
+              <span @click="voice" class="tw-text-xl material-symbols-outlined tw-cursor-pointer hover:tw-text-rose-900 tw-duration-500">
                         music_note
               </span> 
               <div class="tw-flex tw-w-full tw-justify-start">
@@ -29,7 +29,7 @@
                   <span class=" tw-font-sans  tw-w-full tw-text-wrap">Vizyondaki en iyi filmi bana söyler misin ?</span> 
                 </div>
               </div>
-              <span class="tw-text-xl material-symbols-outlined tw-cursor-pointer hover:tw-text-rose-900 tw-duration-500">
+              <span @click="voice" class="tw-text-xl material-symbols-outlined tw-cursor-pointer hover:tw-text-rose-900 tw-duration-500">
                         music_note
               </span> 
             </div>
