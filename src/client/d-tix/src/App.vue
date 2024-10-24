@@ -35,6 +35,7 @@ export default class App extends Vue {}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  cursor: url('/public/cursor/dmate.png') 16 16, auto;
 }
 
 nav {
