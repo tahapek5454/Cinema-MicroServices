@@ -25,15 +25,17 @@
                                 small-chips
                                 dense
                                 class="tw-min-w-10"
+                                color="#881337"
+                                item-color="#881337"
                             ></v-autocomplete>
                         </div>    
                         <v-btn
-                        @click="hey"
-      depressed
-      color="primary"
-    >
-      Primary
-    </v-btn>
+                            @click="hey"
+                            depressed
+                            color="#881337"
+                            >
+                            Çalışma Alanı
+                        </v-btn>
                     </ul>
                 </div>
                 <div class="tw-flex tw-items-center tw-gap-6">
