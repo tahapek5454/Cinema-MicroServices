@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './index.css'
 import './plugins/toastification.ts'
+import './plugins/myPlugin.ts'
 import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false

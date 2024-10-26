@@ -5,6 +5,7 @@
       <router-link to="/about">About</router-link>
     </nav> -->
     <v-app>
+      <Spinner/>
       <Navbar/>
       <div class="tw-text-gray-light">
         <router-view/>
@@ -12,6 +13,7 @@
       <ChatMascot/>
       <Chat/>
       <BaseFooter class="tw-text-gray-light"></BaseFooter>
+
     </v-app>
   </div>
 </template>
@@ -22,6 +24,7 @@ import Navbar from '@/components/navbar/index.vue'; // @, /src'ye karşılık ge
 import BaseFooter from '@/components/baseFooter/index.vue';
 import Chat from '@/components/chat/index.vue';
 import ChatMascot from '@/components/chat/chatMascot/index.vue';
+import Spinner from '@/components/spinner/index.vue';
 
 
 @Component({
@@ -29,7 +32,8 @@ import ChatMascot from '@/components/chat/chatMascot/index.vue';
     Navbar,
     BaseFooter,
     Chat,
-    ChatMascot
+    ChatMascot,
+    Spinner
   },
 })
 export default class App extends Vue {
