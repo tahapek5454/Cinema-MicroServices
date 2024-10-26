@@ -1,6 +1,6 @@
 <template>
     <div class="tw-flex">
-        <span music="true" @click="voice" class="tw-text-xl material-symbols-outlined tw-cursor-pointer hover:tw-text-rose-900 tw-duration-500">
+        <span music="true" @click="()=>console.log('music')" class="tw-text-xl material-symbols-outlined tw-cursor-pointer hover:tw-text-rose-900 tw-duration-500">
                 music_note
         </span> 
         <div class="tw-flex tw-w-full tw-justify-start">

@@ -9,10 +9,8 @@
       <div class="tw-text-gray-light">
         <router-view/>
       </div>
-      <div class="tw-fixed tw-bottom-[4rem] tw-right-4 tw-mb-4 tw-mr-4 tw-w-16 tw-h-16 tw-bg-[#fa435f] hover:tw-bg-rose-900 tw-duration-500 tw-rounded-full tw-z-50 tw-flex tw-items-center tw-justify-center tw-text-white">
-        <!-- İçerik -->
-       <img src="/absoluteImages/dmate.png" class="tw-w-12" alt="dmate">
-      </div>
+      <ChatMascot/>
+      <Chat/>
       <BaseFooter class="tw-text-gray-light"></BaseFooter>
     </v-app>
   </div>
@@ -22,15 +20,21 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Navbar from '@/components/navbar/index.vue'; // @, /src'ye karşılık gelir
 import BaseFooter from '@/components/baseFooter/index.vue';
+import Chat from '@/components/chat/index.vue';
+import ChatMascot from '@/components/chat/chatMascot/index.vue';
 
 
 @Component({
   components: {
     Navbar,
-    BaseFooter
+    BaseFooter,
+    Chat,
+    ChatMascot
   },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+
+}
 </script>
 
 <style>

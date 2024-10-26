@@ -8,6 +8,21 @@ import ChatMessage from './chatMessage/index.vue';
     }
 })
 export default class Chat extends Vue {
+    render = false;
 
-    
+    mounted() {
+        this.$root.$on('chatOpen', ()=>{
+            this.render = true;
+        });   
+    }
+
+    destroyed() {
+        this.$root.$off('chatOpen');
+    }
+
+
+    close(){
+        this.render = false;
+        this.$root.$emit('mascotOpen');
+    }
 }
