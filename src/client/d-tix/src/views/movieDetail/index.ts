@@ -3,6 +3,7 @@ import MovieCard from '@/components/movieCard/index.vue';
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { MovieRepository } from '@/Repositories/MovieRepository';
 import MovieDto from '@/models/movies/MovieDto';
+import Base from "@/utils/Base";
 
 const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as MovieRepository;
 @Component({
@@ -10,7 +11,7 @@ const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as Movi
         MovieCard
     }
 })
-export default class MovieDetailView extends Vue {
+export default class MovieDetailView extends Base {
   @Prop() private msg!: string;
   
   movie : MovieDto | null = null;
@@ -27,13 +28,19 @@ export default class MovieDetailView extends Vue {
 
   created() {
     const id = this.$route.query.id as string;
-    
+    this.showLoading();
     _movieRepository.GetMovieById(id)
     .then(r => {
       this.movie = r;
-    });
+    })
+    .finally(()=>this.hideLoading());
   }
 
+  destroyed(): void {
+  }
+
+  mounted(): void {
+  }
   goToTicketBuy(){
     this.$router.push({path:'/ticketBuy'});
   }
@@ -64,4 +71,6 @@ export default class MovieDetailView extends Vue {
 
     return d.toDateString();
   }
+
+
 }

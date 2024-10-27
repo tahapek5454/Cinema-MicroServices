@@ -3,6 +3,7 @@ import MovieCard from '@/components/movieCard/index.vue'; // @, /src'ye karşıl
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { MovieRepository } from '@/Repositories/MovieRepository';
 import MovieDto from '@/models/movies/MovieDto';
+import Base from "@/utils/Base";
 
 const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as MovieRepository;
 
@@ -11,23 +12,27 @@ const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as Movi
       MovieCard
     },
 })
-export default class MovieCardList extends Vue {
+export default class MovieCardList extends Base {
     @Prop({ default: false }) hasAnimation!: boolean;
 
     movies: MovieDto[] = [];
     animation_status: Animation_Status = Animation_Status.Running;
 
-    async created() {
+     created() {
+        this.showLoading();
         _movieRepository.GetMoviesWithPagination()
         .then(r => {
             this.movies = r.data;
-        });
+        })
+        .finally(()=>this.hideLoading());
     }
 
     mounted() {
       this.animationSettings();   
     }
 
+    destroyed(): void {
+    }
     animationSettings(){
         const scroller = this.$refs.scroller as any;
 
@@ -48,6 +53,8 @@ export default class MovieCardList extends Vue {
     resumeAnimation(){
         this.animation_status = Animation_Status.Running;
     }
+
+
 }
 
 
