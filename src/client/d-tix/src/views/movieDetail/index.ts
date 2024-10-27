@@ -1,5 +1,6 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import MovieCard from '@/components/movieCard/index.vue';
+import MovieEntries from '@/components/movieEntries/index.vue';
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { MovieRepository } from '@/Repositories/MovieRepository';
 import MovieDto from '@/models/movies/MovieDto';
@@ -8,7 +9,8 @@ import Base from "@/utils/Base";
 const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as MovieRepository;
 @Component({
     components:{
-        MovieCard
+        MovieCard,
+        MovieEntries
     }
 })
 export default class MovieDetailView extends Base {
