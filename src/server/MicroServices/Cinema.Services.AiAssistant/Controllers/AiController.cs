@@ -1,4 +1,5 @@
-﻿using Cinema.Services.AiAssistant.Services.Abstract;
+﻿using Cinema.Services.AiAssistant.Models;
+using Cinema.Services.AiAssistant.Services.Abstract;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema.Services.AiAssistant.Controllers
@@ -31,8 +32,16 @@ namespace Cinema.Services.AiAssistant.Controllers
             return Ok(r);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> MovieAssistant([FromBody] AssistantRequest request)
+        {
+            var r = await _aiService.MovieAssistant(request.Content, request.ThreadId);
+
+            return Ok(r);
+        }
+
         [HttpGet]
-        public async Task<IActionResult> MovieAssistantTest([FromQuery] string content, [FromQuery] string? threadId)
+        public async Task<IActionResult> MovieAssistantGet([FromQuery] string content, [FromQuery] string? threadId)
         {
             var r = await _aiService.MovieAssistant(content, threadId);
 

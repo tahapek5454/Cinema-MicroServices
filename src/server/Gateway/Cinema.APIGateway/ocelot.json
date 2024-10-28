@@ -71,6 +71,19 @@
         "AllowedScopes": []
       }
     },
+    // AiServer
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7017
+        }
+      ],
+      "UpstreamPathTemplate": "/aiserver/public/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
     // FileServer
     {
       "DownstreamPathTemplate": "/{url}",

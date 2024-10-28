@@ -158,7 +158,7 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
             //};
 
             //// create once after that can be get
-            //Assistant assistant = _assistantClient.CreateAssistant("gpt-4-turbo", assistantOptions);
+            //Assistant assistant = _assistantClient.CreateAssistant("gpt-4o", assistantOptions);
 
             Assistant assistant = await _assistantClient.GetAssistantAsync(_assistanId);
 
@@ -378,42 +378,24 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
 
 
 
-            Stack<string> responses = new();
+            List<string> jsonObjectList = new();
             if (run.Status == RunStatus.Completed)
             {
                 AsyncCollectionResult<ThreadMessage> messages
-                    = _assistantClient.GetMessagesAsync(run.ThreadId, new MessageCollectionOptions() { Order = MessageCollectionOrder.Ascending });
+                    = _assistantClient.GetMessagesAsync(run.ThreadId, new MessageCollectionOptions() { Order = MessageCollectionOrder.Descending });
 
                 await foreach (ThreadMessage message in messages)
                 {
-                    Console.WriteLine($"[{message.Role.ToString().ToUpper()}]: ");
+                    if (message.Role != MessageRole.Assistant)
+                        continue;
+
+                    StringBuilder messageJson = new StringBuilder();
                     foreach (MessageContent contentItem in message.Content)
                     {
-                        Console.WriteLine($"{contentItem.Text}");
-                        if (message.Role == MessageRole.Assistant)
-                            responses.Push(contentItem.Text);
-                
-
-                        if (contentItem.ImageFileId is not null)
-                        {
-                            Console.WriteLine($" <Image File ID> {contentItem.ImageFileId}");
-                        }
-
-                        // Include annotations, if any.
-                        if (contentItem.TextAnnotations.Count > 0)
-                        {
-                            Console.WriteLine();
-                            foreach (TextAnnotation annotation in contentItem.TextAnnotations)
-                            {
-                                Console.WriteLine($"* File ID used by file_search: {annotation.InputFileId}");
-                                Console.WriteLine($"* File ID created by code_interpreter: {annotation.OutputFileId}");
-                                Console.WriteLine($"* Text to replace: {annotation.TextToReplace}");
-                                Console.WriteLine($"* Message content index range: {annotation.StartIndex}-{annotation.EndIndex}");
-                            }
-                        }
-
+                        messageJson.Append(contentItem.Text);                 
                     }
-                    Console.WriteLine();
+
+                    jsonObjectList.Add(messageJson.ToString());
                 }
             }
             else
@@ -421,7 +403,25 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
                 throw new NotImplementedException(run.Status.ToString());
             }
 
-            return new() { Response=responses.Any() ? responses.Pop() : string.Empty, ThreadId = thread.Id };
+
+            AssistantResponse response = null;
+            if (jsonObjectList.Any())
+            {
+                using var stream = new MemoryStream(Encoding.UTF8.GetBytes(jsonObjectList.First()));
+                response = await JsonSerializer.DeserializeAsync<AssistantResponse>(stream);
+
+                if (response != null) response.ThreadId = thread?.Id;
+            }
+            else if(response is null)
+            {
+                response = new AssistantResponse()
+                {
+                    Message = "Üzgünüz şu anda hizmet verememekteyiz.",
+                    ThreadId = thread?.Id
+                };
+            }
+
+            return response;
         }
 
         public async Task<bool> CreateAssistant()
@@ -435,7 +435,7 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
             };
 
             //// create once after that can be get
-            Assistant assistant = _assistantClient.CreateAssistant("gpt-4-turbo", assistantOptions);
+            Assistant assistant = _assistantClient.CreateAssistant("gpt-4o", assistantOptions);
             #endregion
 
             return await Task.FromResult(true);

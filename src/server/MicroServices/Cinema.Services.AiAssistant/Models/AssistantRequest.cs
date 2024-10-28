@@ -1,8 +1,8 @@
 ﻿namespace Cinema.Services.AiAssistant.Models
 {
-    public class AssistantResponse
+    public class AssistantRequest
     {
-        public string? Message { get; set; }
+        public string Content { get; set; }
         public string? ThreadId { get; set; }
     }
 }
