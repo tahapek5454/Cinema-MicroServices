@@ -1,12 +1,14 @@
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins(@"http://localhost:3000", @"https://localhost:3000")
-            .AllowAnyMethod()
-            .AllowAnyHeader()
-            .AllowCredentials());
+    options.AddPolicy("AllowAll",
+        builder => builder.AllowAnyOrigin()
+                          .AllowAnyMethod()
+                          .AllowAnyHeader());
+
 });
 
 builder.Services.AddControllers();
@@ -20,7 +22,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.UseCors("CorsPolicy");
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 

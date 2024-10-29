@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,9 @@ builder.Services.AddEndpointsApiExplorer();
 
 // Services
 builder.Services.AddSessionService(builder.Configuration.GetConnectionString("MSSQL"));
+
+// Mongo
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
 
 // Mastransit
 builder.Services.AddSessionMassTransitServices(builder.Configuration.GetConnectionString("RabbitMQ"));
