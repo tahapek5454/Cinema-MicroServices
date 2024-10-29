@@ -45,7 +45,7 @@
                     <span @click="sendMessage" class="tw-pl-2 tw-text-3xl tw-cursor-pointer material-symbols-outlined hover:tw-text-emerald-400 tw-duration-500">
                         send
                     </span>
-                    <span class="tw-text-3xl tw-cursor-pointer material-symbols-outlined hover:tw-text-rose-900 tw-duration-500">
+                    <span @mousedown="startListening" @mouseup="stopListening" class="tw-text-3xl tw-cursor-pointer material-symbols-outlined hover:tw-text-rose-900 tw-duration-500">
                         mic
                     </span>  
                     <span class="tw-text-3xl tw-cursor-pointer material-symbols-outlined hover:tw-text-blue tw-duration-500">

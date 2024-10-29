@@ -4,9 +4,11 @@ import Base from "@/utils/Base";
 import {ChatEnum} from "@/models/enums/ChatEnum";
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { AssistantRepository } from '@/Repositories/AssistantRepository';
+import { VoieceService } from '@/services/VoiceService';
 
 
 const _assistantRepository  = RepositoryFactory(Repositories.AssistantRepository) as AssistantRepository;
+const _voiceService = new VoieceService();
 interface IConversation {
     msg:string | null;
     msgId:number | null;
@@ -27,7 +29,20 @@ export default class Chat extends Base {
 
 
     created(): void {
+        const self = this;
         this.threadId = null;
+
+        if(_voiceService.Recognition){
+            _voiceService.Recognition.onresult = (event: any) => {
+                if(event && event.results[0][0] &&  event.results[0][0].transcript)
+                    self.message = event.results[0][0].transcript;
+            };
+    
+            _voiceService.Recognition.onerror  = (event: any) => {
+                console.error("Tanıma hatası:", event.error);
+            };
+        }
+  
 
         // this.conversation.push({
         //     msg: "Selamlar bugün nasılsın",
@@ -99,6 +114,18 @@ export default class Chat extends Base {
             msgId: this.conversation.length + 1,
             type: ChatEnum.Assistant
         });
+    }
+
+    startListening(){
+        if(_voiceService.Recognition){
+            _voiceService.Recognition.start();
+        }
+
+    }
+    stopListening(){
+        if(_voiceService.Recognition){
+            _voiceService.Recognition.stop();
+        }
     }
 
 }
