@@ -20,7 +20,7 @@ export class HttpClientService {
   
 
   
-    async getAsync<T>(
+    protected async  getAsync<T>(
       requestParameters: Partial<RequestParameters>,
       id?: string
     ): Promise<T> {
@@ -37,7 +37,7 @@ export class HttpClientService {
       return response.data;
     }
   
-    async postAsync<T, R>(
+    protected async postAsync<T, R>(
       requestParameters: Partial<RequestParameters>,
       body: Partial<T>
     ): Promise<R> {
@@ -55,7 +55,7 @@ export class HttpClientService {
       return response.data;
     }
   
-    async putAsync<T, R>(
+    protected async putAsync<T, R>(
       requestParameters: Partial<RequestParameters>,
       body: Partial<T>
     ): Promise<R> {
@@ -73,7 +73,7 @@ export class HttpClientService {
       return response.data;
     }
   
-    async deleteAsync<T>(
+    protected async deleteAsync<T>(
       requestParameters: Partial<RequestParameters>,
       id: string
     ): Promise<T> {

@@ -5,11 +5,11 @@ export default class MovieCarousel extends Vue {
     selectedIndex : number = 0
     basePath: string = '/movieImages/';
     slides: string[] = [
-        this.basePath+'batman.jpg',
-        this.basePath+'cars.jpg',
+        this.basePath+'dp.jpg',
+        this.basePath+'avengers.jpg',
         this.basePath+'kraven.jpg',
-        this.basePath+'morbius.jpg',
-        this.basePath+'spiderman.jpg',
+        this.basePath+'aslan.jpg',
+        this.basePath+'venom.jpg',
     ]
 
     mounted() {

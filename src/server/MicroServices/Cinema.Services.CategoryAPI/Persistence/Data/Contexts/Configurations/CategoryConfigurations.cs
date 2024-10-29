@@ -36,6 +36,22 @@ namespace Cinema.Services.CategoryAPI.Persistence.Data.Contexts.Configurations
                 Name_EN = "Biographical",
                 CreatedDate = new DateTime(2024, 2, 5),
             };
+
+            yield return new Category()
+            {
+                Id = 4,
+                Name = "Korku",
+                Name_EN = "Horror",
+                CreatedDate = new DateTime(2024, 10, 20),
+            };
+
+            yield return new Category()
+            {
+                Id = 5,
+                Name = "Aksiyon",
+                Name_EN = "Action",
+                CreatedDate = new DateTime(2024, 10, 20),
+            };
         }
     }
 }

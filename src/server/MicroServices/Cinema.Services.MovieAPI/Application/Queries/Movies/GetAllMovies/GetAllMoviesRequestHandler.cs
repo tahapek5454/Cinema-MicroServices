@@ -10,7 +10,7 @@ namespace Cinema.Services.MovieAPI.Application.Queries.Movies.GetAllMovies
     {
         public async Task<GetAllMoviesResponse> Handle(GetAllMoviesRequest request, CancellationToken cancellationToken)
         {
-            var movies =  _sharedMovieRepository.Get().ToList();
+            var movies =  _sharedMovieRepository.Get().OrderByDescending(x => x.CreatedDate).ToList();
 
             var movieDtos = ObjectMapper.Mapper.Map<List<MovieDto>>(movies);
             

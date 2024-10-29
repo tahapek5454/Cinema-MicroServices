@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
 using SharedLibrary.Helpers;
 using SharedLibrary.Models.Dtos;
+using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 using SharedLibrary.Settings;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins(@"http://localhost:3000", @"https://localhost:3000")
+        builder => builder.WithOrigins(@"http://localhost:8080", @"https://localhost:8080")
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
@@ -67,6 +68,8 @@ app.MapControllers();
 
 ApplyPendigMigration();
 
+await ApplyMongoSeedDatas();
+
 app.Run();
 
 void ApplyPendigMigration()
@@ -77,4 +80,13 @@ void ApplyPendigMigration()
 
     if (_db.Database.GetPendingMigrations().Count() > 0)
         _db.Database.Migrate();
+}
+
+async Task ApplyMongoSeedDatas()
+{
+    using var scope = app.Services.CreateScope();
+
+    var _sharedMovieRepository = scope.ServiceProvider.GetRequiredService<ISharedMovieRepository>();
+
+    await _sharedMovieRepository.AddSeedDatas();
 }

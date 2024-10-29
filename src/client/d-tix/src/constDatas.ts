@@ -1,0 +1,1 @@
+export const BaseImagePath = "https://localhost:7095/images/";

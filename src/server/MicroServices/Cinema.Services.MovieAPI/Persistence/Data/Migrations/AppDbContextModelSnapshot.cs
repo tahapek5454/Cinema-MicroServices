@@ -141,6 +141,58 @@ namespace Cinema.Services.MovieAPI.Migrations
                             Point = 7.5,
                             Time = 1.3500000000000001,
                             UpdatedDate = new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 4,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Bir grup genç uzay kolonizatörü, terk edilmiş bir uzay istasyonunun derinliklerini araştırırken evrendeki en korkunç yaşam formuyla yüz yüze gelir.Bir grup genç uzay kolonizatörü, terk edilmiş bir uzay istasyonunun derinliklerini araştırırken evrendeki en korkunç yaşam formuyla yüz yüze gelir.",
+                            Description_EN = "While exploring the depths of an abandoned space station, a group of young space colonisers come face to face with the most terrifying life form in the universe.While exploring the depths of an abandoned space station, a group of young space colonisers come face to face with the most terrifying life form in the universe.",
+                            Name = "Alien",
+                            Name_EN = "Alien",
+                            Point = 7.5,
+                            Time = 1.3500000000000001,
+                            UpdatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 5,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Wolverine yaralarından kurtulmaya çalışırken yolu boşboğaz Deadpool ile kesişir. Ortak bir düşmanı yenmek için takım olurlar.",
+                            Description_EN = "Wolverine is recovering from his injuries when he crosses paths with the loud-mouthed Deadpool. They team up to defeat a common enemy.",
+                            Name = "Deadpool & Wolverine",
+                            Name_EN = "Deadpool & Wolverine",
+                            Point = 7.5,
+                            Time = 2.0699999999999998,
+                            UpdatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 2,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Karikatürist Jim Davis tarafından 1978 yılında yaratılan ve hikâyeleri karikatür sayfalarından televizyona kadar uzanan Garfield'ın animasyon filmi, kayıp babası Vic ile yolları yeniden kesişen Garfield'ın, arkadaşı Ollie ile birlikte yaşadığı maceraları konu ediniyor.",
+                            Description_EN = "The animated film of Garfield, created by cartoonist Jim Davis in 1978 and whose stories have spread from the cartoon pages to television, is about the adventures of Garfield, whose paths cross again with his missing father Vic, together with his friend Ollie.",
+                            Name = "Garfield",
+                            Name_EN = "Garfield",
+                            Point = 7.5,
+                            Time = 1.4099999999999999,
+                            UpdatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 2,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Ters Yüz 2, artık bir ergen olan ve çok daha çılgın, kişiselleştirilmiş duygularla uğraşmak zorunda olan Genç Riley'nin maceralarını konu ediyor.",
+                            Description_EN = "Inside Out 2 follows the adventures of Young Riley, who is now a teenager and has to deal with much crazier, personalised emotions.",
+                            Name = "Ters Yüz 2",
+                            Name_EN = "Inside Out 2",
+                            Point = 7.5,
+                            Time = 1.3600000000000001,
+                            UpdatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

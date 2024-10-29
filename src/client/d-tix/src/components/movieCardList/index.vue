@@ -1,12 +1,12 @@
 <template>
     <div  @mouseenter="pauseAnimation" @mouseleave="resumeAnimation" class="tw-container tw-mx-auto">
         <div class="tw-flex tw-items-center tw-justify-center">
-            <div class="tw-overflow-x-auto custom-scrollbar scroller custom-shadow " :data-animated="hasAnimation" ref="scroller">
-                <ul class="tw-flex tw-space-x-10 scroller__inner " :style="`animation-play-state: ${animation_status};`">
-                    <li v-for="(item, index) in movieList" :key="index" class="tw-flex-shrink-0">
-                        <MovieCard :path="item"/>
-                    </li>
-                </ul>
+            <div class="tw-overflow-x-auto custom-scrollbar scroller custom-shadow " :data-animated="hasAnimation" ref="scroller">          
+                    <ul class="tw-flex tw-space-x-10 scroller__inner " :style="`animation-play-state: ${animation_status};`">
+                      <li  v-for="(item, index) in movies" :key="index" class="tw-flex-shrink-0">
+                          <MovieCard :movie="item"/>
+                      </li>
+                    </ul>
             </div>
         </div>
     </div>

@@ -65,6 +65,20 @@ namespace Cinema.Services.CategoryAPI.Migrations
                             CreatedDate = new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Biyografik",
                             Name_EN = "Biographical"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Korku",
+                            Name_EN = "Horror"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Aksiyon",
+                            Name_EN = "Action"
                         });
                 });
 #pragma warning restore 612, 618
