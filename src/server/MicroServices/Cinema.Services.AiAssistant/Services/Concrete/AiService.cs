@@ -302,10 +302,6 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
 
             await _assistantClient.CreateMessageAsync(thread.Id, MessageRole.User, [content]);
 
-            ThreadCreationOptions threadOptions = new()
-            {
-                InitialMessages = { content }
-            };
 
             ThreadRun run = await _assistantClient.CreateRunAsync(thread.Id, assistant.Id);
 
@@ -442,7 +438,18 @@ namespace Cinema.Services.AiAssistant.Services.Concrete
         }
 
         private async Task<AssistantThread> CreateThreadAsync()
-            => await _assistantClient.CreateThreadAsync();
+        {
+           ThreadCreationOptions threadOptions = new()
+            {
+                InitialMessages = { "Selamlar, " }
+            };
+
+            return await _assistantClient.CreateThreadAsync(threadOptions);
+        }   
+
+
+
+   
 
         private async Task<AssistantThread> GetTharedAsync(string threadId)
             => await _assistantClient.GetThreadAsync(threadId);
