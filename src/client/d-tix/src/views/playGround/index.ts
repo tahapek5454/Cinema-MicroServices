@@ -12,7 +12,7 @@ export default class PlayGroundView extends Vue {
     voice(){
         const service = new VoieceService();
 
-        service.textToSepach("Selamlar nasılsın iyi misin ?");
+        // service.textToSepach("Selamlar nasılsın iyi misin ?");
     }
 
 }

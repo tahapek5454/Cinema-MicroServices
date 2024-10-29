@@ -28,6 +28,13 @@ export default class Chat extends Base {
 
     created(): void {
         this.threadId = null;
+
+        // this.conversation.push({
+        //     msg: "Selamlar bugün nasılsın",
+        //     msgId: 1,
+        //     type: ChatEnum.User,
+
+        // })
     }
     mounted() {
         this.$root.$on('chatOpen', ()=>{
