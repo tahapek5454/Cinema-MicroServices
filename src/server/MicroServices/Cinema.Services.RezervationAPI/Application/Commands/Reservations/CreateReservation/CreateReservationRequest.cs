@@ -7,7 +7,5 @@ namespace Cinema.Services.RezervationAPI.Application.Commands.Reservations.Creat
         public int SessionId { get; set; }
         public int UserId { get; set; }
         public List<int> SeatIds { get; set; }
-        public int MovieTheaterId { get; set; }
-        public int Price { get; set; }
     }
 }
