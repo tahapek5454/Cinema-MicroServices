@@ -5,6 +5,8 @@ import {ChatEnum} from "@/models/enums/ChatEnum";
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { AssistantRepository } from '@/Repositories/AssistantRepository';
 import { VoieceService } from '@/services/VoiceService';
+import Modal from "@/components/modal/index.vue";
+import MovieSelection from "@/components/movieSelection/index.vue";
 
 
 const _assistantRepository  = RepositoryFactory(Repositories.AssistantRepository) as AssistantRepository;
@@ -18,7 +20,9 @@ interface IConversation {
 
 @Component({
     components:{
-        ChatMessage
+        ChatMessage,
+        Modal,
+        MovieSelection
     }
 })
 export default class Chat extends Base {
@@ -27,6 +31,8 @@ export default class Chat extends Base {
     isWriting: boolean = false;
     message:string|null = null;
     threadId:string|null = null;
+
+    isOpenModal:boolean = false;
 
 
     created(): void {
