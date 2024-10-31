@@ -1,5 +1,5 @@
 <template>
-    <div v-if="render" class="tw-fixed tw-bg-slate-800 tw-bg-opacity-60 tw-z-[51] tw-h-screen tw-w-screen tw-flex tw-items-center tw-justify-center">
+    <div v-if="render" class="tw-fixed tw-bg-slate-800 tw-bg-opacity-60 tw-z-[55] tw-h-screen tw-w-screen tw-flex tw-items-center tw-justify-center">
         <div class="tw-flex tw-items-center">
           <svg class="tw-animate-spin tw-h-16 tw-w-16 md:tw-h-32 md:tw-w-32 tw-text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
                viewBox="0 0 24 24">
