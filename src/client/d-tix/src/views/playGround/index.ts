@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import C from '@/components/theaterhall/index.vue';
+import C from '@/components/movieSelection/index.vue';
 import { VoieceService } from '@/services/VoiceService';
 
 
@@ -9,10 +9,5 @@ import { VoieceService } from '@/services/VoiceService';
     }
 })
 export default class PlayGroundView extends Vue {
-    voice(){
-        const service = new VoieceService();
-
-        // service.textToSepach("Selamlar nasılsın iyi misin ?");
-    }
 
 }
