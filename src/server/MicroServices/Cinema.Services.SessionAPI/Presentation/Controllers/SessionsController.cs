@@ -121,6 +121,7 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> PreBooking([FromBody] PreBookingRequest request)
         {
+            request.ReservedStatus = ReservedStatusEnum.Pending;
             var seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
 
             await _seatStatusService.Table.AddAsync(seatSessionStatus);

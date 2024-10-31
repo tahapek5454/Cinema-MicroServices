@@ -97,9 +97,7 @@ namespace Cinema.Services.SessionAPI.Infrastructure.Consumers
         {
             await _sendEndpoint.Send<ReserveReceivedEvent>(new(@event.CorrelationId)
             {
-                MovieTheaterId = @event.MovieTheaterId,
                 UserId = @event.UserId,
-                Price = @event.Price,
                 ReservationCreatedDate = @event.ReservationCreatedDate,
                 ReservationId = @event.ReservationId,
                 SeatIds = @event.SeatIds,

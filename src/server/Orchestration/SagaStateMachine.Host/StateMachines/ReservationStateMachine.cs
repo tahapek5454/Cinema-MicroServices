@@ -46,15 +46,11 @@ namespace SagaStateMachine.Host.StateMachines
                         context.Instance.SessionId = context.Message.SessionId;
                         context.Instance.UserId = context.Message.UserId;
                         context.Instance.ReservationId = context.Message.ReservationId;
-                        context.Instance.MovieTheaterId = context.Message.MovieTheaterId;
-                        context.Instance.Price = context.Message.Price;
                         context.Instance.ReservationCreatedDate = context.Message.ReservationCreatedDate;
                     })
                     .TransitionTo(Reserved)
                     .Send(new Uri($"queue:{RabbitMQSettings.Session_ReservedQueue}"), context => new ReservedEvent(context.Instance.CorrelationId)
                     {
-                        MovieTheaterId = context.Instance.MovieTheaterId,
-                        Price = context.Instance.Price,
                         ReservationCreatedDate = context.Instance.ReservationCreatedDate,
                         ReservationId = context.Instance.ReservationId,
                         SeatIds = context.Instance.SeatIds,

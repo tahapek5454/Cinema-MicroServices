@@ -22,7 +22,7 @@
 
             <!-- Messajlaşma -->
             <div class="tw-p-4 tw-w-full tw-h-[37rem] tw-rounded-lg tw-bg-background tw-space-y-5 tw-text-xs tw-text-white2 tw-overflow-y-auto" >
-              <ChatMessage v-for="(item, index) in conversation" :key="index" :msg="item.msg" :msgId="item.msgId"  :type="item.type"/>
+              <ChatMessage v-for="(item, index) in conversation" :key="index" :msg="item.msg" :isReservation="item.isReservation" :msgId="item.msgId"  :type="item.type"/>
               <ChatMessage v-if="isWriting"  msg="..."  :msgId="999"  type="Assistant"/>
             </div>
             <!-- Messajlaşma -->

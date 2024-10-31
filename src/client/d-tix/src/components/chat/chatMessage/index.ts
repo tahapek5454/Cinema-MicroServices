@@ -10,6 +10,7 @@ const _voiceService = new VoieceService();
 export default class ChatMessage extends Base {
     @Prop()  msg!: string;
     @Prop()  msgId!: number;
+    @Prop({default: false})  isReservation!: boolean;
     @Prop({default: ChatEnum.User})  type!: ChatEnum;
 
     isPlay: boolean = false;
@@ -36,8 +37,11 @@ export default class ChatMessage extends Base {
         this.isPlay = false;
         _voiceService.cancelTextToSpeech();
     }
-    
 
+    prepareReservation(){
+        console.log("Rezervasyon hazirligi basladi.");
+        this.$toast.success("İyi ilerilyorsun böyle devam et 🙃.");
+    }
 
 
 }

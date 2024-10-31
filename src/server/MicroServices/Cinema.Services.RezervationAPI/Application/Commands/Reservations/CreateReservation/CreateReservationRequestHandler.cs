@@ -27,8 +27,6 @@ namespace Cinema.Services.RezervationAPI.Application.Commands.Reservations.Creat
 
             ReservedStartedEvent @event = new()
             {
-                MovieTheaterId = request.MovieTheaterId,
-                Price = request.Price,
                 ReservationCreatedDate = DateTime.Now,
                 ReservationId = reservation.Id,
                 SeatIds = reservation.SeatIds,
