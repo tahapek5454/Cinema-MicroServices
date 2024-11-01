@@ -1,10 +1,10 @@
 <template>
     <form @submit.prevent="login">
         <div class="relative w-full mb-3">
-            <input type="email" v-model="email"
+            <input type="text" v-model="username"
                 class="tw-flex tw-items-center tw-justify-center  tw-p-2 tw-bg-rose-950 tw-rounded-2xl tw-w-50 md:tw-w-44 tw-font-normal tw-text-sm md:tw-text-base md:tw-font-bold"
-                placeholder="Email Adresi" style="transition: all 0.15s ease 0s; width: 20rem;" />
-            <span v-if="emailError" class="text-red-500">{{ emailError }}</span>
+                placeholder="Kullanıcı Adı" style="transition: all 0.15s ease 0s; width: 20rem;" />
+            <span v-if="usernameError" class="text-red-500">{{ usernameError }}</span>
         </div>
         <div class="relative w-full mb-3">
             <input type="password" v-model="password"
