@@ -1,19 +1,20 @@
 <template>
     <div>
-        <Modal :isOpen="isOpenModal" @close="isOpenModal=false">
-            <div class="tw-flex tw-flex-col">
+<!--        Quick Reservation Section-->
+        <Modal :center="true" :witdh="105" :height="44" :isOpen="isOpenModal" @close="isOpenModal=false">
+            <div class="tw-flex tw-flex-col tw-h-full ">
 
-              <div v-if="sectionStep==0" class="tw-p-6 tw-flex tw-flex-col lg:tw-flex-row tw-justify-center tw-space-x-4 tw-space-y-3 lg:tw-space-y-0">
+              <div v-if="sectionStep==0" class="tw-p-6 tw-flex tw-flex-col tw-flex-grow tw-basis-3/4 lg:tw-flex-row tw-justify-center tw-space-x-4 tw-space-y-3 lg:tw-space-y-0">
 
                 <!--              Buraya Branch Seçimi Gelicek-->            <MovieSelection/>
                 <MovieSelection/>
                 <!--              Buraya Session Seçimi Gelicek-->            <MovieSelection/>
               </div>
-              <div v-else-if="sectionStep==1" class="tw-p-6 tw-flex tw-flex-col lg:tw-flex-row tw-justify-center tw-space-x-4 tw-space-y-3 lg:tw-space-y-0">
+              <div v-else-if="sectionStep==1" class="tw-p-6 tw-flex tw-flex-col tw-flex-grow tw-basis-3/4 lg:tw-flex-row tw-justify-center tw-items-center tw-space-x-4 tw-space-y-3 lg:tw-space-y-0">
                 <TheaterHall/>
               </div>
 
-              <div class="tw-flex tw-justify-between">
+              <div class="tw-flex tw-h-full tw-items-end tw-flex-grow tw-basis-1/4 tw-justify-between">
                 <v-btn
                     @click="next(-1)"
 
@@ -31,6 +32,7 @@
               </div>
             </div>
         </Modal>
+<!--        Chat Section-->
         <Transition name="bounce">
             <div v-if="render" class="tw-z-50 tw-fixed tw-bottom-[4rem] tw-right-4 tw-mb-4 tw-mr-4    tw-rounded-xl tw-w-[40rem] tw-h-[48rem] tw-shadow-xl shadow tw-shadow-white2 tw-bg-black  tw-px-3 tw-flex tw-flex-col tw-text-white2">
                 <div class="tw-rounded-lg tw-w-full tw-p-4  tw-flex tw-justify-between tw-items-center tw-text-center ">

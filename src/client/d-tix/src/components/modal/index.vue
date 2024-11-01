@@ -9,7 +9,7 @@
           v-if="isOpen"
           class="tw-fixed tw-inset-0 tw-z-[52] tw-flex tw-items-center tw-justify-center"
       >
-        <div class="tw-bg-[#181818] tw-rounded-lg tw-p-4 tw-shadow-lg tw-max-h-[54rem] tw-overflow-y-auto">
+        <div :class="`tw-bg-[#181818] tw-max-w-full ${witdh ? `tw-w-[${witdh}rem]`:''} ${height ? `tw-h-[${height}rem]`:''} ${center ? 'tw-flex tw-flex-col tw-justify-center ': ''}   tw-rounded-lg tw-p-4 tw-shadow-lg tw-max-h-[54rem] tw-overflow-y-auto`">
           <slot></slot>
           <button
               @click="$emit('close')"

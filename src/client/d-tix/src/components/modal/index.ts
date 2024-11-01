@@ -4,6 +4,9 @@ import Base from "@/utils/Base";
 @Component
 export default class Modal extends Base {
     @Prop({default:false}) isOpen!: boolean;
+    @Prop() witdh!: number;
+    @Prop() height!: number;
+    @Prop() center!: boolean;
 
     created(): void {
 
