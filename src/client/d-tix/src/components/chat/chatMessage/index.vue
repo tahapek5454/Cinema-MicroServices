@@ -17,7 +17,7 @@
                     <div class="tw-flex tw-flex-col tw-justify-center tw-items-center tw-space-y-5">
                       <div v-html="msg"></div>
                       <div class="tw-flex tw-justify-center">
-                        <button @click="prepareReservation" class="tw-bg-rose-900 hover:tw-bg-rose-800 tw-p-2 tw-duration-300 tw-text-white  tw-text-xs tw-font-semibold tw-rounded-md hover:tw-cursor-pointer tw-transition-colors ">
+                        <button @click="$emit('openReservationModal')" class="tw-bg-rose-900 hover:tw-bg-rose-800 tw-p-2 tw-duration-300 tw-text-white  tw-text-xs tw-font-semibold tw-rounded-md hover:tw-cursor-pointer tw-transition-colors ">
                           Hızlı Randevu
                         </button>
                       </div>

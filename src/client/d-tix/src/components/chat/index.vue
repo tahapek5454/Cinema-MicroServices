@@ -2,18 +2,31 @@
     <div>
         <Modal :isOpen="isOpenModal" @close="isOpenModal=false">
             <div class="tw-flex tw-flex-col">
-              <div class="tw-p-6 tw-flex tw-flex-col lg:tw-flex-row tw-justify-center tw-space-x-4 tw-space-y-3 lg:tw-space-y-0">
-                <!--              Buraya Branch Seçimi Gelicek-->
+
+              <div v-if="sectionStep==0" class="tw-p-6 tw-flex tw-flex-col lg:tw-flex-row tw-justify-center tw-space-x-4 tw-space-y-3 lg:tw-space-y-0">
+
+                <!--              Buraya Branch Seçimi Gelicek-->            <MovieSelection/>
                 <MovieSelection/>
-                <!--              Buraya Session Seçimi Gelicek-->
+                <!--              Buraya Session Seçimi Gelicek-->            <MovieSelection/>
               </div>
-              <div class="tw-flex tw-justify-end">
+              <div v-else-if="sectionStep==1" class="tw-p-6 tw-flex tw-flex-col lg:tw-flex-row tw-justify-center tw-space-x-4 tw-space-y-3 lg:tw-space-y-0">
+                <TheaterHall/>
+              </div>
+
+              <div class="tw-flex tw-justify-between">
                 <v-btn
-                    @click="$toast.success('Rezervasyon Oluşturuldu.')"
+                    @click="next(-1)"
 
                     color="#881337"
                 >
-                  Rezervasyonu Tamamla
+                  Geri
+                </v-btn>
+                <v-btn
+                    @click="next(1)"
+
+                    color="#881337"
+                >
+                  {{sectionStep==1 ? 'Rezervasyonu Tamamla' : 'İleri'}}
                 </v-btn>
               </div>
             </div>
@@ -43,7 +56,7 @@
 
                 <!-- Messajlaşma -->
                 <div class="tw-p-4 tw-w-full tw-h-[37rem] tw-rounded-lg tw-bg-background tw-space-y-5 tw-text-xs tw-text-white2 tw-overflow-y-auto" >
-                  <ChatMessage v-for="(item, index) in conversation" :key="index" :msg="item.msg" :isReservation="item.isReservation" :msgId="item.msgId"  :type="item.type"/>
+                  <ChatMessage v-for="(item, index) in conversation" @openReservationModal="isOpenModal=true" :key="index" :msg="item.msg" :isReservation="item.isReservation" :msgId="item.msgId"  :type="item.type"/>
                   <ChatMessage v-if="isWriting"  msg="..."  :msgId="999"  type="Assistant"/>
                 </div>
                 <!-- Messajlaşma -->
@@ -82,6 +95,7 @@
 </template>
   
 <style scoped>
+
 
 .bounce-enter-active {
   animation: bounce-in 0.5s;
