@@ -1,5 +1,11 @@
 <template>
-    <form @submit.prevent="login">
+    <form @submit.prevent="register">
+        <div class="relative w-full mb-3">
+            <input type="text" v-model="username"
+                class="tw-flex tw-items-center tw-justify-center  tw-p-2 tw-bg-rose-950 tw-rounded-2xl tw-w-50 md:tw-w-44 tw-font-normal tw-text-sm md:tw-text-base md:tw-font-bold"
+                placeholder="Kullanıcı adı" style="transition: all 0.15s ease 0s; width: 20rem;" />
+            <span v-if="usernameError" class="text-red-500">{{ usernameError }}</span>
+        </div>
         <div class="relative w-full mb-3">
             <input type="text" v-model="name"
                 class="tw-flex tw-items-center tw-justify-center  tw-p-2 tw-bg-rose-950 tw-rounded-2xl tw-w-50 md:tw-w-44 tw-font-normal tw-text-sm md:tw-text-base md:tw-font-bold"

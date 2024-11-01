@@ -1,7 +1,13 @@
+import RegisterRequest from '@/models/auth/RegisterRequest';
+import { AuthRepository } from '@/Repositories/AuthRepository';
+import { RepositoryFactory, Repositories } from '@/services/RepositoryFactory';
 import { Component, Vue } from 'vue-property-decorator';
+
+const _authRepository = RepositoryFactory(Repositories.AuthRepository) as AuthRepository;
 
 @Component
 export default class RegisterView extends Vue {
+    username: string = '';
     name: string = '';
     surname: string = '';
     phoneNumber: string = '';
@@ -10,19 +16,25 @@ export default class RegisterView extends Vue {
     passwordValidation: string = '';
     isPasswordsMatch: boolean = true;
 
+    usernameError: string = '';
     nameError: string = '';
     surnameError: string = '';
     phoneNumberError: string = '';
     emailError: string = '';
     passwordError: string = '';
 
-    login() {
+    registerRequest = new RegisterRequest();
+
+    register() {
         this.nameError = '';
         this.surnameError = '';
         this.phoneNumberError = '';
         this.emailError = '';
         this.passwordError = '';
 
+        if (!this.username) {
+            this.usernameError = 'username gerekli';
+        }
         if (!this.name) {
             this.nameError = 'Name gerekli';
         }
@@ -43,16 +55,23 @@ export default class RegisterView extends Vue {
             this.isPasswordsMatch = false;
         }
 
-        if (this.nameError || this.surnameError
+        if (this.usernameError || this.nameError || this.surnameError
             || this.phoneNumberError || this.emailError
-            || this.passwordError || this.isPasswordsMatch) {
+            || this.passwordError || !this.isPasswordsMatch) {
             return;
         }
 
-        console.log("Name:", this.name);
-        console.log("Surname:", this.surname);
-        console.log("Phonenumber:", this.phoneNumber);
-        console.log("Email:", this.email);
-        console.log("Password:", this.password);
+        this.registerRequest.username = this.username;
+        this.registerRequest.email = this.email;
+        this.registerRequest.password = this.password;
+        this.registerRequest.name = this.name;
+        this.registerRequest.surname = this.surname;
+
+        _authRepository.Register(this.registerRequest)
+        .then(r => {
+            this.$toast.success("Kayıt işlemi başarılı!");
+        }, err => {
+            this.$toast.error("Kayıt işlemi başarısız!");
+        });
     }
 }
