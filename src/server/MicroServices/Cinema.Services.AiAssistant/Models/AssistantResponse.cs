@@ -4,6 +4,7 @@
     {
         public string? Message { get; set; }
         public string? ThreadId { get; set; }
+        public bool IsReservation { get; set; }
         public Information Information { get; set; }
     }
 

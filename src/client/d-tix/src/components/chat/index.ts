@@ -5,6 +5,8 @@ import {ChatEnum} from "@/models/enums/ChatEnum";
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { AssistantRepository } from '@/Repositories/AssistantRepository';
 import { VoieceService } from '@/services/VoiceService';
+import Modal from "@/components/modal/index.vue";
+import MovieSelection from "@/components/movieSelection/index.vue";
 
 
 const _assistantRepository  = RepositoryFactory(Repositories.AssistantRepository) as AssistantRepository;
@@ -12,12 +14,15 @@ const _voiceService = new VoieceService();
 interface IConversation {
     msg:string | null;
     msgId:number | null;
+    isReservation:boolean | null;
     type: ChatEnum | string | null;
 }
 
 @Component({
     components:{
-        ChatMessage
+        ChatMessage,
+        Modal,
+        MovieSelection
     }
 })
 export default class Chat extends Base {
@@ -26,6 +31,8 @@ export default class Chat extends Base {
     isWriting: boolean = false;
     message:string|null = null;
     threadId:string|null = null;
+
+    isOpenModal:boolean = false;
 
 
     created(): void {
@@ -82,7 +89,7 @@ export default class Chat extends Base {
             this.isWriting = false;
             return;
         }
-        this.addUserMessage();
+        this.addUserMessage(false);
         const tempMessage = this.message;
         this.message = null;
         _assistantRepository.MovieAssistant({
@@ -90,7 +97,7 @@ export default class Chat extends Base {
             threadId: this.threadId
         })
         .then((response)=>{
-            this.addAssistantMessage(response.message ? response.message : '');
+            this.addAssistantMessage(response.message ? response.message : '', response.isReservation);
             this.threadId = response.threadId;
         })
         .catch((err)=>{
@@ -100,19 +107,21 @@ export default class Chat extends Base {
         .finally(()=>this.isWriting=false);
     }
 
-    addUserMessage(){
+    addUserMessage(isReservation:boolean){
         this.conversation.push({
             msg: this.message as string,
             msgId: this.conversation.length + 1,
-            type: ChatEnum.User
+            type: ChatEnum.User,
+            isReservation: isReservation
         });
     }
 
-    addAssistantMessage(message:string){
+    addAssistantMessage(message:string, isReservation:boolean){
         this.conversation.push({
             msg: message,
             msgId: this.conversation.length + 1,
-            type: ChatEnum.Assistant
+            type: ChatEnum.Assistant,
+            isReservation: isReservation
         });
     }
 
