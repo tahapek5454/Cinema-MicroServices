@@ -1,4 +1,5 @@
 ﻿using Cinema.Services.MovieAPI.Application.Dtos.Categories;
+using Cinema.Services.MovieAPI.Application.Dtos.Comments;
 using Cinema.Services.MovieAPI.Application.Dtos.Files;
 
 namespace Cinema.Services.MovieAPI.Application.Dtos.Movies
@@ -19,5 +20,6 @@ namespace Cinema.Services.MovieAPI.Application.Dtos.Movies
         public int CategoryId { get; set; }
         public CategoryDto Category { get; set; }
         public List<MovieImageDto> MovieImages { get; set; }
+        public List<MovieCommentDto> MovieComments { get; set; }
     }
 }

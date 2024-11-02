@@ -11,6 +11,7 @@ namespace Cinema.Services.MovieAPI.Persistence.Data.Contexts
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<MovieImage> MovieImages { get; set; }
+        public DbSet<MovieComment> MovieComments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

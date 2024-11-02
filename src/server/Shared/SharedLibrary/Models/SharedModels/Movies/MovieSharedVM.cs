@@ -2,6 +2,7 @@
 using SharedLibrary.Attributes;
 using SharedLibrary.Models.Entities;
 using SharedLibrary.Models.SharedModels.Categories;
+using SharedLibrary.Models.SharedModels.Comments;
 using SharedLibrary.Models.SharedModels.Images;
 
 namespace SharedLibrary.Models.SharedModels.Movies
@@ -46,6 +47,10 @@ namespace SharedLibrary.Models.SharedModels.Movies
 
         [BsonElement(Order = 9)]
         public List<MovieImageSharedVM>? MovieImages { get; set; }
+
+
+        [BsonElement(Order = 9)]
+        public List<MovieCommentSharedVM> MovieComments { get; set; }
 
     }
 }

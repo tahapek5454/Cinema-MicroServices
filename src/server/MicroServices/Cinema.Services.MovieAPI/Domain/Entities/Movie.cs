@@ -12,5 +12,6 @@ namespace Cinema.Services.MovieAPI.Domain.Entities
         public double Time { get; set; }
         public int CategoryId { get; set; }
         public List<MovieImage> MovieImages { get; set; }
+        public List<MovieComment> MovieComments { get; set; }
     }
 }

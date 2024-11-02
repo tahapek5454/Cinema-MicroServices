@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Cinema.Services.MovieAPI.Application.Commands.Movies.AddMovie;
 using Cinema.Services.MovieAPI.Application.Dtos.Categories;
+using Cinema.Services.MovieAPI.Application.Dtos.Comments;
 using Cinema.Services.MovieAPI.Application.Dtos.Files;
 using Cinema.Services.MovieAPI.Application.Dtos.Movies;
 using Cinema.Services.MovieAPI.Domain.Entities;
@@ -27,6 +28,7 @@ namespace Cinema.Services.MovieAPI.Application.Mapper.MovieProfile
             CreateMap<CategorySharedVM, CategoryDto>();
             CreateMap<MovieImageSharedVM, MovieImageDto>();
 
+            CreateMap<MovieComment, MovieCommentDto>();
 
 
             CreateMap<AddMovieRequest, Movie>();
