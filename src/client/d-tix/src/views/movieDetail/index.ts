@@ -5,12 +5,14 @@ import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { MovieRepository } from '@/Repositories/MovieRepository';
 import MovieDto from '@/models/movies/MovieDto';
 import Base from "@/utils/Base";
+import MovieComment from "@/components/comment/index.vue";
 
 const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as MovieRepository;
 @Component({
     components:{
         MovieCard,
-        MovieEntries
+        MovieEntries,
+        MovieComment
     }
 })
 export default class MovieDetailView extends Base {
@@ -34,6 +36,7 @@ export default class MovieDetailView extends Base {
     _movieRepository.GetMovieById(id)
     .then(r => {
       this.movie = r;
+      debugger;
     })
     .finally(()=>this.hideLoading());
   }
@@ -63,6 +66,15 @@ export default class MovieDetailView extends Base {
         decimalPart
     };
   }
+
+    goToComments(){
+        const target = document.getElementById('comments');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }else{
+            this.$toast.warning("Henüz hiç yorum atılmadı 😊");
+        }
+    }
 
   private textDate(date: Date){
 

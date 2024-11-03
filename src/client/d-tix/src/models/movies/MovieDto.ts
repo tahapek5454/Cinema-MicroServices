@@ -1,5 +1,6 @@
 import CategoryDto from "../categories/CategoryDto";
 import { MovieImageDto } from "../images/MovieImageDto";
+import MovieCommentDto from "@/models/comments/MovieCommentDto";
 
 export default class MovieDto{
     id: number;
@@ -12,4 +13,5 @@ export default class MovieDto{
     categoryId: number;
     category: CategoryDto;
     movieImages: MovieImageDto[];
+    movieComments: MovieCommentDto[];
 }

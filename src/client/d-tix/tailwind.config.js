@@ -26,6 +26,7 @@ module.exports = {
       'background': '#121212',
       'component-color': 'rgba(255, 255, 255, 0.05)',
       'component-border': 'rgba(255, 255, 255, 0.1)',
+      'component-gray': '#3D4245',
       'red': '#bc1a45',
       'transparent': 'transparent',
       'krem':'#f6e3ba',

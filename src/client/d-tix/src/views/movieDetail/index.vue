@@ -90,11 +90,11 @@
                     Fragmanı İzle
                   </button>
 
-                  <button @click="goToTicketBuy" class="tw-bg-red hover:tw-bg-rose-900 tw-duration-500 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full  tw-justify-center tw-items-center tw-text-center tw-flex">
+                  <button @click="goToComments" class="tw-bg-red hover:tw-bg-rose-900 tw-duration-500 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full  tw-justify-center tw-items-center tw-text-center tw-flex">
                         <span class="material-symbols-outlined mr-2">
                             chat
                         </span>
-                    Yorumla
+                    Yorumlar
                   </button>
                 </div>
             </div>
@@ -107,6 +107,10 @@
           <img src="/absoluteImages/kova.svg" alt="kova" class="tw-w-96">
           <img src="/campaignImages/halk.jpg" alt="halk" class="tw-rounded-lg tw-w-128 hover:tw-scale-110 tw-duration-500">
           <img src="/absoluteImages/kova.svg" alt="kova" class="tw-w-96">
+        </div>
+
+        <div id="comments" v-if="movie.movieComments" class="tw-flex tw-justify-center tw-mb-8">
+          <MovieComment :comments="movie.movieComments"/>
         </div>
     </div>
 </template>
