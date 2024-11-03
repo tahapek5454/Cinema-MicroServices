@@ -7,6 +7,7 @@ using Cinema.Services.MovieAPI.Application.Dtos.Movies;
 using Cinema.Services.MovieAPI.Domain.Entities;
 using SharedLibrary.Extensions;
 using SharedLibrary.Models.SharedModels.Categories;
+using SharedLibrary.Models.SharedModels.Comments;
 using SharedLibrary.Models.SharedModels.Images;
 using SharedLibrary.Models.SharedModels.Movies;
 
@@ -29,6 +30,7 @@ namespace Cinema.Services.MovieAPI.Application.Mapper.MovieProfile
             CreateMap<MovieImageSharedVM, MovieImageDto>();
 
             CreateMap<MovieComment, MovieCommentDto>();
+            CreateMap<MovieCommentSharedVM,  MovieCommentDto>();
 
 
             CreateMap<AddMovieRequest, Movie>();
