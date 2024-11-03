@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Events;
 using MongoDB.Driver.Linq;
 using SharedLibrary.Attributes;
 using SharedLibrary.Models.Entities;
@@ -16,7 +18,19 @@ namespace SharedLibrary.Repositories
         public SharedBaseRepository(IOptions<MongoDbSettings> options)
         {
             this.settings = options.Value;
-            var client = new MongoClient(this.settings.ConnectionString);
+
+            var mongoConnectionUrl = new MongoUrl(this.settings.ConnectionString);
+            var mongoClientSettings = MongoClientSettings.FromUrl(mongoConnectionUrl);
+            mongoClientSettings.ClusterConfigurator = cb => {
+                cb.Subscribe<CommandStartedEvent>(e => {
+                    Console.WriteLine("Sorgu ataıldı.");
+                    Console.WriteLine($"{e.CommandName} - {e.Command.ToJson()}"); // Log operation
+
+                });
+            };
+            var client = new MongoClient(mongoClientSettings);
+
+            //var client = new MongoClient(this.settings.ConnectionString);
             var db = client.GetDatabase(this.settings.Database);
 
             var collectionName = ((CollectionInfoAttribute)Attribute.GetCustomAttribute(typeof(T), typeof(CollectionInfoAttribute)))?.CollectionName;
@@ -62,7 +76,7 @@ namespace SharedLibrary.Repositories
             => predicate == null
                 ? _collection.AsQueryable()
                 : _collection.AsQueryable().Where(predicate);
-        
+
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
             => await _collection.Find(predicate).FirstOrDefaultAsync();
 
