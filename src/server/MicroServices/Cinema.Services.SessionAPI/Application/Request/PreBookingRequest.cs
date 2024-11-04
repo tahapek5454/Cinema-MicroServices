@@ -6,6 +6,7 @@ namespace Cinema.Services.SessionAPI.Application.Request
     {
         public int SessionId { get; set; }
         public int SeatId { get; set; }
-        public ReservedStatusEnum? ReservedStatus { get; set; }
+        public ReservedStatusEnum ReservedStatus { get; set; }
+        public int UserId { get; set; }
     }
 }

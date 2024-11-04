@@ -6,11 +6,12 @@ namespace Cinema.Services.SessionAPI.Domain.Entities;
 
 public class SeatSessionStatus : BaseEntity, ICloneable
 {
-    public int SessionId { get; set; }
+    public int SessionId { get; set; } // double pk
     public Session Session { get; set; }
-    public int SeatId { get; set; }
+    public int SeatId { get; set; } // double pk
     public Seat Seat { get; set; }
     public ReservedStatusEnum ReservedStatus { get; set; }
+    public int? UserId { get; set; }
 
     [NotMapped]
     public override int Id { get => base.Id; set => base.Id = value; }
@@ -24,7 +25,8 @@ public class SeatSessionStatus : BaseEntity, ICloneable
             Seat = Seat,
             Session = Session,
             SessionId = SessionId,
-            UpdatedDate = UpdatedDate
+            UpdatedDate = UpdatedDate,
+            UserId = UserId,
         };
 }
 

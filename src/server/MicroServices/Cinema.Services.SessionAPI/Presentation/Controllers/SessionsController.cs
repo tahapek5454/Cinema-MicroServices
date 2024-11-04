@@ -116,18 +116,84 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
         }
 
 
-        // Rezervasyona tasinabilir.
-
         [HttpPost]
-        public async Task<IActionResult> PreBooking([FromBody] PreBookingRequest request)
+        public async Task<IActionResult> PreBookingOrCancel([FromBody] PreBookingRequest request)
         {
-            request.ReservedStatus = ReservedStatusEnum.Pending;
-            var seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
 
-            await _seatStatusService.Table.AddAsync(seatSessionStatus);
-            await _seatStatusService.SaveChangesAsync();
 
-            return Created();
+            switch (request.ReservedStatus)
+            {
+                case ReservedStatusEnum.NotReserved: // iptal etmek istiyor. Sadece pre booking eden kullanıcı iptal edebilir.
+                    {
+                        var seatSessionStatus = _seatStatusService.Table
+                                                                    .AsNoTracking()
+                                                                    .Where(x => x.SessionId.Equals(request.SessionId) && x.SeatId.Equals(request.SeatId))
+                                                                    .FirstOrDefault();
+
+                        if (seatSessionStatus == null) // olmayan bir seyi iptal etmeye calisiyorsun gerek yok yazma amacim kontrol
+                            return Ok();
+
+
+                        if (seatSessionStatus.UserId == null) // hali hazirda iptal edilmis bir seyi iptal etmeye calisiyor ok de gec
+                            return Ok();
+
+
+                        if (seatSessionStatus.UserId != request.UserId) // baskasinin islemine dokunamazsin
+                            throw new Exception("Başkası tarafından rezerv edilmiş bir yer ile ilgili işlem yapamazsınız.");
+
+
+
+
+                        // iptal edebilirsin, iptal isleminde sonra digerlerinin koltugu rezerve edebilmesi adina userId ye null ata sahipsiz yap yani
+                        seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
+                        seatSessionStatus.UserId = null;
+
+                        _seatStatusService.Update(seatSessionStatus);
+                        await _seatStatusService.SaveChangesAsync();
+
+                        return Ok();
+
+                    }
+       
+                case ReservedStatusEnum.Pending:
+                    {
+                        var seatSessionStatus = _seatStatusService.Table
+                                                                    .AsNoTracking()         
+                                                                    .Where(x => x.SessionId.Equals(request.SessionId) && x.SeatId.Equals(request.SeatId))
+                                                                    .FirstOrDefault();
+
+                        if(seatSessionStatus == null) // ilk defa pre rezerve edileccek kaydedebilirsib
+                        {
+                            seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
+                            await _seatStatusService.Table.AddAsync(seatSessionStatus);
+                            await _seatStatusService.SaveChangesAsync();
+                            return Ok();
+                        }
+
+                        if(seatSessionStatus.UserId == null) // onceki user tarafindan iptal edilmis o zaman alinabilir
+                        {
+                            seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
+                            _seatStatusService.Update(seatSessionStatus);
+                            await _seatStatusService.SaveChangesAsync();
+                            return Ok();
+                        }
+
+                        if(seatSessionStatus.UserId != request.UserId)  // baskasinin islemine dokunamazsin
+                            throw new Exception("Başkası tarafından rezerv edilmiş bir yer ile ilgili işlem yapamazsınız.");
+
+
+
+                        break; // ayni user pre booking ettigi yeri tekrar etmeye calisti breakle gec
+
+                    }
+      
+                case ReservedStatusEnum.Reserved:
+                    throw new Exception("Ön aşamada rezerv edilemez.");
+                default:
+                    break;
+            }
+
+            return Ok();
 
         }
 
