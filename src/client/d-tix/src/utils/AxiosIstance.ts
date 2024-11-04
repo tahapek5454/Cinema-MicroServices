@@ -1,6 +1,7 @@
 import axios from "axios";
 import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
+import Vue from "vue";
 
 
 const baseURL = 'https://localhost:7135';
@@ -59,8 +60,8 @@ axiosInstance.interceptors.response.use((response) => response /* success operat
         const isShow = error?.response?.data?.error?.IsShow ?  error?.response?.data?.error?.IsShow : false;
         const message = error?.response?.data?.error?.Errors  &&  error?.response?.data?.error?.Errors.length > 0 ? error?.response?.data?.error?.Errors[0] : '';
 
-        // if(isShow)
-        //     toastifyService.error(message);
+        if(isShow)  Vue.$toast.error(message);
+
 
         if(error.response?.status === 404) // Not Found ekranina gitr
             return Promise.reject(error);

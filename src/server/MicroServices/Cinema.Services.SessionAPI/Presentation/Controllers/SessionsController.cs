@@ -2,6 +2,7 @@
 using Cinema.Services.SessionAPI.Application.Mapper;
 using Cinema.Services.SessionAPI.Application.Request;
 using Cinema.Services.SessionAPI.Application.Services.Abstract;
+using Cinema.Services.SessionAPI.Application.Services.Abstract.HubServices;
 using Cinema.Services.SessionAPI.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,8 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
     public class SessionsController(
             ISessionService _sessionService,
             ISeatService _seatService,
-            ISeatSessionStatusService _seatStatusService
+            ISeatSessionStatusService _seatStatusService,
+            ISeatStatusHubService _seatStatusHubService
         ) : ControllerBase
     {
 
@@ -119,7 +121,7 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> PreBookingOrCancel([FromBody] PreBookingRequest request)
         {
-
+            await _seatStatusHubService.SendMessageToGroupAsync(request.SessionId, "Mesaj iletildi.");
 
             switch (request.ReservedStatus)
             {

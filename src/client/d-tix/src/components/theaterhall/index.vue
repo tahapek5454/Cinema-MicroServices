@@ -23,7 +23,7 @@
             </div>
             <div class="tw-flex tw-flex-col tw-space-y-4 md:tw-space-y-6">
                 <div class="tw-flex tw-space-x-2 md:tw-space-x-4 tw-justify-start">
-                    <TheaterSeat :key="key" :seatNumber="item.value" v-for="(item, key) in filteredSeatsForA"/>
+                    <TheaterSeat @clickseat="clickSeat" :key="key" :seatNumber="item.value" v-for="(item, key) in filteredSeatsForA"/>
                 </div>
                 <div class="tw-flex tw-space-x-2 md:tw-space-x-4 tw-justify-start">
                     <TheaterSeat :key="key" :seatNumber="item.value" v-for="(item, key) in filteredSeatsForB"/>

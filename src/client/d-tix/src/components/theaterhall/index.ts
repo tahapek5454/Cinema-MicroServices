@@ -1,13 +1,18 @@
-import { Component, Vue } from 'vue-property-decorator';
+import {Component, Vue} from 'vue-property-decorator';
 import TheaterSeat from '../theaterSeat/index.vue';
+import {Repositories, RepositoryFactory} from "@/services/RepositoryFactory";
+import {SessionRepository} from "@/Repositories/SessionRepository";
+import {ReservedStatusEnum} from "@/models/enums/ReservedStatusEnum";
+import Base from "@/utils/Base";
+import SignalRService from "@/services/SignalRService";
 
-
+const _sessionRepository = RepositoryFactory(Repositories.SessionRepository) as SessionRepository;
 @Component({
     components:{
         TheaterSeat
     }
 })
-export default class TheaterHall extends Vue {
+export default class TheaterHall extends Base {
     seats: Seat[] = [
         {key: 'A', value:'1'},
         {key: 'A', value:'2'},
@@ -64,6 +69,8 @@ export default class TheaterHall extends Vue {
         {key: 'E', value:'9'},
         {key: 'E', value:'10'},
     ]
+    seatStatusHubService: SignalRService = new SignalRService("localhost:7177", "seatStatus", "sessionId=1");
+    sessionId = "1";
 
     get filteredSeatsForA(): Seat[] {
         return this.seats.filter(seat => seat.key === 'A');
@@ -80,6 +87,49 @@ export default class TheaterHall extends Vue {
     get filteredSeatsForE(): Seat[] {
         return this.seats.filter(seat => seat.key === 'E');
     }
+
+
+     created() {
+        const self = this;
+        this.seatStatusHubService.HubConection.start().then(()=>{
+
+            self.seatStatusHubService.HubConection.on("receiveStatus", message => {
+                console.log("Messaj geldi.");
+                self.$toast.success(message);
+                console.log(message);
+            });
+
+            self.seatStatusHubService.HubConection.invoke("JoinGroup", this.sessionId).catch(e => {
+                console.log(e);
+            });
+        });
+
+    }
+
+    destroyed(): void {
+        this.seatStatusHubService.HubConection.stop();
+    }
+
+    mounted(): void {
+    }
+
+
+    clickSeat(seatNumber:any){
+        const self = this;
+        _sessionRepository.PreBookingOrCancel({
+            seatId:2,
+            reservedStatus: ReservedStatusEnum.Reserved,
+            sessionId: 1,
+            userId: 1
+        }).then(()=>{
+            self.$toast.success("Başardın");
+        })
+        .catch((e)=>{
+            console.log(e);
+        })
+    }
+
+
 }
 
 interface Seat{

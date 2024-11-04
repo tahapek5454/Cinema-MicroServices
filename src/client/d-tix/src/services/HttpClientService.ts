@@ -105,6 +105,7 @@ export class HttpClientService {
     FileServer = "fileserver",
     MovieServer = "movieserver",
     AiServer = "aiserver",
+      SessionServer = "sessionserver"
   }
   
   export enum AccessModify {

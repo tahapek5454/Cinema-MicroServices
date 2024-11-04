@@ -84,6 +84,19 @@
       "UpstreamPathTemplate": "/aiserver/public/{url}",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
+    // sessionserver
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7177
+        }
+      ],
+      "UpstreamPathTemplate": "/sessionserver/public/{url}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
     // FileServer
     {
       "DownstreamPathTemplate": "/{url}",

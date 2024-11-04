@@ -10,6 +10,8 @@ using Cinema.Services.SessionAPI.Persistence.Repositories;
 using MediatR;
 using SharedLibrary.Behaviors;
 using System.Reflection;
+using Cinema.Services.SessionAPI.Application.Services.Abstract.HubServices;
+using Cinema.Services.SessionAPI.Infrastructure.Services.Concrete.HubServices;
 
 namespace Cinema.Services.SessionAPI
 {
@@ -42,6 +44,7 @@ namespace Cinema.Services.SessionAPI
             services.AddScoped<ISeatService, SeatService>();
             services.AddScoped<IMovieTheaterService, MovieTheaterService>();
             services.AddScoped<SessionUnitOfWork>();
+            services.AddScoped<ISeatStatusHubService, SeatStatusHubService>();
 
         }
 

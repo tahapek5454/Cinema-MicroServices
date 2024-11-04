@@ -1,4 +1,5 @@
 using Cinema.Services.SessionAPI;
+using Cinema.Services.SessionAPI.Infrastructure.Hubs;
 using Cinema.Services.SessionAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Extensions;
@@ -43,6 +44,10 @@ builder.Services.Configure<CustomTokenOptions>(builder.Configuration.GetSection(
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOptions>();
 builder.Services.AddCustomTokenAuth(tokenOptions);
 
+
+// SignalR
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 
@@ -61,6 +66,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapHub<SeatStatusHub>("/seatStatus");
 
 ApplyPendigMigration();
 

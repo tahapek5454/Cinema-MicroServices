@@ -1,6 +1,7 @@
 import { AssistantRepository } from "@/Repositories/AssistantRepository";
 import { MovieRepository } from "@/Repositories/MovieRepository";
 import { AuthRepository } from "@/Repositories/AuthRepository";
+import {SessionRepository} from "@/Repositories/SessionRepository";
 
 export function RepositoryFactory(repository: Repositories) {
 
@@ -11,6 +12,8 @@ export function RepositoryFactory(repository: Repositories) {
             return new AssistantRepository();
         case Repositories.AuthRepository:
             return new AuthRepository();
+        case Repositories.SessionRepository:
+            return new SessionRepository();
         default:
             break;
     }
@@ -20,5 +23,6 @@ export function RepositoryFactory(repository: Repositories) {
 export enum Repositories {
     MovieRepository,
     AssistantRepository,
-    AuthRepository
+    AuthRepository,
+    SessionRepository   ,
 }
