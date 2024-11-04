@@ -2,6 +2,6 @@
 {
     public interface ISeatStatusHubService
     {
-        Task SendMessageToGroupAsync(int id, string message);
+        Task SendMessageToGroupAsync(int id, object message);
     }
 }

@@ -113,7 +113,7 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
 
             response = response.OrderBy(x => x.SeatNumber).ToList();
 
-            return Ok(ResponseDto<List<SeatSessionStatusDto>>.Sucess(response, 200));
+            return Ok(ResponseDto<List<SeatSessionStatusDto>>.Sucess(response, 200).Data);
 
         }
 
@@ -121,7 +121,7 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
         [HttpPost]
         public async Task<IActionResult> PreBookingOrCancel([FromBody] PreBookingRequest request)
         {
-            await _seatStatusHubService.SendMessageToGroupAsync(request.SessionId, "Mesaj iletildi.");
+            
 
             switch (request.ReservedStatus)
             {
@@ -153,6 +153,10 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
                         _seatStatusService.Update(seatSessionStatus);
                         await _seatStatusService.SaveChangesAsync();
 
+
+                        var seatSessionDto = ObjectMapper.Mapper.Map<SeatSessionStatusDto>(seatSessionStatus);
+                        await _seatStatusHubService.SendMessageToGroupAsync(request.SessionId, seatSessionDto);
+
                         return Ok();
 
                     }
@@ -169,6 +173,10 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
                             seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
                             await _seatStatusService.Table.AddAsync(seatSessionStatus);
                             await _seatStatusService.SaveChangesAsync();
+
+                            var seatSessionDto = ObjectMapper.Mapper.Map<SeatSessionStatusDto>(seatSessionStatus);
+                            await _seatStatusHubService.SendMessageToGroupAsync(request.SessionId, seatSessionDto);
+
                             return Ok();
                         }
 
@@ -177,6 +185,10 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
                             seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
                             _seatStatusService.Update(seatSessionStatus);
                             await _seatStatusService.SaveChangesAsync();
+
+                            var seatSessionDto = ObjectMapper.Mapper.Map<SeatSessionStatusDto>(seatSessionStatus);
+                            await _seatStatusHubService.SendMessageToGroupAsync(request.SessionId, seatSessionDto);
+
                             return Ok();
                         }
 

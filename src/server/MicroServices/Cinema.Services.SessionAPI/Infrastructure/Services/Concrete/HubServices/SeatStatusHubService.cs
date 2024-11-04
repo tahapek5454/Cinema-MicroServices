@@ -13,7 +13,7 @@ namespace Cinema.Services.SessionAPI.Infrastructure.Services.Concrete.HubService
             _hubContext = hubContext;
         }
 
-        public async Task SendMessageToGroupAsync(int id, string message)
+        public async Task SendMessageToGroupAsync(int id, object message)
         {
             await _hubContext.Clients.Group(id.ToString()).SendAsync("receiveStatus",message);
         }

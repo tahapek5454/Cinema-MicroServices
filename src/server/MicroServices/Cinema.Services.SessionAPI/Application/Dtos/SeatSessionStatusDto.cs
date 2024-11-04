@@ -9,6 +9,7 @@ namespace Cinema.Services.SessionAPI.Application.Dtos
         public string SeatNumber { get; set; }
         public ReservedStatusEnum ReservedStatus { get; set; }
         public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+        public int? UserId { get; set; }
     }
 }
