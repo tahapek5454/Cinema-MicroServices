@@ -3,4 +3,5 @@ export default class LoginResponse{
     userName: string;
     refreshToken: string;
     refreshTokenExpire: Date;
+    userId:number;
 }

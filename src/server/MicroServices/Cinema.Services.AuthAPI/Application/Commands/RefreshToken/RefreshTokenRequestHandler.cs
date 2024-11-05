@@ -24,10 +24,14 @@ namespace Cinema.Services.AuthAPI.Application.Commands.RefreshToken
 
             var response = await _tokenService.CreateTokenAsync(user);
 
-            refreshToken.Code = response.RefreshToken;
-            refreshToken.Expiration = response.RefreshTokenExpire;
+            _ = Task.Run(async () =>
+            {
+                await Task.Delay(5000);
+                refreshToken.Code = response.RefreshToken;
+                refreshToken.Expiration = response.RefreshTokenExpire;
 
-            await _authUnitOfWork.SaveChangesAsync();
+                await _authUnitOfWork.SaveChangesAsync();
+            });
 
             return new()
             {
@@ -35,6 +39,8 @@ namespace Cinema.Services.AuthAPI.Application.Commands.RefreshToken
                 RefreshToken = response.RefreshToken,
                 RefreshTokenExpire = response.RefreshTokenExpire,
                 UserName = response.UserName,
+                UserId = user.Id
+                
             };
 
         }

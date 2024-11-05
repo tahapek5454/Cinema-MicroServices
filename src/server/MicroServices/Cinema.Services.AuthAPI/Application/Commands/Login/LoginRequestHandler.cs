@@ -46,6 +46,7 @@ namespace Cinema.Services.AuthAPI.Application.Commands.Login
                 RefreshToken = response.RefreshToken,
                 RefreshTokenExpire = response.RefreshTokenExpire,
                 UserName = response.UserName,
+                UserId = user.Id
             };
         }
     }

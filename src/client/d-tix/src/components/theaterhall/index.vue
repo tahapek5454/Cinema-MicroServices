@@ -60,6 +60,10 @@
                 <div class="tw-w-4 tw-h-3 md:tw-w-7 md:tw-h-6 tw-bg-orange tw-rounded-md"></div>
                 <div class="tw-font-bold tw-text-xs tw-text-white ">Rezerve</div>
             </div>
+            <div class="tw-flex tw-flex-col tw-justify-center tw-items-center">
+              <div class="tw-w-4 tw-h-3 md:tw-w-7 md:tw-h-6 tw-bg-lime-500 tw-rounded-md"></div>
+              <div class="tw-font-bold tw-text-xs tw-text-white ">Seçimin</div>
+            </div>
         </div>
     </div>
 </template>

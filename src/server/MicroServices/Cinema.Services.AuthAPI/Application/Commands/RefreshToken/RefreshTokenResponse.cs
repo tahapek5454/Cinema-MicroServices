@@ -6,5 +6,6 @@
         public string UserName { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenExpire { get; set; }
+        public int UserId { get; set; }
     }
 }

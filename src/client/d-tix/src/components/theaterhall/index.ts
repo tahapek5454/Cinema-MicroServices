@@ -40,7 +40,6 @@ export default class TheaterHall extends Base {
 
         this.seatStatusHubService.HubConection.start().then(()=>{
             self.seatStatusHubService.HubConection.on("receiveStatus", (message: SeatSessionStatusDto) => {
-                console.log(message);
                 let val = self.seatSessionStatus.find(x => x.seatId == message.seatId);
                 if(val){
                     val.createdDate = message.createdDate;
@@ -67,7 +66,7 @@ export default class TheaterHall extends Base {
             seatId:val.seatId,
             reservedStatus: val.reservedStatus,
             sessionId: val.sessionId,
-            userId: 1 // user id authenticatindan gelecek ilerde
+            userId: val.userId
         })
         .catch((e)=>{
             console.log(e);
