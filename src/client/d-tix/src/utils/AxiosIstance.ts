@@ -2,18 +2,19 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
 import Vue from "vue";
+import {GetAuthInfo} from "@/services/AuthService";
 
 
 const baseURL = 'https://localhost:7135';
 const baseAuthUrl = 'https://localhost:7291';
 const loginUrl = '/api/Auth/login';
 
-let authValues: any = localStorage.getItem('authValues') ? JSON.parse(localStorage.getItem('authValues') as string) : null;
 
+let authValues = GetAuthInfo();
 
 const axiosInstance = axios.create({
     baseURL: baseURL,
-    headers: { Authorization: `Bearer ${authValues?.accessToken}`, 'support_language': 'tr_TR' }
+    headers: { Authorization: `Bearer ${authValues!=null ? authValues?.accessToken : ''}`, 'support_language': 'tr_TR' }
 })
 
 
@@ -22,9 +23,13 @@ axiosInstance.interceptors.request.use(async req => {
     if (req.url == loginUrl) // araya girmeye gerek yok zaten token almaya calisiyoruz
         return req;
 
-    if (!authValues || !authValues?.accessToken) {
-        authValues = localStorage.getItem('authValues') ? JSON.parse(localStorage.getItem('authValues') as string) : null;
-        req.headers.Authorization = `Bearer ${authValues?.accessToken}`
+    if (!authValues
+        || !authValues?.accessToken
+        || (typeof  axiosInstance.defaults.headers["Authorization"] == "string" && axiosInstance.defaults.headers["Authorization"].length < 20)
+        || (typeof req.headers.Authorization == "string" && req.headers.Authorization.length < 20)) {
+        authValues = GetAuthInfo();
+        req.headers.Authorization = `Bearer ${authValues!=null ? authValues?.accessToken : ''}`;
+        axiosInstance.defaults.headers["Authorization"] = `Bearer ${authValues!=null ? authValues?.accessToken : ''}`; // degistirdik neden cunku login olunca base degismiyordu
     }
 
     if (authValues && authValues.accessToken) { // bu kontrol manuel local storage'den sildiysek eğer refres kısmına istek atmaya gerek olmadığından koyuldu
@@ -38,7 +43,9 @@ axiosInstance.interceptors.request.use(async req => {
             const response = await axios.post(baseAuthUrl + '/api/Auth/RefreshToken', { RefreshToken: authValues?.refreshToken })
             console.log('Yazicaz');
             localStorage.setItem('authValues', JSON.stringify(response.data.data));
+            authValues = GetAuthInfo();
             req.headers.Authorization = `Bearer ${response.data.data?.accessToken}`;
+            axiosInstance.defaults.headers["Authorization"] = `Bearer ${authValues!=null ? authValues?.accessToken : ''}`;
             
         } catch (error) {
             console.log("Refresh Sırasında hata alindi.");
@@ -66,7 +73,10 @@ axiosInstance.interceptors.response.use((response) => response /* success operat
         if(error.response?.status === 404) // Not Found ekranina gitr
             return Promise.reject(error);
         if(error.response?.status === 401) // login ekranina git
+        {
             return Promise.reject(error);
+        }
+
 
         return Promise.reject(error);
     });

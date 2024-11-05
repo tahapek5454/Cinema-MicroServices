@@ -1,10 +1,17 @@
 import { Component, Vue } from 'vue-property-decorator';
+import LoginResponse from "@/models/auth/LoginResponse";
+import Base from "@/utils/Base";
+import {GetAuthInfo, RemoveAuthInfo} from "@/services/AuthService";
+import AxiosIstance from "@/utils/AxiosIstance";
+
 
 @Component
-export default class Navbar extends Vue {
+export default class Navbar extends Base {
 
     auido: HTMLAudioElement | null = null;
     isMusicPlay:boolean = false;
+
+    loginInfo: LoginResponse  | null= null;
 
     menuExpandIconName: ExpandIcon = ExpandIcon.Menu;
     topPosition: ExpandPosition = ExpandPosition.Hide;
@@ -25,7 +32,16 @@ export default class Navbar extends Vue {
 
 
     created() {
-        this.auido = new Audio('/a.mp3'); 
+        this.auido = new Audio('/a.mp3');
+
+        this.$root.$on("loginSuccess", (r: LoginResponse)=>{
+
+            this.loginInfo = r;
+            console.log(this.loginInfo);
+        });
+
+        this.loginInfo = GetAuthInfo();
+
     }
 
     hey(){
@@ -50,6 +66,22 @@ export default class Navbar extends Vue {
                 self.isMusicPlay = false;
             }
         }        
+    }
+
+    logout(){
+        this.loginInfo = null;
+        RemoveAuthInfo();
+        AxiosIstance.defaults.headers["Authorization"] = `Bearer `;
+        this.$toast("Çıkış yapıldı. Güle güle 🙌");
+    }
+
+    destroyed(): void {
+        this.$root.$off("loginSuccess", ()=>{
+            this.loginInfo = null;
+        });
+    }
+
+    mounted(): void {
     }
 }
 

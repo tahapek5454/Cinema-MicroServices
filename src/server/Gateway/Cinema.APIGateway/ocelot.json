@@ -117,6 +117,6 @@
 
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:5017"
+    "BaseUrl": "http://localhost"
   }
 }

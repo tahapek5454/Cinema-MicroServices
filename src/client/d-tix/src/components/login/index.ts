@@ -34,9 +34,11 @@ export default class LoginView extends Vue {
 
         _authRepository.Login(this.loginRequest)
         .then(r => {
-            this.$toast.success("Giriş başarılı!");
-            this.$router.push('/#');
+            this.$toast.success("Giriş başarılı! Hoş geldin 😊");
             localStorage.setItem('authValues',JSON.stringify(r));
+            this.$router.push('/');
+            this.$root.$emit("loginSuccess", r);
+
         }, err => {
             this.$toast.error("Kullancı adı veya şifre hatalı!");
         });

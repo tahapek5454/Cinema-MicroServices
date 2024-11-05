@@ -70,6 +70,7 @@ export default class RegisterView extends Vue {
         _authRepository.Register(this.registerRequest)
         .then(r => {
             this.$toast.success("Kayıt işlemi başarılı!");
+            this.$emit("registerSuccess");
         }, err => {
             this.$toast.error("Kayıt işlemi başarısız!");
         });

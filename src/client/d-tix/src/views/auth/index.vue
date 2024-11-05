@@ -33,7 +33,7 @@
 
                 <div class="tw-mt-4">
                     <div v-if="activeTab === 'register'">
-                        <RegisterView />
+                        <RegisterView @registerSuccess="activeTab='login'"/>
                     </div>
                     <div v-if="activeTab === 'login'">
                         <LoginView />

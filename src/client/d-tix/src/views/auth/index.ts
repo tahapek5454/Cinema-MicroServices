@@ -9,6 +9,6 @@ import { Component, Vue } from 'vue-property-decorator';
     }
 })
 export default class AuthView extends Vue {
-    activeTab: string = 'register';
+    activeTab: string = 'login';
     // git test
 }

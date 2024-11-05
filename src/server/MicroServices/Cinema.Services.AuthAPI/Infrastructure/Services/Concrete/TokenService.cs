@@ -16,7 +16,7 @@ namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
     {
         public async Task<TokenDto> CreateTokenAsync(User user)
         {
-            var accessTokenExpiration = DateTime.UtcNow.AddSeconds(_options.Value.AccessTokenExpiration);
+            var accessTokenExpiration = DateTime.UtcNow.AddMinutes(_options.Value.AccessTokenExpiration);
             var securityKey = SignService.GetSymmetricSecurityKey(_options.Value.SecurityKey);
 
             SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);

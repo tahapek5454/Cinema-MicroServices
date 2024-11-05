@@ -3,6 +3,7 @@ import RegisterRequest from "@/models/auth/RegisterRequest";
 import MovieDto from "@/models/movies/MovieDto";
 
 import { AccessModify, HttpClientService, RequestParameters, ServerNames } from "@/services/HttpClientService";
+import LoginResponse from "@/models/auth/LoginResponse";
 
 export class AuthRepository extends HttpClientService{
 
@@ -11,8 +12,8 @@ export class AuthRepository extends HttpClientService{
         serverName: ServerNames.AuthServer
     }
 
-    async Login(loginRequest:LoginRequest): Promise<MovieDto>{
-        const result : MovieDto = await this.postAsync({
+    async Login(loginRequest:Partial<LoginRequest>): Promise<LoginResponse>{
+        const result  = await this.postAsync<LoginRequest, LoginResponse>({
             ...this.stableRequestParameter,
             accessModify: AccessModify.Public,
             action: "Login",
@@ -21,13 +22,11 @@ export class AuthRepository extends HttpClientService{
         return result;
     }
 
-    async Register(registerRequest:RegisterRequest): Promise<MovieDto>{
-        const result : MovieDto = await this.postAsync({
+    async Register(registerRequest:RegisterRequest): Promise<void>{
+       await this.postAsync({
             ...this.stableRequestParameter,
             accessModify: AccessModify.Public,
             action: "Register",
         }, registerRequest);
-        
-        return result;
     }
 }

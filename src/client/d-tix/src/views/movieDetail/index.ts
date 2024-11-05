@@ -36,7 +36,6 @@ export default class MovieDetailView extends Base {
     _movieRepository.GetMovieById(id)
     .then(r => {
       this.movie = r;
-      debugger;
     })
     .finally(()=>this.hideLoading());
   }
