@@ -1,6 +1,6 @@
 <template>
 
-  <div class="tw-flex tw-flex-col tw-w-[24rem] lg:tw-w-[32rem] tw-h-[36rem] tw-p-6 tw-space-y-4 tw-bg-component-color tw-border tw-border-component-border tw-shadow-md tw-shadow-component-border tw-rounded-lg">
+  <div class="tw-flex tw-flex-col tw-w-[20rem] lg:tw-w-[32rem] tw-h-[24rem] md:tw-h-[35rem]  tw-p-6 tw-space-y-4 tw-bg-component-color tw-border tw-border-component-border tw-shadow-md tw-shadow-component-border tw-rounded-lg">
       <div class="tw-flex tw-justify-items-start tw-items-center">
         <span class="tw-font-bold tw-text-sm  md:tw-text-base lg:tw-text-xl tw-text-white">Film Seçimi</span>
       </div>

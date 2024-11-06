@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator';
-import C from '@/components/comment/index.vue';
+import C from '@/components/quickReservation/index.vue';
 import { VoieceService } from '@/services/VoiceService';
 
 

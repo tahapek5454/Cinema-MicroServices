@@ -33,10 +33,12 @@ export default class TheaterHall extends Base {
 
      created() {
         const self = this;
+        self.showLoading();
          _sessionRepository.GetSeatWithStatusBySessionId(self.sessionId)
              .then(r => {
                     self.seatSessionStatus = r;
-             });
+             })
+             .finally(()=>self.hideLoading());
 
         this.seatStatusHubService.HubConection.start().then(()=>{
             self.seatStatusHubService.HubConection.on("receiveStatus", (message: SeatSessionStatusDto) => {

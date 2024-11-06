@@ -74,6 +74,7 @@ axiosInstance.interceptors.response.use((response) => response /* success operat
             return Promise.reject(error);
         if(error.response?.status === 401) // login ekranina git
         {
+            Vue.prototype.$router.push("/auth");
             return Promise.reject(error);
         }
 

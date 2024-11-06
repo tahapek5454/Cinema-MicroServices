@@ -8,6 +8,7 @@ import { VoieceService } from '@/services/VoiceService';
 import Modal from "@/components/modal/index.vue";
 import MovieSelection from "@/components/movieSelection/index.vue";
 import TheaterHall from "@/components/theaterhall/index.vue";
+import QuickReservation from "@/components/quickReservation/index.vue";
 
 
 const _assistantRepository  = RepositoryFactory(Repositories.AssistantRepository) as AssistantRepository;
@@ -22,9 +23,7 @@ interface IConversation {
 @Component({
     components:{
         ChatMessage,
-        Modal,
-        MovieSelection,
-        TheaterHall
+        QuickReservation
     }
 })
 export default class Chat extends Base {
@@ -34,8 +33,9 @@ export default class Chat extends Base {
     message:string|null = null;
     threadId:string|null = null;
 
+    // for quick reservation
     isOpenModal:boolean = false;
-    sectionStep:number = 0;
+
 
     created(): void {
         const self = this;
@@ -70,18 +70,7 @@ export default class Chat extends Base {
         this.$root.$off('chatOpen');
     }
 
-    next(step:number){
-        if(this.sectionStep+step == 2){
-            this.$toast.success("Rezervasyonun tamamlandı 😊");
-            return;
-        }
 
-        if(this.sectionStep + step > 1 || this.sectionStep + step < 0){
-            this.$toast.warning("Adım sayısının dışına çıkamazsınız 😊");
-            return;
-        }
-        this.sectionStep = this.sectionStep + step;
-    }
 
     close(){
         this.render = false;

@@ -15,7 +15,7 @@ namespace Cinema.Services.AuthAPI.Application.Commands.RefreshToken
                 throw new UnauthorizedAccessException("UnAuthoriize");
 
             if (refreshToken.Expiration < DateTime.UtcNow)
-                throw new Exception("Expire");
+                throw new UnauthorizedAccessException("Expire");
 
             var user = await _userService.Table.FirstOrDefaultAsync(x => x.Id.Equals(refreshToken.UserId));
 
