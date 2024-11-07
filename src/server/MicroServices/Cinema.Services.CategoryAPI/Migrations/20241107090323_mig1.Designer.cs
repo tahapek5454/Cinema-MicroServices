@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Services.CategoryAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241006150548_update")]
-    partial class update
+    [Migration("20241107090323_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,20 @@ namespace Cinema.Services.CategoryAPI.Migrations
                             CreatedDate = new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Biyografik",
                             Name_EN = "Biographical"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Korku",
+                            Name_EN = "Horror"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Aksiyon",
+                            Name_EN = "Action"
                         });
                 });
 #pragma warning restore 612, 618

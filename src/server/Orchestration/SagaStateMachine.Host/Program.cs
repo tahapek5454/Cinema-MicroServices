@@ -48,6 +48,15 @@ builder.Services.AddMassTransit(configure =>
         {
             _builder.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
         });
+    });    
+    
+    configure.AddSagaStateMachine<CategoryChangeStateMachine, CategoryChangedStateInstance>()
+    .EntityFrameworkRepository(options =>
+    {
+        options.AddDbContext<DbContext, MovieAppStateDbContext>((provider, _builder) =>
+        {
+            _builder.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL"));
+        });
     });
 
     configure.UsingRabbitMq((context, configurator) =>
@@ -69,6 +78,12 @@ builder.Services.AddMassTransit(configure =>
         configurator.ReceiveEndpoint(RabbitMQSettings.MovieChangeStateMachineQueue, e =>
         {
             e.ConfigureSaga<MovieChangeStateInstance>(context);
+            e.DiscardSkippedMessages();
+        });
+
+        configurator.ReceiveEndpoint(RabbitMQSettings.CategoryChangeStateMachineQueue, e =>
+        {
+            e.ConfigureSaga<CategoryChangedStateInstance>(context);
             e.DiscardSkippedMessages();
         });
     });

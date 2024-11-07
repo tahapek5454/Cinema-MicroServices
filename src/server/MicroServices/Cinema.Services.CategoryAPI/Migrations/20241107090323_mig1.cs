@@ -35,7 +35,9 @@ namespace Cinema.Services.CategoryAPI.Migrations
                 {
                     { 1, new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Komedi", "Comedy" },
                     { 2, new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Animasyon", "Animation" },
-                    { 3, new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Biyografik", "Biographical" }
+                    { 3, new DateTime(2024, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Biyografik", "Biographical" },
+                    { 4, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Korku", "Horror" },
+                    { 5, new DateTime(2024, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "Aksiyon", "Action" }
                 });
         }
 

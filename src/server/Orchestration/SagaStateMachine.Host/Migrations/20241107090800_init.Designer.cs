@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SagaStateMachine.Host.StateDbContexts;
 
@@ -11,9 +12,11 @@ using SagaStateMachine.Host.StateDbContexts;
 namespace SagaStateMachine.Host.Migrations
 {
     [DbContext(typeof(MovieAppStateDbContext))]
-    partial class MovieAppStateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241107090800_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

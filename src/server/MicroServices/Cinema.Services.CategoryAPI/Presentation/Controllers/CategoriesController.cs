@@ -46,7 +46,7 @@ namespace Cinema.Services.CategoryAPI.Presentation.Controllers
             return Created();
         }
 
-        [HttpPut, Authorize(Roles = "admin")]
+        [HttpPut]
         public async Task<IActionResult> UpdateGategory([FromBody] UpdateGategoryRequest request)
         {
             _ = await _mediator.Send(request);
