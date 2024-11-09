@@ -12,6 +12,10 @@ export default class MovieCarousel extends Vue {
         this.basePath+'venom.jpg',
     ]
 
+    get translateX(){
+        return `-${this.selectedIndex * 100}%`
+    }
+
     mounted() {
         setInterval(()=>{
             this.next();
