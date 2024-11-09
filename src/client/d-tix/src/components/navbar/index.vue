@@ -30,7 +30,7 @@
                             ></v-autocomplete>
                         </div>    
                         <v-btn
-                            @click="hey"
+                            @click="$router.push('/playground')"
                             depressed
                             color="#881337"
                             >
