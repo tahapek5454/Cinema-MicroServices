@@ -1,7 +1,7 @@
 <!-- HomeView.vue -->
 <template>
     <div class="tw-bg-background">
-        <div class="tw-flex tw-justify-center">
+        <div class="tw-hidden lg:tw-flex tw-justify-center">
             <MovieCarousel></MovieCarousel>
         </div>
 

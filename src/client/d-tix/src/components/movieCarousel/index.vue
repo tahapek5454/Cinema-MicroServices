@@ -9,7 +9,7 @@
     <div class="tw-absolute tw-z-10 tw-w-[12rem] tw-h-[9rem]  2xl:tw-w-[22rem] 2xl:tw-h-[14rem]  tw-right-1  tw-top-[53%]  2xl:tw-top-[60%] ">
       <div class="tw-w-full tw-overflow-hidden tw-h-full tw-flex  tw-items-center">
         <div class="tw-flex ">
-          <div v-for="(slide, index) in slides2" :key="index" class="tw-ml-5 2xl:tw-ml-8 tw-flex tw-overflow-hidden tw-w-[6rem] tw-rounded-2xl 2xl:tw-w-[9rem] tw-transition-transform  tw-ease-out tw-duration-1000 " :style="{ transform: `translateX(${translateX2})` }">
+          <div @transitionend="handleTransitionEnd" v-for="(slide, index) in slides2" :key="index" :class="`tw-ml-5 2xl:tw-ml-8 tw-flex tw-overflow-hidden tw-w-[6rem] tw-rounded-2xl 2xl:tw-w-[9rem] ${isSmooth ? 'tw-transition-transform  tw-ease-out tw-duration-1000': ''} `" :style="{ transform: `translateX(${translateX2})` }">
             <img :src="slide" alt="movieCardImage" class="tw-object-fill tw-w-[6rem] 2xl:tw-w-[9rem]   tw-rounded-lg">
           </div>
         </div>
