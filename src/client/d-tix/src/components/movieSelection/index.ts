@@ -49,6 +49,7 @@ export default class MovieSelection extends Base {
 
         if(!oldSelectionMovie && newSelectionMovie){
             newSelectionMovie.isSelected = true;
+            this.$emit('selectMovieForReservation', id);
             return;
         }
 
@@ -58,6 +59,7 @@ export default class MovieSelection extends Base {
             }else{
                 oldSelectionMovie.isSelected = false;
                 newSelectionMovie.isSelected = true;
+                this.$emit('selectMovieForReservation', id);
             }
         }
         return;

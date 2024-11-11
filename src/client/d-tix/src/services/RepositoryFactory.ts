@@ -1,7 +1,11 @@
 import { AssistantRepository } from "@/Repositories/AssistantRepository";
 import { MovieRepository } from "@/Repositories/MovieRepository";
 import { AuthRepository } from "@/Repositories/AuthRepository";
-import {SessionRepository} from "@/Repositories/SessionRepository";
+import { SessionRepository } from "@/Repositories/SessionRepository";
+import { BranchRepository } from "@/Repositories/BranchRepository";
+import { CategoryRepository } from "@/Repositories/CategoryRepository";
+import { CityRepository } from "@/Repositories/CityRepository";
+import { DistrinctRepository } from "@/Repositories/DistrinctRepository";
 
 export function RepositoryFactory(repository: Repositories) {
 
@@ -14,6 +18,14 @@ export function RepositoryFactory(repository: Repositories) {
             return new AuthRepository();
         case Repositories.SessionRepository:
             return new SessionRepository();
+        case Repositories.BranchRepository:
+            return new BranchRepository();
+        case Repositories.CategoryRepository:
+            return new CategoryRepository();
+        case Repositories.CityRepository:
+            return new CityRepository();
+        case Repositories.DistrinctRepository:
+            return new DistrinctRepository();
         default:
             break;
     }
@@ -24,5 +36,9 @@ export enum Repositories {
     MovieRepository,
     AssistantRepository,
     AuthRepository,
-    SessionRepository   ,
+    SessionRepository,
+    BranchRepository,
+    CategoryRepository,
+    CityRepository,
+    DistrinctRepository
 }

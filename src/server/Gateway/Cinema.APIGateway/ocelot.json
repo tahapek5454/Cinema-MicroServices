@@ -113,6 +113,19 @@
         "AuthenticationProviderKey": "Bearer",
         "AllowedScopes": []
       }
+    },
+    // BranchServer
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7197
+        }
+      ],
+      "UpstreamPathTemplate": "/branchserver/public/{url}",
+      "UpstreamHttpMethod": [ "Get" ]
     }
 
   ],

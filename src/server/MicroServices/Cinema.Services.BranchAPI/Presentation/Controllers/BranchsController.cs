@@ -2,6 +2,7 @@
 using Cinema.Services.BranchAPI.Application.Queries.Branches.GetAllBranches;
 using Cinema.Services.BranchAPI.Application.Queries.Branches.GetBrancheById;
 using Cinema.Services.BranchAPI.Application.Queries.Branches.GetBranches;
+using Cinema.Services.BranchAPI.Application.Queries.Branches.GetBranchesByDistrinct;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,14 @@ namespace Cinema.Services.BranchAPI.Presentation.Controllers
         public async Task<IActionResult> GetBrancheById([FromRoute] GetBrancheByIdRequest request)
         {
             var r = await _mediator.Send(request);    
+
+            return Ok(r);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetBranchesByDistrinct([FromQuery] GetBranchesByDistrinctRequest request)
+        {
+            var r = await _mediator.Send(request);
 
             return Ok(r);
         }

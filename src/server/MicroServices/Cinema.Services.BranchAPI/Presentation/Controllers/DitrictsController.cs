@@ -2,6 +2,7 @@
 using Cinema.Services.BranchAPI.Application.Queries.Districts.GetAllDistricts;
 using Cinema.Services.BranchAPI.Application.Queries.Districts.GetDistrictById;
 using Cinema.Services.BranchAPI.Application.Queries.Districts.GetDistricts;
+using Cinema.Services.BranchAPI.Application.Queries.Districts.GetDistrictsByCity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,6 +37,14 @@ namespace Cinema.Services.BranchAPI.Presentation.Controllers
 
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetDistrictById([FromRoute] GetDistrictByIdRequest request)
+        {
+            var r = await _mediator.Send(request);
+
+            return Ok(r);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDistrictByCity([FromQuery] GetDistrictsByCityRequest request)
         {
             var r = await _mediator.Send(request);
 

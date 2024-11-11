@@ -40,6 +40,17 @@ export class BranchRepository extends HttpClientService{
         return result;
     }
 
+    async GetBranchesByDistrinct(Id: string):Promise<BranchDto[]>{
+        const result : BranchDto[] = await this.getAsync({
+            ...this.stableRequestParameter,
+            accessModify: AccessModify.Public,
+            action: "GetBranchesByDistrinct",
+            queryString: `DistrinctId=${Id}`
+        });
+
+        return result;
+    }
+
     async AddBranch(request: Partial<AddBranchRequest>): Promise<void>{
         await this.postAsync({
             ...this.stableRequestParameter,

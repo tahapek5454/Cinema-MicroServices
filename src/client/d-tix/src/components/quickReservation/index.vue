@@ -22,8 +22,8 @@
           <div class="tw-w-full tw-h-full tw-overflow-y-auto  tw-py-4">
             <div class="tw-w-full tw-h-full">
               <div v-if="sectionStep==0" class="tw-flex tw-justify-center tw-flex-wrap tw-flex-col tw-space-y-4 md:tw-space-y-0 md:tw-flex-row  tw-space-x-2">
-                <MovieSelection/>
-                <MovieSelection/>
+                <BranchSelection @selectBranchForReservation="selectBranchForReservation"/>
+                <MovieSelection @selectMovieForReservation="selectMovieForReservation"/>
                 <MovieSelection/>
               </div>
               <div v-else-if="sectionStep==1" class="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
