@@ -13,7 +13,7 @@ export default class MovieCarousel extends Base {
     slides: string[] = [
         this.basePath+'dp.jpg',
         this.basePath+'avengers.jpg',
-        this.basePath+'kraven.jpg',
+        this.basePath+'moana.jpg',
         this.basePath+'aslan.jpg',
         this.basePath+'venom.jpg',
     ]

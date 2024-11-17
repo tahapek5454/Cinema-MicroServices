@@ -3,13 +3,13 @@
         <header class="tw-bg-dark">
             <nav class="tw-flex tw-justify-between tw-py-2 tw-px-4">
                 <div>
-                    <img width="50px" src="@/assets/YENILOGO.svg" alt="Logo">
+                    <img width="50px" @click="$router.push('/')" src="@/assets/YENILOGO.svg" alt="Logo">
                 </div>
                 <div
                     :class="`tw-absolute tw-z-40 bigmd:tw-z-0 bigmd:tw-static  tw-min-h-[60vh] bigmd:tw-min-h-fit tw-left-0  tw-bg-dark ${topPosition} tw-w-full bigmd:tw-w-auto tw-flex  tw-items-center tw-px-5 tw-transition-all tw-duration-500`">
                     <ul class="tw-flex tw-flex-col bigmd:tw-flex-row bigmd:tw-items-center tw-gap-8 bigmd:tw-gap-[2vw]">
-                        <li class="hover:tw-text-gray-500">Filmler</li>
-                        <li class="hover:tw-text-gray-500">Kategoriler</li>
+                        <li class="hover:tw-text-gray-500 hover:tw-cursor-pointer" @click="$router.push('/')">Filmler</li>
+                        <li class="hover:tw-text-gray-500 hover:tw-cursor-pointer"  @click="$router.push('/categories')">Kategoriler</li>
                         <li class="hover:tw-text-gray-500">Sinemalar</li>
 
                         <!-- <div class="tw-group tw-border-r tw-px-4 tw-mx-4 tw-py-1 tw-border-red">

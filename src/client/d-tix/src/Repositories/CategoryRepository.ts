@@ -10,7 +10,7 @@ export class CategoryRepository extends HttpClientService{
 
     readonly stableRequestParameter: RequestParameters = {
         controller: "Categories",
-        serverName: ServerNames.BranchServer
+        serverName: ServerNames.CategoryServer
     }
 
     async GetCategoryById(Id:string):Promise<CategoryDto>{
