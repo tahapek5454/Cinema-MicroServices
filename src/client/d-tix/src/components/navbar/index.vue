@@ -10,7 +10,7 @@
                     <ul class="tw-flex tw-flex-col bigmd:tw-flex-row bigmd:tw-items-center tw-gap-8 bigmd:tw-gap-[2vw]">
                         <li class="hover:tw-text-gray-500 hover:tw-cursor-pointer" @click="$router.push('/')">Filmler</li>
                         <li class="hover:tw-text-gray-500 hover:tw-cursor-pointer"  @click="$router.push('/categories')">Kategoriler</li>
-                        <li class="hover:tw-text-gray-500">Sinemalar</li>
+                        <li class="hover:tw-text-gray-500 hover:tw-cursor-pointer" @click="$router.push('/branches')">Salonlar</li>
 
                         <!-- <div class="tw-group tw-border-r tw-px-4 tw-mx-4 tw-py-1 tw-border-red">
                             <input type="text" class="tw-transition tw-duration-500 tw-bg-transparent tw-border-b tw-border-red tw-w-32 md:tw-w-44 focus:tw-outline-none ">

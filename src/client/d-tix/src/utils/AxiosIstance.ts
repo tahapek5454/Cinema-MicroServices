@@ -2,7 +2,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
 import Vue from "vue";
-import {GetAuthInfo} from "@/services/AuthService";
+import {GetAuthInfo, RemoveAuthInfo} from "@/services/AuthService";
 
 
 const baseURL = 'https://localhost:7135';
@@ -74,6 +74,7 @@ axiosInstance.interceptors.response.use((response) => response /* success operat
             return Promise.reject(error);
         if(error.response?.status === 401) // login ekranina git
         {
+            RemoveAuthInfo();
             Vue.prototype.$router.push("/auth");
             return Promise.reject(error);
         }
