@@ -1,5 +1,4 @@
 ﻿using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using SharedLibrary.Models.Entities;
 using System.Linq.Expressions;
 
@@ -7,7 +6,7 @@ namespace SharedLibrary.Repositories
 {
     public interface ISharedBaseRepository<T> where T : SharedBaseEntity
     {
-        IMongoQueryable<T> Query();
+        IQueryable<T> Query();
         IQueryable<T> Get(Expression<Func<T, bool>> predicate = null);
         Task<T> GetAsync(Expression<Func<T, bool>> predicate);
         Task<T> GetByIdAsync(int id);

@@ -5,7 +5,6 @@ using Cinema.Services.CategoryAPI.Infrastructure.Services.Concrete;
 using MassTransit;
 using MediatR;
 using SharedLibrary.Events.CategoryChangeEvent;
-using SharedLibrary.Events.MovieChangeEvents;
 using SharedLibrary.Settings;
 
 namespace Cinema.Services.CategoryAPI.Application.Commands.Categories.UpdateGategory

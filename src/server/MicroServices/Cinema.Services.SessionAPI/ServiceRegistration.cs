@@ -26,7 +26,10 @@ namespace Cinema.Services.SessionAPI
 
 
 
-            services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddMediatR(configuration =>
+            {
+                configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            });
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(BeforeHandlerBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AfterHandlerBehavior<,>));
 

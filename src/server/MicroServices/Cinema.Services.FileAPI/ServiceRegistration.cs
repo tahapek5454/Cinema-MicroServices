@@ -25,7 +25,10 @@ namespace Cinema.Services.FileAPI
                 options.UseSqlServer(connectionString);
             });
 
-            serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
+            serviceCollection.AddMediatR(configuration =>
+            {
+                configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
+            });
             serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(BeforeHandlerBehavior<,>));
             serviceCollection.AddTransient(typeof(IPipelineBehavior<,>), typeof(AfterHandlerBehavior<,>));
 

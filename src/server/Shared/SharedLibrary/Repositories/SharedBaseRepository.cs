@@ -42,7 +42,7 @@ namespace SharedLibrary.Repositories
 
         }
 
-        public IMongoQueryable<T> Query()
+        public IQueryable<T> Query()
          => _collection.AsQueryable();
         public async Task<T> AddAsync(T entity)
         {

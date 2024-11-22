@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using SharedLibrary.Events.CategoryChangeEvent;
-using SharedLibrary.Events.MovieImageEvents;
 using SharedLibrary.Repositories.SharedModelRepositories.Abstract;
 using SharedLibrary.Settings;
 

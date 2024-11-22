@@ -1,10 +1,6 @@
 ﻿using MassTransit;
 using SagaStateMachine.Host.StateInstances;
 using SharedLibrary.Events.CategoryChangeEvent;
-using SharedLibrary.Events.MovieChangeEvents;
-using SharedLibrary.Events.MovieChangeEvents.AddMovieEvents;
-using SharedLibrary.Helpers;
-using SharedLibrary.Messages;
 using SharedLibrary.Settings;
 
 namespace SagaStateMachine.Host.StateMachines
