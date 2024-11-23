@@ -3,7 +3,7 @@ using System.Net;
 using System.Text;
 using SharedLibrary.Events.MailEvents;
 
-namespace Cinema.Services.MailWorkerService.Services
+namespace Cinema.Services.MailAPI.Services
 {
     public class MailService
     {
@@ -54,12 +54,12 @@ namespace Cinema.Services.MailWorkerService.Services
             mail.Body = body;
 
             // kimin gonderecegini belirtelim
-            mail.From = new MailAddress(_configuration["Mail:UserName"], "D-TIX", System.Text.Encoding.UTF8);
+            mail.From = new MailAddress(_configuration["Mail:UserName"], "D-TIX", Encoding.UTF8);
 
             // GONDERME ISLEMI
             SmtpClient smtp = new SmtpClient();
             smtp.Credentials = new NetworkCredential(_configuration["Mail:UserName"], _configuration["Mail:ApplicationPassword"]);
-            smtp.Port = Int32.Parse(_configuration["Mail:Port"]);
+            smtp.Port = int.Parse(_configuration["Mail:Port"]);
             smtp.EnableSsl = true;
             smtp.Host = _configuration["Mail:Host"];
             await smtp.SendMailAsync(mail);
