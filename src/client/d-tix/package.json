@@ -14,6 +14,7 @@
     "jwt-decode": "^4.0.0",
     "vue": "^2.6.14",
     "vue-class-component": "^7.2.3",
+    "vue-drag-resize": "^1.5.4",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.1",
     "vue-toastification": "^1.7.14",

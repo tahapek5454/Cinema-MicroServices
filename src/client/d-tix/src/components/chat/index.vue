@@ -2,12 +2,23 @@
     <div>
 <!--        Quick Reservation Section-->
         <QuickReservation :isOpenModal="isOpenModal" @close="isOpenModal=false"/>
-
-
 <!--        Chat Section-->
-        <Transition name="bounce">
-            <div v-if="render" class="tw-z-50 tw-fixed tw-bottom-[4rem] tw-right-4 tw-mb-4 tw-mr-4    tw-rounded-xl tw-w-[40rem] tw-h-[48rem] tw-shadow-xl shadow tw-shadow-white2 tw-bg-black  tw-px-3 tw-flex tw-flex-col tw-text-white2">
-                <div class="tw-rounded-lg tw-w-full tw-p-4  tw-flex tw-justify-between tw-items-center tw-text-center ">
+      <Transition name="bounce">
+        <VueDragResize  v-if="render"
+                        dragHandle=".drag"
+                     v-on:resizing="resize"
+                     v-on:dragging="resize"
+                     :minw="300"
+                     :minh="300"
+                     :w="400"
+                     :h="500"
+                     :Z="49"
+                     :x="10"
+                     :y="100"
+                     class="tw-fix" >
+
+            <div v-if="render" class="tw-z-50   tw-mb-4 tw-mr-4    tw-rounded-xl tw-w-full tw-h-full tw-shadow-xl shadow tw-shadow-white2 tw-bg-black  tw-px-3 tw-flex tw-flex-col tw-text-white2">
+                <div class="tw-rounded-lg tw-w-full tw-p-4 drag  tw-flex tw-justify-between tw-items-center tw-text-center ">
                     <div class="tw-flex tw-space-x-2">
                         <img src="/absoluteImages/dmate.png" alt="robot" class="tw-rounded-full tw-w-12">
                         <div class="tw-flex tw-flex-col tw-space-y-1">
@@ -62,7 +73,8 @@
                     </div>
                 </div>
             </div>
-        </Transition>
+      </VueDragResize>
+      </Transition>
     </div>
     
     

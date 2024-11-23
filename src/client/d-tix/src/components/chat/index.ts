@@ -5,11 +5,8 @@ import {ChatEnum} from "@/models/enums/ChatEnum";
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 import { AssistantRepository } from '@/Repositories/AssistantRepository';
 import { VoieceService } from '@/services/VoiceService';
-import Modal from "@/components/modal/index.vue";
-import MovieSelection from "@/components/movieSelection/index.vue";
-import TheaterHall from "@/components/theaterhall/index.vue";
 import QuickReservation from "@/components/quickReservation/index.vue";
-
+import VueDragResize from 'vue-drag-resize';
 
 const _assistantRepository  = RepositoryFactory(Repositories.AssistantRepository) as AssistantRepository;
 const _voiceService = new VoieceService();
@@ -23,7 +20,8 @@ interface IConversation {
 @Component({
     components:{
         ChatMessage,
-        QuickReservation
+        QuickReservation,
+        VueDragResize
     }
 })
 export default class Chat extends Base {

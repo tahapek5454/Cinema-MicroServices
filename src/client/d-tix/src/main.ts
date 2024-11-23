@@ -6,6 +6,11 @@ import './index.css'
 import './plugins/toastification.ts'
 import './plugins/myPlugin.ts'
 import vuetify from './plugins/vuetify'
+import VueDragResize from 'vue-drag-resize'
+
+Vue.component('vue-drag-resize', VueDragResize)
+
+
 
 Vue.config.productionTip = false
 
