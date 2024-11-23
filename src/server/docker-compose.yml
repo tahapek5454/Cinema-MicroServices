@@ -46,11 +46,11 @@ services:
       - mssql
       - rabbitmq
 
-  cinema.services.mailworkerservice:
-    image: ${DOCKER_REGISTRY-}cinemaservicesmailworkerservice
+  cinema.services.mailapi:
+    image: ${DOCKER_REGISTRY-}cinemaservicesmailapi
     build:
       context: .
-      dockerfile: MicroServices/Cinema.Services.MailWorkerService/Dockerfile
+      dockerfile: MicroServices/Cinema.Services.MailAPI/Dockerfile
     networks:
       - shared_network
     depends_on:

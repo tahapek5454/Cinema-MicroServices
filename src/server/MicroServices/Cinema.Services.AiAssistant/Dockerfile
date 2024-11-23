@@ -12,20 +12,20 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["MicroServices/Cinema.Services.MovieAPI/Cinema.Services.MovieAPI.csproj", "MicroServices/Cinema.Services.MovieAPI/"]
+COPY ["MicroServices/Cinema.Services.AiAssistant/Cinema.Services.AiAssistant.csproj", "MicroServices/Cinema.Services.AiAssistant/"]
 COPY ["Shared/SharedLibrary/SharedLibrary.csproj", "Shared/SharedLibrary/"]
-RUN dotnet restore "./MicroServices/Cinema.Services.MovieAPI/Cinema.Services.MovieAPI.csproj"
+RUN dotnet restore "./MicroServices/Cinema.Services.AiAssistant/Cinema.Services.AiAssistant.csproj"
 COPY . .
-WORKDIR "/src/MicroServices/Cinema.Services.MovieAPI"
-RUN dotnet build "./Cinema.Services.MovieAPI.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/MicroServices/Cinema.Services.AiAssistant"
+RUN dotnet build "./Cinema.Services.AiAssistant.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Cinema.Services.MovieAPI.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Cinema.Services.AiAssistant.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Cinema.Services.MovieAPI.dll"]
+ENTRYPOINT ["dotnet", "Cinema.Services.AiAssistant.dll"]
