@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { jwtDecode } from "jwt-decode";
 import Vue from "vue";
 import {GetAuthInfo, RemoveAuthInfo} from "@/services/AuthService";
+import router from "@/router";
 
 
 const baseURL = 'https://localhost:7135';
@@ -77,7 +78,16 @@ axiosInstance.interceptors.response.use((response) => response /* success operat
         if(error.response?.status === 401) // login ekranina git
         {
             RemoveAuthInfo();
-            Vue.prototype.$router.push("/auth");
+            
+            router.push("/auth");
+            Vue.$toast.error("Devam etmek için lütfen giriş yapınız 🤗");
+            return Promise.reject(error);
+        }
+        if(error.response?.status === 403){
+            RemoveAuthInfo();
+
+            router.push("/auth");
+            Vue.$toast.error("Devam etmek için yetkili bir hesaba geçiş yapınız 🤗");
             return Promise.reject(error);
         }
 
