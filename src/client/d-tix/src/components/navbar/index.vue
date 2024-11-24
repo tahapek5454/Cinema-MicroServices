@@ -20,6 +20,8 @@
                             <v-autocomplete
                                 v-model="values"
                                 :items="items"
+                                item-text="name"
+                                item-value="id"
                                 deletable-chips
                                 multiple
                                 small-chips

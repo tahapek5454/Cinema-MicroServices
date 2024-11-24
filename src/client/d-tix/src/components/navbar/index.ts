@@ -3,8 +3,11 @@ import LoginResponse from "@/models/auth/LoginResponse";
 import Base from "@/utils/Base";
 import {GetAuthInfo, RemoveAuthInfo} from "@/services/AuthService";
 import AxiosIstance from "@/utils/AxiosIstance";
+import {Repositories, RepositoryFactory} from "@/services/RepositoryFactory";
+import {BranchRepository} from "@/Repositories/BranchRepository";
+import BranchDto from "@/models/branch/BranchDto";
 
-
+const _branchRepository = RepositoryFactory(Repositories.BranchRepository) as BranchRepository;
 @Component
 export default class Navbar extends Base {
 
@@ -16,8 +19,8 @@ export default class Navbar extends Base {
     menuExpandIconName: ExpandIcon = ExpandIcon.Menu;
     topPosition: ExpandPosition = ExpandPosition.Hide;
 
-    items = ['Xyz Avm Sinemaları', 'Serdivan AVM Sinemaları', 'Agora Sienamalrı']
-    values= ['Serdivan AVM Sinemaları']
+    items: BranchDto[] = []
+    values= []
 
     changeMenuExpandIcon(){
         this.menuExpandIconName === ExpandIcon.Menu 
@@ -27,7 +30,6 @@ export default class Navbar extends Base {
         this.menuExpandIconName === ExpandIcon.Menu
         ? this.topPosition = ExpandPosition.Hide
         : this.topPosition = ExpandPosition.Show;
-        console.log('hello world');
     }
 
 
@@ -41,6 +43,11 @@ export default class Navbar extends Base {
         });
 
         this.loginInfo = GetAuthInfo();
+
+        _branchRepository.GetAllBranches()
+            .then(r => {
+            this.items = r;
+        });
 
     }
 

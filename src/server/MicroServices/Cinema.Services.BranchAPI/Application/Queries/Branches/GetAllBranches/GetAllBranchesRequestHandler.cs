@@ -10,7 +10,7 @@ namespace Cinema.Services.BranchAPI.Application.Queries.Branches.GetAllBranches
     {
         public async Task<List<GetAllBranchesResponse>> Handle(GetAllBranchesRequest request, CancellationToken cancellationToken)
         {
-            var r = await _branchService.Table.ToListAsync();
+            var r = await _branchService.Table.Include(x => x.District).ThenInclude(x => x.City).ToListAsync();
 
             var result = ObjectMapper.Mapper.Map<List<BranchDto>>(r);
 
@@ -21,6 +21,8 @@ namespace Cinema.Services.BranchAPI.Application.Queries.Branches.GetAllBranches
                 DistrictId = x.DistrictId,
                 Id = x.Id,
                 Name = x.Name,
+                District = x.District,
+                
             }).ToList() ?? new();
         }
     }
