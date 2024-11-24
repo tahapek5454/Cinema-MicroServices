@@ -35,7 +35,7 @@ namespace Cinema.Services.AuthAPI.Infrastructure.Services.Concrete
             {
                 AccessToken = token,
                 RefreshToken = CreateRefreshToken(),
-                RefreshTokenExpire = DateTime.UtcNow.AddMinutes(_options.Value.RefreshTokenExpiration),
+                RefreshTokenExpire = DateTime.UtcNow.AddDays(_options.Value.RefreshTokenExpiration),
                 UserName = user.UserName,
             };
 

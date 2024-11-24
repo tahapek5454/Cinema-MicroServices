@@ -24,14 +24,10 @@ namespace Cinema.Services.AuthAPI.Application.Commands.RefreshToken
 
             var response = await _tokenService.CreateTokenAsync(user);
 
-            _ = Task.Run(async () =>
-            {
-                await Task.Delay(5000);
-                refreshToken.Code = response.RefreshToken;
-                refreshToken.Expiration = response.RefreshTokenExpire;
-
-                await _authUnitOfWork.SaveChangesAsync();
-            });
+            // yenilemek yerine refershToken orijinal hali expire olana kadar yararlanılması sağlandı.
+            // Eger RefereshTokenın da expire süresi dolarsa login olunmalı
+            response.RefreshToken = refreshToken.Code;
+            response.RefreshTokenExpire = refreshToken.Expiration;
 
             return new()
             {
