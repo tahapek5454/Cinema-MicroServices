@@ -42,6 +42,10 @@ export default class Navbar extends Base {
             console.log(this.loginInfo);
         });
 
+        this.$bus.$on("logout", ()=>{
+            this.logout();
+        });
+
         this.loginInfo = GetAuthInfo();
 
         _branchRepository.GetAllBranches()
@@ -84,6 +88,10 @@ export default class Navbar extends Base {
 
     destroyed(): void {
         this.$root.$off("loginSuccess", ()=>{
+            this.loginInfo = null;
+        });
+
+        this.$bus.$off("logout", ()=>{
             this.loginInfo = null;
         });
     }

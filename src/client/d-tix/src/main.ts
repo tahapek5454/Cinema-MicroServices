@@ -5,6 +5,7 @@ import store from './store'
 import './index.css'
 import './plugins/toastification.ts'
 import './plugins/myPlugin.ts'
+import './plugins/BusPlugin.ts'
 import vuetify from './plugins/vuetify'
 import VueDragResize from 'vue-drag-resize'
 

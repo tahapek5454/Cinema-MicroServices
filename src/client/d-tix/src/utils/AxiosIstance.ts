@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import Vue from "vue";
 import {GetAuthInfo, RemoveAuthInfo} from "@/services/AuthService";
 import router from "@/router";
+import {Bus} from "@/utils/Bus";
 
 
 const baseURL = 'https://localhost:7135';
@@ -77,15 +78,13 @@ axiosInstance.interceptors.response.use((response) => response /* success operat
             return Promise.reject(error);
         if(error.response?.status === 401) // login ekranina git
         {
-            RemoveAuthInfo();
-            
+            Bus.$emit("logout");
             router.push("/auth");
             Vue.$toast.error("Devam etmek için lütfen giriş yapınız 🤗");
             return Promise.reject(error);
         }
         if(error.response?.status === 403){
-            RemoveAuthInfo();
-
+            Bus.$emit("logout");
             router.push("/auth");
             Vue.$toast.error("Devam etmek için yetkili bir hesaba geçiş yapınız 🤗");
             return Promise.reject(error);
