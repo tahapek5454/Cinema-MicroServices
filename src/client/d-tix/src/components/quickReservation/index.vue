@@ -13,7 +13,12 @@
               Koltuk Seçimi
               </span>
             </div>
-            <div @click="$toast.error('Şu anda hizmet verememekteyiz.')" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===2 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
+            <div @click="sectionStep=1" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===2 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
+              <span class="tw-font-bold tw-text-xs md:tw-text-base tw-text-white">
+              Özet
+              </span>
+            </div>
+            <div @click="$toast.error('Şu anda hizmet verememekteyiz.')" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===3 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
               <span class="tw-font-bold tw-text-xs md:tw-text-base tw-text-white">
               Ödeme
               </span>
@@ -28,6 +33,9 @@
               </div>
               <div v-else-if="sectionStep==1" class="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
                 <TheaterHall/>
+              </div>
+              <div v-else-if="sectionStep==2" class="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
+                <TicketSummary/>
               </div>
             </div>
           </div>
@@ -44,7 +52,7 @@
 
                 color="#881337"
             >
-              {{sectionStep==2 ? 'Rezervasyonu Tamamla' : 'İleri'}}
+              {{sectionStep==3 ? 'Rezervasyonu Tamamla' : 'İleri'}}
             </v-btn>
           </div>
         </div>

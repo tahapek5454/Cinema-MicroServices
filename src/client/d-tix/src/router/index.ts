@@ -7,6 +7,7 @@ import TicketBuy from '@/views/ticketBuy/index.vue'
 import AuthView from '@/views/auth/index.vue'
 import Categories from '@/views/categories/index.vue'
 import Branches from "@/views/branches/index.vue";
+import TicketBuyAlternative from "@/views/ticketBuyAlternative/index.vue";
 
 Vue.use(VueRouter)
 
@@ -39,7 +40,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/ticketBuy',
     name: 'ticketBuy',
-    component: TicketBuy
+    component: TicketBuyAlternative
   },
   {
     path: '/categories',

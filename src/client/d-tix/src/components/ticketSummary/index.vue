@@ -1,44 +1,77 @@
 <template>
-    <div class="tw-flex tw-flex-col tw-p-8  tw-bg-black tw-rounded-2xl tw-space-y-10 tw-items-center">
-        <div class="tw-flex tw-flex-col tw-p-2 tw-bg-rose-950 tw-rounded-2xl tw-space-y-3">
-            <h3 class="tw-text-sm md:tw-text-xl tw-font-bold">Serdivan AVM Sinemaları</h3>
-            <p class="tw-font-poppin tw-text-xs md:tw-text-sm">Arabacıalanı Mah.,  Mert Sok. No: 25 Serdivan/Sakarya</p>
+    <div class="tw-flex tw-w-[20rem] md:tw-w-[32rem]  tw-bg-component-color tw-space-y-3 tw-rounded-lg tw-flex-col tw-p-6">
+      <div class="tw-flex tw-flex-col  tw-rounded-lg tw-p-3 tw-bg-rose-900 tw-space-y-3 tw-text-white">
+        <span class="tw-text-base lg:tw-text-lg tw-font-bold tw-text-white">Serdivan Paribu Cineverse</span>
+        <span class="tw-text-xs tw-font-light ">Serdivan/Sakarya</span>
+        <div class=" tw-w-full tw-h-full tw-flex tw-space-x-2 tw-items-center">
+          <span class="material-symbols-outlined">
+            star
+          </span>
+          <span class="material-symbols-outlined">
+            star
+          </span><span class="material-symbols-outlined">
+            star
+          </span><span class="material-symbols-outlined">
+            star
+          </span><span class="material-symbols-outlined">
+            star
+          </span>
         </div>
-        <div class="tw-flex tw-items-center tw-justify-center  tw-p-2 tw-bg-rose-950 tw-rounded-2xl tw-w-36 md:tw-w-44 tw-font-normal tw-text-sm md:tw-text-base md:tw-font-bold">
-                13-09-2024 20:00
+      </div>
+      <div  :class="` tw-bg-white2 hover:tw-cursor-pointer tw-rounded-lg tw-w-full tw-flex tw-justify-start tw-p-2 tw-space-x-2`">
+        <div class="tw-overflow-hidden ">
+          <img :src="ImageValue" alt="movieImage" class="tw-object-fill  tw-rounded-xl tw-w-[5rem] lg:tw-w-[6rem]">
         </div>
-        <div class="tw-flex tw-flex-col tw-space-y-5  tw-p-4 ">
 
-            <div class="tw-flex tw-space-x-28">
-                <div class="tw-bg-rose-950 tw-rounded-xl tw-h-6  tw-w-16 tw-text-center tw-flex tw-items-center tw-justify-center tw-text-xs md:tw-text-sm">
-                    A-8
-                </div>
-                <div class=" tw-h-6  tw-w-24 tw-text-center tw-flex tw-items-center tw-justify-center tw-text-xs md:tw-text-sm">
-                    150 TL
-                </div>
-            </div>
+        <div :class="`tw-flex tw-flex-col tw-text-white`">
+          <span :class="`lg:tw-text-lg tw-font-bold tw-text-black  text-wrap`">{{movie.name}}</span>
+          <span class="tw-mt-0.5 tw-text-xs tw-font-light tw-text-neutral-500 text-wrap">{{movie.name}}</span>
 
-            <div class="tw-flex tw-space-x-28">
-                <div class="tw-bg-rose-950 tw-rounded-xl tw-h-6  tw-w-16 tw-text-center tw-flex tw-items-center tw-justify-center tw-text-xs md:tw-text-sm">
-                    A-9
-                </div>
-                <div class=" tw-h-6  tw-w-24 tw-text-center tw-flex tw-items-center tw-justify-center tw-text-xs md:tw-text-sm  ">
-                    150 TL
-                </div>
-            </div>
-            
-            <hr>
-            <div class="tw-flex tw-space-x-28">
-                <div class="tw-text-sm md:tw-text-lg tw-font-bold  tw-h-6  tw-w-16 tw-text-center tw-flex tw-items-center tw-justify-center ">
-                    Toplam:
-                </div>
-                <div class="tw-text-sm md:tw-text-lg tw-font-bold   tw-h-6  tw-w-24 tw-text-center tw-flex tw-items-center tw-justify-center ">
-                    300 TL
-                </div>
-            </div>
+          <span class="tw-mt-3 tw-text-xs tw-font-light  tw-text-black  text-wrap">{{TimeValue}}/{{movie.category.name}}</span>
 
+
+          <div class="tw-flex tw-h-full tw-justify-start tw-items-end tw-space-x-2">
+            <div class="tw-flex  tw-justify-center tw-items-center tw-w-9 tw-rounded-lg tw-bg-white ">
+              <span class="tw-text-xs tw-font-light tw-text-black">IMAX</span>
+            </div>
+            <div class="tw-flex tw-justify-center tw-items-center tw-w-9 tw-rounded-lg tw-bg-white ">
+              <span class="tw-text-xs tw-font-light tw-text-black">4DX</span>
+            </div>
+            <div class="tw-flex tw-justify-center tw-items-center tw-w-9 tw-rounded-lg tw-bg-white ">
+              <span class="tw-text-xs tw-font-light tw-text-black">MPX</span>
+            </div>
+            <div class="tw-flex tw-justify-center tw-items-center tw-w-9 tw-rounded-lg tw-bg-white ">
+              <span class="tw-text-xs tw-font-light tw-text-black">BJK</span>
+            </div>
+          </div>
         </div>
+
+      </div>
+      <div class="tw-flex tw-flex-col tw-text-white lg:tw-text-lg tw-p-2 tw-rounded-lg tw-bg-rose-900 tw-space-y-4">
+        <div class="   tw-flex tw-space-x-6">
+          <span>Tarih: 25.11.2024</span>
+          <span>Saat: 20.00</span>
+          <span>Salon:5</span>
+        </div>
+        <div class="tw-flex tw-flex-col tw-space-y-3">
+          <span>Koltuk/Koltuklar:</span>
+          <ul>
+            <li>
+              A-1
+            </li>
+            <li>
+              A-2
+            </li>
+            <li>
+              A-3
+            </li>
+          </ul>
+        </div>
+        <span>Toplam Tutar : 200 TL</span>
+      </div>
     </div>
+
 </template>
 
-<script src="./index"></script>
+<script src="./index">
+</script>
