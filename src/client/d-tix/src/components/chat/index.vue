@@ -6,8 +6,6 @@
       <Transition name="bounce">
         <VueDragResize  v-if="render"
                         dragHandle=".drag"
-                     v-on:resizing="resize"
-                     v-on:dragging="resize"
                      :minw="300"
                      :minh="300"
                      :w="400"

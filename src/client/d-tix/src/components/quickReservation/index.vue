@@ -13,7 +13,7 @@
               Koltuk Seçimi
               </span>
             </div>
-            <div @click="sectionStep=1" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===2 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
+            <div @click="sectionStep=2" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===2 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
               <span class="tw-font-bold tw-text-xs md:tw-text-base tw-text-white">
               Özet
               </span>

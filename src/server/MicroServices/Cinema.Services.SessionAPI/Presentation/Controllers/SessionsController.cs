@@ -71,6 +71,21 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
             return Ok(ResponseDto<List<SessionDto>>.Sucess(result, 200));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllSessionsByBranchAndMovieId([FromQuery] int branchId, [FromQuery] int movieId)
+        {
+            var session = await _sessionService
+                .Table
+                .AsNoTracking()
+                .Include(x => x.MovieTheater)
+                .Where(x => x.MovieTheater.BranchId == branchId && x.MovieId == movieId)
+                .ToListAsync();
+
+            var result = ObjectMapper.Mapper.Map<List<SessionDto>>(session);
+
+            return Ok(ResponseDto<List<SessionDto>>.Sucess(result, 200).Data);
+        }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSeatWithStatusBySessionId([FromRoute] int id)
