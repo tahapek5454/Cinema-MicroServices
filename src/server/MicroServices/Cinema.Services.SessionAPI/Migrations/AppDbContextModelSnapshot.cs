@@ -17,7 +17,7 @@ namespace Cinema.Services.SessionAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -981,11 +981,10 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Property<int>("ReservedStatus")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("RowVersion")
+                    b.Property<int>("RowVersion")
                         .IsConcurrencyToken()
-                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");

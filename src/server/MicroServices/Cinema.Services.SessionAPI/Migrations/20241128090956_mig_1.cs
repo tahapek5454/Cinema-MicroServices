@@ -82,7 +82,8 @@ namespace Cinema.Services.SessionAPI.Migrations
                     SessionId = table.Column<int>(type: "int", nullable: false),
                     SeatId = table.Column<int>(type: "int", nullable: false),
                     ReservedStatus = table.Column<int>(type: "int", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    RowVersion = table.Column<int>(type: "int", rowVersion: true, nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },

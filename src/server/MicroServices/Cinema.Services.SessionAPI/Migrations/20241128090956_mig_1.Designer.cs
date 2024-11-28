@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Services.SessionAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241104074612_mig6")]
-    partial class mig6
+    [Migration("20241128090956_mig_1")]
+    partial class mig_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -982,6 +982,11 @@ namespace Cinema.Services.SessionAPI.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ReservedStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
