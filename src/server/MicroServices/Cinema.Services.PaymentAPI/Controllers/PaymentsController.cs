@@ -11,10 +11,11 @@ namespace Cinema.Services.PaymentAPI.Controllers
     [ApiController]
     public class PaymentsController : ControllerBase
     {
+        
 
 
         [HttpPost]
-        public ActionResult PayProduct (string name)
+        public ActionResult PayProduct ([FromBody]Body requestBody)
         {
             /**
               Burada siparişin kontolleri vs yapıyorum..
@@ -86,6 +87,10 @@ namespace Cinema.Services.PaymentAPI.Controllers
             return Content(checkoutFormInitialize.CheckoutFormContent, "text/javascript");
         }
 
+    }
 
+    public class Body
+    {
+        public string Name { get; set; }
     }
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Services.SessionAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241128090956_mig_1")]
+    [Migration("20241128125727_mig_1")]
     partial class mig_1
     {
         /// <inheritdoc />
@@ -984,10 +984,11 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Property<int>("ReservedStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("RowVersion")
+                    b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int");
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");

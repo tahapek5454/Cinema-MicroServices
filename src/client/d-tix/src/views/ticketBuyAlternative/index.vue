@@ -17,11 +17,11 @@
               Özet
               </span>
       </div>
-      <div @click="$toast.error('Şu anda hizmet verememekteyiz.')" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===3 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
+      <!-- <div @click="$toast.error('Şu anda hizmet verememekteyiz.')" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===3 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
               <span class="tw-font-bold tw-text-xs md:tw-text-base tw-text-white">
               Ödeme
               </span>
-      </div>
+      </div> -->
     </div>
     <div class="tw-w-full tw-h-full tw-overflow-y-auto  tw-py-4">
       <div class="tw-w-full tw-h-full">
@@ -51,7 +51,7 @@
 
           color="#881337"
       >
-        {{sectionStep==3 ? 'Rezervasyonu Tamamla' : 'İleri'}}
+        {{sectionStep==2 ? 'Ödeme Yap' : 'İleri'}}
       </v-btn>
     </div>
   </div>

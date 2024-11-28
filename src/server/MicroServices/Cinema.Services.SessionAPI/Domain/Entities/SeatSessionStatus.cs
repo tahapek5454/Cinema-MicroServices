@@ -14,7 +14,7 @@ public class SeatSessionStatus : BaseEntity, ICloneable
     public ReservedStatusEnum ReservedStatus { get; set; }
     public int? UserId { get; set; }
     [Timestamp]
-    public int RowVersion { get; set; }
+    public byte[] RowVersion { get; set; }
 
 
     [NotMapped]
@@ -31,6 +31,7 @@ public class SeatSessionStatus : BaseEntity, ICloneable
             SessionId = SessionId,
             UpdatedDate = UpdatedDate,
             UserId = UserId,
+            RowVersion = RowVersion,
         };
 }
 

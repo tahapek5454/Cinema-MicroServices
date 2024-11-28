@@ -8,14 +8,16 @@ export class PaymentRepository extends HttpClientService{
         serverName: ServerNames.PaymentServer
     }
 
-
+    
 
     async PayProduct(name: string): Promise<any>{
-        await this.postAsync({
+         const result =  await this.postAsync({
             ...this.stableRequestParameter,
-            accessModify: AccessModify.Private,
+            accessModify: AccessModify.Public,
             action: "PayProduct"
-        }, name);
-    }
+        }, {name :name});
 
+        return result;
+    }
+    
 }

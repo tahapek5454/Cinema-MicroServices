@@ -5,7 +5,10 @@ import TheaterHall from "@/components/theaterhall/index.vue";
 import BranchSelection from "@/components/branchSelection/index.vue";
 import ReservationModel from "@/models/reservation/reservationModel";
 import TicketSummary from "@/components/ticketSummary/index.vue";
+import { PaymentRepository } from '@/Repositories/PaymentRepository';
+import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 
+const _paymentRepository = RepositoryFactory(Repositories.PaymentRepository) as PaymentRepository;
 
 
 @Component({
@@ -20,6 +23,9 @@ export default class TicketBuyAlternative extends Base {
 
     reservationModel = new ReservationModel();
     sectionStep:number = 0;
+    checkoutFormContent:string =  '';
+    loading:boolean =  false; 
+    error:string =  '' 
 
 
     created(): void {
@@ -32,9 +38,28 @@ export default class TicketBuyAlternative extends Base {
     }
 
 
-    next(step:number){
+    async next(step:number){
         if(this.sectionStep+step == 3){
-            this.$toast.success("Rezervasyonun tamamlandı 😊");
+            this.loading = true;
+            _paymentRepository.PayProduct("abc")
+            .then(response => {
+                if (typeof response === 'string' && response.trim().startsWith('<script')) {                
+                    const scriptContent = response.replace(/<\/?script[^>]*>/g, ''); 
+                    const script = document.createElement('script');
+                    script.type = 'text/javascript';
+                    script.text = scriptContent; 
+                    document.head.appendChild(script);
+    
+                } else {
+                    console.error('Beklenmeyen yanıt:', response);
+                }
+            })
+            .catch(error => {
+                this.error = "Ödeme formunu alırken hata oluştu: " + error.message; 
+            })
+            .finally(() => {
+                this.loading = false; 
+            });   
             return;
         }
 

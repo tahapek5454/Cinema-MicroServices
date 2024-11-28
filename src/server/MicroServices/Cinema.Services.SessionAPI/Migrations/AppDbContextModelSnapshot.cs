@@ -981,10 +981,11 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Property<int>("ReservedStatus")
                         .HasColumnType("int");
 
-                    b.Property<int>("RowVersion")
+                    b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int");
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
