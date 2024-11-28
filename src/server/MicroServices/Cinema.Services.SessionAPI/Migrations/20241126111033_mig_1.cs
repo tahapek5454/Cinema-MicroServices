@@ -8,26 +8,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Cinema.Services.SessionAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class mig1 : Migration
+    public partial class mig_1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "SeatStatuses",
+                name: "MovieTheaters",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SessionId = table.Column<int>(type: "int", nullable: false),
-                    SeatId = table.Column<int>(type: "int", nullable: false),
-                    Reserved = table.Column<bool>(type: "bit", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    MovieTheaterNumber = table.Column<int>(type: "int", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SeatStatuses", x => x.Id);
+                    table.PrimaryKey("PK_MovieTheaters", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,6 +43,12 @@ namespace Cinema.Services.SessionAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Seats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seats_MovieTheaters_MovieTheaterId",
+                        column: x => x.MovieTheaterId,
+                        principalTable: "MovieTheaters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,15 +59,59 @@ namespace Cinema.Services.SessionAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MovieId = table.Column<int>(type: "int", nullable: false),
                     MovieTheaterId = table.Column<int>(type: "int", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Sessions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sessions_MovieTheaters_MovieTheaterId",
+                        column: x => x.MovieTheaterId,
+                        principalTable: "MovieTheaters",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SeatSessionStatus",
+                columns: table => new
+                {
+                    SessionId = table.Column<int>(type: "int", nullable: false),
+                    SeatId = table.Column<int>(type: "int", nullable: false),
+                    ReservedStatus = table.Column<int>(type: "int", nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SeatSessionStatus", x => new { x.SessionId, x.SeatId });
+                    table.ForeignKey(
+                        name: "FK_SeatSessionStatus_Seats_SeatId",
+                        column: x => x.SeatId,
+                        principalTable: "Seats",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SeatSessionStatus_Sessions_SessionId",
+                        column: x => x.SessionId,
+                        principalTable: "Sessions",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "MovieTheaters",
+                columns: new[] { "Id", "BranchId", "Capacity", "CreatedDate", "MovieTheaterNumber", "UpdatedDate" },
+                values: new object[,]
+                {
+                    { 1, 1, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null },
+                    { 2, 1, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, null },
+                    { 3, 1, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, null },
+                    { 4, 1, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, null },
+                    { 5, 1, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, null },
+                    { 6, 1, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, null }
                 });
 
             migrationBuilder.InsertData(
@@ -193,34 +243,58 @@ namespace Cinema.Services.SessionAPI.Migrations
 
             migrationBuilder.InsertData(
                 table: "Sessions",
-                columns: new[] { "Id", "Capacity", "CreatedDate", "Date", "MovieId", "MovieTheaterId", "Price", "UpdatedDate" },
+                columns: new[] { "Id", "CreatedDate", "Date", "MovieId", "MovieTheaterId", "Price", "UpdatedDate" },
                 values: new object[,]
                 {
-                    { 1, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 12, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 17, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 21, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 4, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 10, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 5, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 14, 30, 0, 0, DateTimeKind.Unspecified), 2, 2, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 6, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 22, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 7, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 11, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 8, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 18, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 9, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 13, 0, 0, 0, DateTimeKind.Unspecified), 4, 4, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 10, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 18, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 11, 20, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 20, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 12, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 17, 30, 0, 0, DateTimeKind.Unspecified), 1, 1, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 21, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 4, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 10, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 5, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 14, 30, 0, 0, DateTimeKind.Unspecified), 2, 2, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 6, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 22, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 7, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 11, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 8, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 18, 0, 0, 0, DateTimeKind.Unspecified), 3, 3, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 9, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 13, 0, 0, 0, DateTimeKind.Unspecified), 4, 4, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 10, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 18, 0, 0, 0, DateTimeKind.Unspecified), 5, 5, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 11, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 3, 31, 20, 0, 0, 0, DateTimeKind.Unspecified), 6, 6, 100m, new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_MovieTheaterId",
+                table: "Seats",
+                column: "MovieTheaterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeatSessionStatus_SeatId",
+                table: "SeatSessionStatus",
+                column: "SeatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SeatSessionStatus_SessionId_SeatId",
+                table: "SeatSessionStatus",
+                columns: new[] { "SessionId", "SeatId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sessions_MovieTheaterId",
+                table: "Sessions",
+                column: "MovieTheaterId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SeatStatuses");
+                name: "SeatSessionStatus");
 
             migrationBuilder.DropTable(
                 name: "Seats");
 
             migrationBuilder.DropTable(
                 name: "Sessions");
+
+            migrationBuilder.DropTable(
+                name: "MovieTheaters");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using SharedLibrary.Enums;
 using SharedLibrary.Models.Entities;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Cinema.Services.SessionAPI.Domain.Entities;
@@ -12,6 +13,9 @@ public class SeatSessionStatus : BaseEntity, ICloneable
     public Seat Seat { get; set; }
     public ReservedStatusEnum ReservedStatus { get; set; }
     public int? UserId { get; set; }
+    [Timestamp]
+    public int RowVersion { get; set; }
+
 
     [NotMapped]
     public override int Id { get => base.Id; set => base.Id = value; }

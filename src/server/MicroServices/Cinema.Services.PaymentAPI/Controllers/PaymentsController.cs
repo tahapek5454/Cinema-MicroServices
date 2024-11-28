@@ -14,7 +14,7 @@ namespace Cinema.Services.PaymentAPI.Controllers
 
 
         [HttpPost]
-        public ActionResult PayProduct ()
+        public ActionResult PayProduct (string name)
         {
             /**
               Burada siparişin kontolleri vs yapıyorum..

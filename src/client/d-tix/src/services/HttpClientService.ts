@@ -101,6 +101,7 @@ export enum ServerNames {
   SessionServer = "sessionserver",
   BranchServer = "branchserver",
   CategoryServer = "categoryserver",
+  PaymentServer  = "paymentserver"
 }
 
 export enum AccessModify {

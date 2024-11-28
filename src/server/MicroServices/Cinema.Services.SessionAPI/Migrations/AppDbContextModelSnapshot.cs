@@ -4,7 +4,6 @@ using Cinema.Services.SessionAPI.Persistence.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Cinema.Services.SessionAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240713071743_mig-4")]
-    partial class mig4
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +22,7 @@ namespace Cinema.Services.SessionAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.MovieTheater", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.MovieTheater", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -45,7 +42,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Property<int>("MovieTheaterNumber")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -59,8 +56,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                             BranchId = 1,
                             Capacity = 20,
                             CreatedDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MovieTheaterNumber = 1,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MovieTheaterNumber = 1
                         },
                         new
                         {
@@ -68,8 +64,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                             BranchId = 1,
                             Capacity = 20,
                             CreatedDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MovieTheaterNumber = 2,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MovieTheaterNumber = 2
                         },
                         new
                         {
@@ -77,8 +72,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                             BranchId = 1,
                             Capacity = 20,
                             CreatedDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MovieTheaterNumber = 3,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MovieTheaterNumber = 3
                         },
                         new
                         {
@@ -86,8 +80,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                             BranchId = 1,
                             Capacity = 20,
                             CreatedDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MovieTheaterNumber = 4,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MovieTheaterNumber = 4
                         },
                         new
                         {
@@ -95,8 +88,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                             BranchId = 1,
                             Capacity = 20,
                             CreatedDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MovieTheaterNumber = 5,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MovieTheaterNumber = 5
                         },
                         new
                         {
@@ -104,12 +96,11 @@ namespace Cinema.Services.SessionAPI.Migrations
                             BranchId = 1,
                             Capacity = 20,
                             CreatedDate = new DateTime(2024, 3, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            MovieTheaterNumber = 6,
-                            UpdatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            MovieTheaterNumber = 6
                         });
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.Seat", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.Seat", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -976,7 +967,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.SeatSessionStatus", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.SeatSessionStatus", b =>
                 {
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
@@ -987,14 +978,20 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("ReservedStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
+
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("SessionId", "SeatId");
 
@@ -1006,7 +1003,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.ToTable("SeatSessionStatus");
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.Session", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.Session", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1029,7 +1026,7 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -1151,9 +1148,9 @@ namespace Cinema.Services.SessionAPI.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.Seat", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.Seat", b =>
                 {
-                    b.HasOne("Cinema.Services.SessionAPI.Models.Entities.MovieTheater", "MovieTheater")
+                    b.HasOne("Cinema.Services.SessionAPI.Domain.Entities.MovieTheater", "MovieTheater")
                         .WithMany("Seats")
                         .HasForeignKey("MovieTheaterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1162,15 +1159,15 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Navigation("MovieTheater");
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.SeatSessionStatus", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.SeatSessionStatus", b =>
                 {
-                    b.HasOne("Cinema.Services.SessionAPI.Models.Entities.Seat", "Seat")
+                    b.HasOne("Cinema.Services.SessionAPI.Domain.Entities.Seat", "Seat")
                         .WithMany("SeatSessionStatuses")
                         .HasForeignKey("SeatId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Cinema.Services.SessionAPI.Models.Entities.Session", "Session")
+                    b.HasOne("Cinema.Services.SessionAPI.Domain.Entities.Session", "Session")
                         .WithMany("SeatSessionStatuses")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -1181,9 +1178,9 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.Session", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.Session", b =>
                 {
-                    b.HasOne("Cinema.Services.SessionAPI.Models.Entities.MovieTheater", "MovieTheater")
+                    b.HasOne("Cinema.Services.SessionAPI.Domain.Entities.MovieTheater", "MovieTheater")
                         .WithMany("Sessions")
                         .HasForeignKey("MovieTheaterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1192,19 +1189,19 @@ namespace Cinema.Services.SessionAPI.Migrations
                     b.Navigation("MovieTheater");
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.MovieTheater", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.MovieTheater", b =>
                 {
                     b.Navigation("Seats");
 
                     b.Navigation("Sessions");
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.Seat", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.Seat", b =>
                 {
                     b.Navigation("SeatSessionStatuses");
                 });
 
-            modelBuilder.Entity("Cinema.Services.SessionAPI.Models.Entities.Session", b =>
+            modelBuilder.Entity("Cinema.Services.SessionAPI.Domain.Entities.Session", b =>
                 {
                     b.Navigation("SeatSessionStatuses");
                 });

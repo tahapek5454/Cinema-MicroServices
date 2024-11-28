@@ -5,9 +5,11 @@ import LocationFilter from '@/components/locationFilter/index.vue';
 import TicketSummary from '@/components/ticketSummary/index.vue';
 import Theaterhall from '@/components/theaterhall/index.vue';
 import axios from "axios";
+import { PaymentRepository } from '@/Repositories/PaymentRepository';
+import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
 
 
-const baseURL = 'http://localhost:5010';
+const _paymentRepository = RepositoryFactory(Repositories.PaymentRepository) as PaymentRepository;
 
 
 @Component({
@@ -45,7 +47,7 @@ export default class TicketBuyView extends Vue {
     }
     async fetchCheckoutForm() {
         this.loading = true;
-        await axios.post(baseURL + '/api/Payments/PayProduct')
+        _paymentRepository.PayProduct("")
         .then(response => {
             if (typeof response.data === 'string' && response.data.trim().startsWith('<script')) {                
                 const scriptContent = response.data.replace(/<\/?script[^>]*>/g, ''); 
