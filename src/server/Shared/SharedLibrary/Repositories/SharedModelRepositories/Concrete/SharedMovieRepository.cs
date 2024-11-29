@@ -44,6 +44,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 1,
                     Name = "Komedi"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 1,
+                        MovieId = 1,
+                        FileName = "lohusa.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 }
             };
 
@@ -61,7 +72,18 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 1,
                     Name = "Komedi"
-                }           
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 2,
+                        MovieId = 2,
+                        FileName = "efsane.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
+                }
             };
 
             yield return new MovieSharedVM()
@@ -78,6 +100,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 2,
                     Name = "Animasyon"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 3,
+                        MovieId = 3,
+                        FileName = "rafa.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 }
             };
 
@@ -95,6 +128,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 1,
                     Name = "Komedi"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 4,
+                        MovieId = 4,
+                        FileName = "kolpa.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 }
 
             };
@@ -113,6 +157,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 3,
                     Name = "Biyografik"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 5,
+                        MovieId = 5,
+                        FileName = "cem.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 }
             };
 
@@ -130,6 +185,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 1,
                     Name = "Komedi"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 6,
+                        MovieId = 6,
+                        FileName = "kardes.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 }
             };
 
@@ -147,6 +213,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 4,
                     Name = "Korku"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 7,
+                        MovieId = 7,
+                        FileName = "alien.png",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 }
             };
 
@@ -164,6 +241,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 5,
                     Name = "Aksiyon"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 8,
+                        MovieId = 8,
+                        FileName = "dw.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 },
                 MovieComments = new List<MovieCommentSharedVM>()
                 {
@@ -229,6 +317,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                     Id = 2,
                     Name = "Animasyon"
                 },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 9,
+                        MovieId = 9,
+                        FileName = "garfield.jpg",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
+                },
                 MovieComments = new()
                 {
                     new()
@@ -289,6 +388,17 @@ namespace SharedLibrary.Repositories.SharedModelRepositories.Concrete
                 {
                     Id = 2,
                     Name = "Animasyon"
+                },
+                MovieImages = new()
+                {
+                    new()
+                    {
+                        Id = 10,
+                        MovieId = 10,
+                        FileName = "tersyuz.png",
+                        Path = "images",
+                        Storage = "LocalStorage"
+                    }
                 }
             };
         }
