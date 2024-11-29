@@ -9,11 +9,6 @@
             <Theaterhall/>
             <TicketSummary/>
         </div>
-        <div  class=" tw-flex tw-mt-16 tw-justify-center tw-items-center">
-            <button @click="fetchCheckoutForm" :disabled="loading"class="tw-bg-red hover:tw-bg-rose-900 tw-duration-500 tw-text-white tw-font-bold tw-py-2 tw-px-4 tw-rounded-full  tw-justify-center tw-items-center tw-text-center tw-flex">
-            {{ loading ? 'Yükleniyor...' : 'Ödeme Yap' }}
-            </button>            
-        </div>
         <div v-if="error" class="error">{{ error }}</div>
     </div>
 </template>

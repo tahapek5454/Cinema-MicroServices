@@ -44,29 +44,5 @@ export default class TicketBuyView extends Vue {
 
     reloadPage() {
         location.reload(); 
-    }
-    async fetchCheckoutForm() {
-        this.loading = true;
-        _paymentRepository.PayProduct("")
-        .then(response => {
-            if (typeof response.data === 'string' && response.data.trim().startsWith('<script')) {                
-                const scriptContent = response.data.replace(/<\/?script[^>]*>/g, ''); 
-                const script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.text = scriptContent; 
-                document.head.appendChild(script);
-
-            } else {
-                console.error('Beklenmeyen yanıt:', response.data);
-            }
-        })
-        .catch(error => {
-            this.error = "Ödeme formunu alırken hata oluştu: " + error.message; 
-        })
-        .finally(() => {
-            this.loading = false; 
-        });         
-    }
-
-    
+    }    
 }

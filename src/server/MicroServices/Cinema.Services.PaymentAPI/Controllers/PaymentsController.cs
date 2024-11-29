@@ -34,7 +34,7 @@ namespace Cinema.Services.PaymentAPI.Controllers
             request.Currency = Currency.TRY.ToString();
             request.BasketId = "B67832";
             request.PaymentGroup = PaymentGroup.PRODUCT.ToString();
-            request.CallbackUrl = "https://domain.com/payment/callback/" + "123456789";
+            request.CallbackUrl = "https://localhost:7135/paymentserver/public/api/Payments/PaymentCallback";
 
             Buyer buyer = new Buyer();
             buyer.Id = "BY789";
@@ -85,6 +85,63 @@ namespace Cinema.Services.PaymentAPI.Controllers
             var checkoutFormInitialize = CheckoutFormInitialize.Create(request, options);
 
             return Content(checkoutFormInitialize.CheckoutFormContent, "text/javascript");
+        }
+
+        [HttpPost]
+        public IActionResult PaymentCallback()
+        {
+            return Content(@"
+                        <html>
+                            <head>
+                                <title>Ödeme Sonucu</title>
+                                <style>
+                                    body {
+                                        font-family: Arial, sans-serif;
+                                        text-align: center;
+                                        margin-top: 50px;
+                                    }
+                                    .message-box {
+                                        padding: 20px;
+                                        background-color: #dff0d8;
+                                        border: 1px solid #d0e9c6;
+                                        color: #3c763d;
+                                        border-radius: 5px;
+                                        font-size: 18px;
+                                        display: inline-block;
+                                        margin-bottom: 20px;
+                                    }
+                                    .button {
+                                        padding: 10px 20px;
+                                        background-color: #5bc0de;
+                                        border: none;
+                                        color: white;
+                                        font-size: 16px;
+                                        cursor: pointer;
+                                        border-radius: 5px;
+                                        margin-top: 20px;
+                                    }
+                                    .button:hover {
+                                        background-color: #31b0d5;
+                                    }
+                                </style>
+                            </head>
+                            <body>
+                                <div class='message-box'>
+                                    Odeme basariyla tamamlandi! Tesekkur ederiz.
+                                </div>
+                                </br>
+                                <div>
+                                   <button class='button' onclick='redirectToTicketBuy()'>OK</button>
+                                </div>
+
+                                <script>
+                                    function redirectToTicketBuy() {
+                                        window.location.href = 'http://localhost:8080/ticketBuy';
+                                    }
+                                </script>
+                            </body>
+                        </html>
+                    ", "text/html");
         }
 
     }
