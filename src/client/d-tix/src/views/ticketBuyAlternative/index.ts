@@ -1,6 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import Base from "@/utils/Base";
 import MovieSelection from "@/components/movieSelection/index.vue";
+import SessionSelection from "@/components/sessionSelection/index.vue";
 import TheaterHall from "@/components/theaterhall/index.vue";
 import BranchSelection from "@/components/branchSelection/index.vue";
 import ReservationModel from "@/models/reservation/reservationModel";
@@ -14,6 +15,7 @@ const _paymentRepository = RepositoryFactory(Repositories.PaymentRepository) as 
 @Component({
     components: {
         MovieSelection,
+        SessionSelection,
         TheaterHall,
         BranchSelection,
         TicketSummary
@@ -77,6 +79,12 @@ export default class TicketBuyAlternative extends Base {
 
     selectMovieForReservation(movieId: number){
         this.reservationModel.movieId = movieId;
+        console.log(this.reservationModel);
+
+    }
+
+    selectSessionForReservation(sessionId: number){
+        this.reservationModel.sessionId = sessionId;
         console.log(this.reservationModel);
 
     }

@@ -28,8 +28,7 @@ export class SessionRepository extends  HttpClientService{
     }
 
     async  GetAllSessionsByBranchAndMovieId(branchId: number, movieId: number){
-        debugger;
-        const result = await  this.getAsync<SessionDto>({
+        const result = await  this.getAsync<SessionDto[]>({
             ...this.stableRequestParameter,
             accessModify: AccessModify.Public,
             action: "GetAllSessionsByBranchAndMovieId",
