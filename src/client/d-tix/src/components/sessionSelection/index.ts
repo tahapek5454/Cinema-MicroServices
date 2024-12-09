@@ -51,6 +51,7 @@ export default class SessionSelection extends Base {
         const movieId = this.selectMovieForReservation;  // Props'dan gelen movieId
         const branchId = this.selectBranchForReservation; // Props'dan gelen branchId
         if(branchId != undefined && movieId != undefined){
+            this.showLoading();
           _sessionRepository.GetAllSessionsByBranchAndMovieId(branchId,movieId)
           .then((r)=>{
             this.itemCount = r.length;

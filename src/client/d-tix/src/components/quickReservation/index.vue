@@ -18,24 +18,19 @@
               Özet
               </span>
             </div>
-            <div @click="$toast.error('Şu anda hizmet verememekteyiz.')" :class="`tw-rounded-lg tw-p-2 hover:tw-bg-rose-900 ${sectionStep===3 ? 'tw-bg-rose-900' : ''} hover:tw-cursor-pointer tw-duration-500`">
-              <span class="tw-font-bold tw-text-xs md:tw-text-base tw-text-white">
-              Ödeme
-              </span>
-            </div>
           </div>
           <div class="tw-w-full tw-h-full tw-overflow-y-auto  tw-py-4">
             <div class="tw-w-full tw-h-full">
               <div v-if="sectionStep==0" class="tw-flex tw-justify-center tw-flex-wrap tw-flex-col tw-space-y-4 md:tw-space-y-0 md:tw-flex-row  tw-space-x-2">
                 <BranchSelection @selectBranchForReservation="selectBranchForReservation"/>
-                <MovieSelection @selectMovieForReservation="selectMovieForReservation"/>
-                <MovieSelection/>
+                <MovieSelection @selectMovieForReservation="selectMovieForReservation" :movieId="reservationModel?.movieId"/>
+                <SessionSelection @selectSessionForReservation="selectSessionForReservation" :selectMovieForReservation="reservationModel?.movieId"  :selectBranchForReservation="reservationModel?.branchId" :selectSessionForReservation="reservationModel?.sessionId"/>
               </div>
               <div v-else-if="sectionStep==1" class="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
-                <TheaterHall/>
+                <TheaterHall :reservationModel="reservationModel"/>
               </div>
               <div v-else-if="sectionStep==2" class="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
-                <TicketSummary/>
+                <TicketSummary :reservationModel="reservationModel"/>
               </div>
             </div>
           </div>
@@ -52,7 +47,7 @@
 
                 color="#881337"
             >
-              {{sectionStep==3 ? 'Rezervasyonu Tamamla' : 'İleri'}}
+              {{sectionStep==2 ? 'Ödeme Yap' : 'İleri'}}
             </v-btn>
           </div>
         </div>
