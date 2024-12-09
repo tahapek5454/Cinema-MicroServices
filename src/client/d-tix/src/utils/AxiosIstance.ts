@@ -50,6 +50,7 @@ axiosInstance.interceptors.request.use(async req => {
             
         } catch (error) {
             console.log("Refresh Sırasında hata alindi.");
+            Bus.$emit("logout");
             Vue.$toast.error("Refresh Sırasında hata alindi.");
         }finally {
             Vue.$toast.warning("Refreshe Gidildi.");

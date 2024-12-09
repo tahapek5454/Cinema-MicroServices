@@ -65,6 +65,13 @@ export default class TicketBuyAlternative extends Base {
             return;
         }
 
+        if(this.sectionStep+step == 1){
+            if(!(this.reservationModel.sessionId && this.reservationModel.branchId && this.reservationModel.movieId)){
+                this.$toast.warning("Lütfen size uygun bir şube, film ve seans seçiniz 😊");
+                return;
+            }
+        }
+
         if(this.sectionStep + step > 2 || this.sectionStep + step < 0){
             this.$toast.warning("Adım sayısının dışına çıkamazsınız 😊");
             return;

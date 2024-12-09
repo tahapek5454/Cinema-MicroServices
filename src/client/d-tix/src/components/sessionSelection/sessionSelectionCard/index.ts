@@ -11,6 +11,10 @@ export default class SessionSelectionCard extends Base {
     @Prop({default: false})  isSelected!: boolean;
 
 
+    get GetTime(){
+        const date = new Date(this.session.date);
+        return `${date.getHours()}:${date.getMinutes()}`;
+    }
     created(): void {
 
     }

@@ -1,4 +1,6 @@
-﻿namespace Cinema.Services.BranchAPI.Application.Queries.Branches.GetBrancheById
+﻿using Cinema.Services.BranchAPI.Application.Dtos;
+
+namespace Cinema.Services.BranchAPI.Application.Queries.Branches.GetBrancheById
 {
     public class GetBrancheByIdResponse
     {
@@ -7,5 +9,6 @@
         public string Address { get; set; }
         public string Description { get; set; }
         public int DistrictId { get; set; }
+        public DistrictDto  District { get; set; }
     }
 }

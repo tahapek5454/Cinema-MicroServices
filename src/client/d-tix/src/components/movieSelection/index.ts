@@ -4,6 +4,7 @@ import {Repositories, RepositoryFactory} from "@/services/RepositoryFactory";
 import {MovieRepository} from "@/Repositories/MovieRepository";
 import MovieDto from "@/models/movies/MovieDto";
 import MovieSelectionCard from "@/components/movieSelection/movieSelectionCard/index.vue";
+import BranchDto from "@/models/branch/BranchDto";
 
 const _movieRepository = RepositoryFactory(Repositories.MovieRepository) as MovieRepository;
 
@@ -19,9 +20,11 @@ interface MovieSelectionCardModel{
     }
 })
 export default class MovieSelection extends Base {
+    @Prop({default: null})  movieId!: number;
 
     movieSelectionCardDatas: MovieSelectionCardModel [] = [];
     itemCount: number = 0;
+
     created(): void {
         this.showLoading();
         _movieRepository.GetAllMovies()
@@ -33,6 +36,13 @@ export default class MovieSelection extends Base {
                         isSelected : false,
                     });
                 });
+
+                if(this.movieId){
+                    _movieRepository.GetMovieById(''+this.movieId as string)
+                        .then(r => {
+                            this.selectMovie(r.id);
+                        });
+                }
             })
             .finally(()=> this.hideLoading());
     }

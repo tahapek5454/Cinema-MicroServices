@@ -11,6 +11,8 @@ namespace Cinema.Services.BranchAPI.Application.Queries.Branches.GetBrancheById
         public async Task<GetBrancheByIdResponse> Handle(GetBrancheByIdRequest request, CancellationToken cancellationToken)
         {
             var r = await _branchService.Table
+                                        .Include(x => x.District)
+                                        .ThenInclude(x => x.City)
                                         .FirstOrDefaultAsync(x => x.Id == request.Id);
 
             if (r is null)
@@ -25,6 +27,7 @@ namespace Cinema.Services.BranchAPI.Application.Queries.Branches.GetBrancheById
                 Description = result.Description,
                 DistrictId = result.DistrictId,
                 Name = result.Name,
+                District = result.District
             };
         }
     }

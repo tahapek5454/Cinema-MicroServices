@@ -1,8 +1,8 @@
 <template>
     <div class="tw-flex tw-w-[20rem] md:tw-w-[32rem]  tw-bg-component-color tw-space-y-3 tw-rounded-lg tw-flex-col tw-p-6">
       <div class="tw-flex tw-flex-col  tw-rounded-lg tw-p-3 tw-bg-rose-900 tw-space-y-3 tw-text-white">
-        <span class="tw-text-base lg:tw-text-lg tw-font-bold tw-text-white">Serdivan Paribu Cineverse</span>
-        <span class="tw-text-xs tw-font-light ">Serdivan/Sakarya</span>
+        <span class="tw-text-base lg:tw-text-lg tw-font-bold tw-text-white">{{branch?.name}}</span>
+        <span class="tw-text-xs tw-font-light ">{{branch?.district?.name}}/{{branch?.district?.city?.name}}</span>
         <div class=" tw-w-full tw-h-full tw-flex tw-space-x-2 tw-items-center">
           <span class="material-symbols-outlined">
             star
@@ -27,7 +27,7 @@
           <span :class="`lg:tw-text-lg tw-font-bold tw-text-black  text-wrap`">{{movie.name}}</span>
           <span class="tw-mt-0.5 tw-text-xs tw-font-light tw-text-neutral-500 text-wrap">{{movie.name}}</span>
 
-          <span class="tw-mt-3 tw-text-xs tw-font-light  tw-text-black  text-wrap">{{TimeValue}}/{{movie.category.name}}</span>
+          <span class="tw-mt-3 tw-text-xs tw-font-light  tw-text-black  text-wrap">{{TimeValue}}/{{movie.category?.name}}</span>
 
 
           <div class="tw-flex tw-h-full tw-justify-start tw-items-end tw-space-x-2">
@@ -49,25 +49,19 @@
       </div>
       <div class="tw-flex tw-flex-col tw-text-white lg:tw-text-lg tw-p-2 tw-rounded-lg tw-bg-rose-900 tw-space-y-4">
         <div class="   tw-flex tw-space-x-6">
-          <span>Tarih: 25.11.2024</span>
-          <span>Saat: 20.00</span>
-          <span>Salon:5</span>
+          <span>Tarih: {{SessionDate}}</span>
+          <span>Saat: {{SessionHoursAndMinuets}}</span>
+          <span>Salon: {{session?.movieTheater?.movieTheaterNumber}}</span>
         </div>
         <div class="tw-flex tw-flex-col tw-space-y-3">
           <span>Koltuk/Koltuklar:</span>
           <ul>
-            <li>
-              A-1
-            </li>
-            <li>
-              A-2
-            </li>
-            <li>
-              A-3
+            <li v-for="(item,index) in seats">
+              {{item.seatNumber}}
             </li>
           </ul>
         </div>
-        <span>Toplam Tutar : 200 TL</span>
+        <span>Toplam Tutar : {{CalculateTotalPrice}} TL</span>
       </div>
     </div>
 

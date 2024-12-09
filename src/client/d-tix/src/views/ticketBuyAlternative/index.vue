@@ -27,14 +27,14 @@
       <div class="tw-w-full tw-h-full">
         <div v-if="sectionStep==0" class="tw-flex tw-justify-center tw-flex-wrap tw-flex-col tw-space-y-4 md:tw-space-y-0 md:tw-flex-row  tw-space-x-2">
           <BranchSelection @selectBranchForReservation="selectBranchForReservation"/>
-          <MovieSelection @selectMovieForReservation="selectMovieForReservation"/>
-          <SessionSelection @selectSessionForReservation="selectSessionForReservation" :selectMovieForReservation="reservationModel?.movieId"  :selectBranchForReservation="reservationModel?.branchId"/>
+          <MovieSelection @selectMovieForReservation="selectMovieForReservation" :movieId="reservationModel?.movieId"/>
+          <SessionSelection @selectSessionForReservation="selectSessionForReservation" :selectMovieForReservation="reservationModel?.movieId"  :selectBranchForReservation="reservationModel?.branchId" :selectSessionForReservation="reservationModel?.sessionId"/>
         </div>
         <div v-else-if="sectionStep==1" class="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
-          <TheaterHall/>
+          <TheaterHall :reservationModel="reservationModel"/>
         </div>
         <div v-else-if="sectionStep==2" class="tw-flex tw-justify-center tw-items-center tw-w-full tw-h-full">
-          <TicketSummary/>
+          <TicketSummary :reservationModel="reservationModel"/>
         </div>
       </div>
     </div>

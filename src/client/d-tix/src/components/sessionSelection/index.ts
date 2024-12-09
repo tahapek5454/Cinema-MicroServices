@@ -24,6 +24,7 @@ export default class SessionSelection extends Base {
 
     @Prop({}) selectMovieForReservation!: number;
     @Prop({}) selectBranchForReservation!: number;
+    @Prop({default:null}) selectSessionForReservation!: number;
     sessionSelectionCardDatas: SessionSelectionCardModel [] = [];
     itemCount: number = 0;
 
@@ -53,11 +54,27 @@ export default class SessionSelection extends Base {
           _sessionRepository.GetAllSessionsByBranchAndMovieId(branchId,movieId)
           .then((r)=>{
             this.itemCount = r.length;
+            this.sessionSelectionCardDatas = [];
             r.forEach(item => {
-                this.sessionSelectionCardDatas.push({
-                    session :item,
-                    isSelected : false,
-                });
+                if(!this.selectSessionForReservation){
+                    this.sessionSelectionCardDatas.push({
+                        session :item,
+                        isSelected : false,
+                    });
+                }else{
+                    if(item.id == this.selectSessionForReservation){
+                        this.sessionSelectionCardDatas.push({
+                            session :item,
+                            isSelected : true,
+                        });
+                    }else{
+                        this.sessionSelectionCardDatas.push({
+                            session :item,
+                            isSelected : false,
+                        });
+                    }
+                }
+
             });
           })
           .finally(()=> this.hideLoading());
@@ -138,15 +155,21 @@ export default class SessionSelection extends Base {
     }
 
 
+    @Watch('selectBranchForReservation')
+    onSelectedBranchChange(newDate: string) {
+        this.filterResults();
+    }
+
+    @Watch('selectMovieForReservation')
+    onSelectedMovieChange(newDate: string) {
+        this.filterResults();
+    }
+
+
    
     filterResults() {
       this.sessionSelectionCardDatas = [];
       this.getAllSession();
-      if (this.selectedDate === '') {
-        this.sessionSelectionCardDatas = [];
-      } else {
-        this.sessionSelectionCardDatas = this.sessionSelectionCardDatas;
-      }
     }
     
     nextItem (){

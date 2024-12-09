@@ -27,11 +27,11 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSessionById([FromRoute] int id)
         {
-            var session = await _sessionService.Table.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+            var session = await _sessionService.Table.Include(x => x.MovieTheater).AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
             var result = ObjectMapper.Mapper.Map<SessionDto>(session);
 
-            return Ok(ResponseDto<SessionDto>.Sucess(result, 200));
+            return Ok(ResponseDto<SessionDto>.Sucess(result, 200).Data);
         }
 
         [HttpGet("{id}")]
@@ -132,6 +132,37 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> GetSeatsByIds([FromBody] GetSeatsByIdsRequest request)
+        {
+            var e = _seatService.Table.Where(x => request.SeatIds.Contains(x.Id)).ToList();
+
+            var r = ObjectMapper.Mapper.Map<List<SeatDto>>(e);
+
+            return Ok(r);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetSeatsBySessionIdAndUserId([FromQuery] int userId, [FromQuery] int sessionId)
+        {
+            var r = _seatStatusService.Table.AsNoTracking()
+                .Include(x => x.Seat)
+                .Where(x => x.UserId.Equals(userId) && x.SessionId.Equals(sessionId))
+                .ToList();
+
+            var seeatEnttiy = r.Select(x => x.Seat);
+
+            if (seeatEnttiy.Any())
+            {
+                var seats = ObjectMapper.Mapper.Map<List<SeatDto>>(seeatEnttiy);
+
+                return Ok(seats);
+            }
+
+            return Ok(new List<SeatDto>());
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> PreBookingOrCancel([FromBody] PreBookingRequest request)
@@ -162,7 +193,7 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
 
 
                         // iptal edebilirsin, iptal isleminde sonra digerlerinin koltugu rezerve edebilmesi adina userId ye null ata sahipsiz yap yani
-                        seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
+                        seatSessionStatus.ReservedStatus = request.ReservedStatus;
                         seatSessionStatus.UserId = null;
 
                         _seatStatusService.Update(seatSessionStatus);
@@ -197,7 +228,8 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
 
                         if(seatSessionStatus.UserId == null) // onceki user tarafindan iptal edilmis o zaman alinabilir
                         {
-                            seatSessionStatus = ObjectMapper.Mapper.Map<SeatSessionStatus>(request);
+                            seatSessionStatus.UserId = request.UserId;
+                            seatSessionStatus.ReservedStatus = request.ReservedStatus;
                             _seatStatusService.Update(seatSessionStatus);
                             await _seatStatusService.SaveChangesAsync();
 

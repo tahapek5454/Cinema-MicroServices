@@ -1,10 +1,13 @@
-import {Component, Vue} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import TheaterSeat from '../theaterSeat/index.vue';
 import {Repositories, RepositoryFactory} from "@/services/RepositoryFactory";
 import {SessionRepository} from "@/Repositories/SessionRepository";
 import Base from "@/utils/Base";
 import SignalRService from "@/services/SignalRService";
 import SeatSessionStatusDto from "@/models/session/SeatSessionStatusDto";
+import ReservationModel from "@/models/reservation/reservationModel";
+import {ReservedStatusEnum} from "@/models/enums/ReservedStatusEnum";
+import {GetAuthInfo} from "@/services/AuthService";
 
 const _sessionRepository = RepositoryFactory(Repositories.SessionRepository) as SessionRepository;
 @Component({
@@ -13,9 +16,12 @@ const _sessionRepository = RepositoryFactory(Repositories.SessionRepository) as 
     }
 })
 export default class TheaterHall extends Base {
+    @Prop() reservationModel: ReservationModel;
+
+    loginInfo = GetAuthInfo();
     seatSessionStatus: SeatSessionStatusDto[] = [];
-    seatStatusHubService: SignalRService = new SignalRService("localhost:7177", "seatStatus", "sessionId=1");
-    sessionId = 1;
+    seatStatusHubService: SignalRService;
+    sessionId = 0;
 
     get filteredSeatsForA(): SeatSessionStatusDto[] {
         return this.seatSessionStatus.filter(seat => seat.seatNumber.includes('A'));
@@ -32,11 +38,22 @@ export default class TheaterHall extends Base {
 
 
      created() {
+
+        if(this.reservationModel){
+            this.sessionId = this.reservationModel.sessionId as number;
+            this.reservationModel.seatIds = [];
+            this.seatStatusHubService = new SignalRService("localhost:7177", "seatStatus", `sessionId=${this.sessionId}`);
+        }
+
         const self = this;
         self.showLoading();
          _sessionRepository.GetSeatWithStatusBySessionId(self.sessionId)
              .then(r => {
                     self.seatSessionStatus = r;
+                    r.forEach(x => {
+                        if(''+x.userId==''+this.loginInfo?.userId && x.reservedStatus == ReservedStatusEnum.Pending)
+                            this.reservationModel.seatIds.push(x.seatId);
+                    })
              })
              .finally(()=>self.hideLoading());
 
@@ -69,6 +86,12 @@ export default class TheaterHall extends Base {
             reservedStatus: val.reservedStatus,
             sessionId: val.sessionId,
             userId: val.userId
+        })
+        .then(()=>{
+            if(val.reservedStatus == ReservedStatusEnum.Pending)
+                this.reservationModel.seatIds.push(val.seatId);
+            else if(val.reservedStatus == ReservedStatusEnum.NotReserved)
+                this.reservationModel.seatIds = this.reservationModel.seatIds.filter(x => x!=val.seatId);
         })
         .catch((e)=>{
             console.log(e);
