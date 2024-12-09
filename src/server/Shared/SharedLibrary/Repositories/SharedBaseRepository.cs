@@ -21,6 +21,7 @@ namespace SharedLibrary.Repositories
 
             var mongoConnectionUrl = new MongoUrl(this.settings.ConnectionString);
             var mongoClientSettings = MongoClientSettings.FromUrl(mongoConnectionUrl);
+            mongoClientSettings.ConnectTimeout = TimeSpan.FromSeconds(300);
             mongoClientSettings.ClusterConfigurator = cb => {
                 cb.Subscribe<CommandStartedEvent>(e => {
                     Console.WriteLine("Sorgu ataıldı.");

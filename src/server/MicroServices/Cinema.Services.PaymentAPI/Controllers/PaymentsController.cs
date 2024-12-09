@@ -1,21 +1,21 @@
-﻿using Iyzipay;
+﻿using Cinema.Services.PaymentAPI.Services;
+using Iyzipay;
 using Iyzipay.Model;
 using Iyzipay.Request;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
+using SharedLibrary.Models.Dtos;
 
 namespace Cinema.Services.PaymentAPI.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class PaymentsController : ControllerBase
+    public class PaymentsController(PaymentServices _paymentServices) : ControllerBase
     {
         
 
 
         [HttpPost]
-        public ActionResult PayProduct ([FromBody]Body requestBody)
+        public async Task<ActionResult> PayProductAsync ([FromBody]Body requestBody)
         {
             /**
               Burada siparişin kontolleri vs yapıyorum..
@@ -84,6 +84,24 @@ namespace Cinema.Services.PaymentAPI.Controllers
 
             var checkoutFormInitialize = CheckoutFormInitialize.Create(request, options);
 
+            try
+            {
+                await _paymentServices.SendAsync<Body, BlankDto>(new()
+                {
+                    AccessToken = null,
+                    ActionType = SharedLibrary.Models.Enums.ActionType.POST,
+                    Data = requestBody,
+                    Language = SharedLibrary.Models.Enums.SystemLanguage.tr_TR,
+                    Url = "https://localhost:7135/reservationserver/public/api/Reservations/CreateReservation"
+                });
+            }
+            catch (Exception e)
+            {
+                var a = e;
+                throw;
+            }
+
+
             return Content(checkoutFormInitialize.CheckoutFormContent, "text/javascript");
         }
 
@@ -131,12 +149,12 @@ namespace Cinema.Services.PaymentAPI.Controllers
                                 </div>
                                 </br>
                                 <div>
-                                   <button class='button' onclick='redirectToTicketBuy()'>OK</button>
+                                   <button class='button' onclick='redirectToTicketBuy()'>Siteye donmek için tıklayınız</button>
                                 </div>
 
                                 <script>
                                     function redirectToTicketBuy() {
-                                        window.location.href = 'http://localhost:8080/ticketBuy';
+                                        window.location.href = 'http://localhost:8080/';
                                     }
                                 </script>
                             </body>
@@ -148,6 +166,8 @@ namespace Cinema.Services.PaymentAPI.Controllers
 
     public class Body
     {
-        public string Name { get; set; }
+        public int SessionId { get; set; }
+        public int UserId { get; set; }
+        public List<int> SeatIds { get; set; }
     }
 }

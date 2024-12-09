@@ -1,5 +1,6 @@
 
 import { AccessModify, HttpClientService, RequestParameters, ServerNames } from "@/services/HttpClientService";
+import ReservationRequest from "@/models/reservation/ReservationRequest";
 
 export class PaymentRepository extends HttpClientService{
 
@@ -10,12 +11,12 @@ export class PaymentRepository extends HttpClientService{
 
     
 
-    async PayProduct(name: string): Promise<any>{
+    async PayProduct(body: Partial<ReservationRequest>): Promise<any>{
          const result =  await this.postAsync({
             ...this.stableRequestParameter,
             accessModify: AccessModify.Public,
             action: "PayProduct"
-        }, {name :name});
+        }, body);
 
         return result;
     }

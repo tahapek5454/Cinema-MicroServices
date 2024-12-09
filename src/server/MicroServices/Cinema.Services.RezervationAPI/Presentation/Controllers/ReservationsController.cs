@@ -2,10 +2,11 @@
 using Cinema.Services.RezervationAPI.Application.Queries.Reservations.GetReservationById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using SharedLibrary.Models.Dtos;
 
 namespace Cinema.Services.RezervationAPI.Presentation.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ReservationsController : ControllerBase
     {
@@ -31,7 +32,7 @@ namespace Cinema.Services.RezervationAPI.Presentation.Controllers
         {
             _ = await _mediator.Send(request);
 
-            return Created();
+            return Ok(ResponseDto<BlankDto>.Sucess(200));
         }
 
 

@@ -8,6 +8,8 @@ import ReservationModel from "@/models/reservation/reservationModel";
 import TicketSummary from "@/components/ticketSummary/index.vue";
 import { PaymentRepository } from '@/Repositories/PaymentRepository';
 import { Repositories, RepositoryFactory } from '@/services/RepositoryFactory';
+import LoginResponse from "@/models/auth/LoginResponse";
+import {GetAuthInfo} from "@/services/AuthService";
 
 const _paymentRepository = RepositoryFactory(Repositories.PaymentRepository) as PaymentRepository;
 
@@ -27,10 +29,17 @@ export default class TicketBuyAlternative extends Base {
     sectionStep:number = 0;
     checkoutFormContent:string =  '';
     loading:boolean =  false; 
-    error:string =  '' 
+    error:string =  ''
 
-
+    loginInfo: LoginResponse  | null = GetAuthInfo();
     created(): void {
+
+        if(!this.loginInfo){
+            this.$toast.warning("Rezervasyon işlemleri için lütfen giriş yapınız 😊✅");
+            this.$router.push("/auth");
+        }
+
+        this.reservationModel.userId = this.loginInfo?.userId;
     }
 
     destroyed(): void {
@@ -43,7 +52,11 @@ export default class TicketBuyAlternative extends Base {
     async next(step:number){
         if(this.sectionStep+step == 3){
             this.loading = true;
-            _paymentRepository.PayProduct("abc")
+            _paymentRepository.PayProduct({
+                sessionId: this.reservationModel.sessionId as number,
+                seatIds: this.reservationModel.seatIds ,
+                userId: this.reservationModel.userId ? this.reservationModel.userId as number : this.loginInfo?.userId as number,
+            })
             .then(response => {
                 if (typeof response === 'string' && response.trim().startsWith('<script')) {                
                     const scriptContent = response.replace(/<\/?script[^>]*>/g, ''); 
@@ -68,6 +81,13 @@ export default class TicketBuyAlternative extends Base {
         if(this.sectionStep+step == 1){
             if(!(this.reservationModel.sessionId && this.reservationModel.branchId && this.reservationModel.movieId)){
                 this.$toast.warning("Lütfen size uygun bir şube, film ve seans seçiniz 😊");
+                return;
+            }
+        }
+
+        if(this.sectionStep+step == 2){
+            if(!this.reservationModel.seatIds || this.reservationModel.seatIds.length == 0){
+                this.$toast.warning("Lütfen size uygun koltuk seçimi yapınız. 😊");
                 return;
             }
         }

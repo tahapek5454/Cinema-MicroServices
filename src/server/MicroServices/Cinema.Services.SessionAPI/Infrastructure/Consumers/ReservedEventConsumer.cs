@@ -1,7 +1,6 @@
 ﻿using Cinema.Services.SessionAPI.Application.Services.Abstract;
 using Cinema.Services.SessionAPI.Domain.Entities;
 using MassTransit;
-using MassTransit.Transports;
 using Microsoft.EntityFrameworkCore;
 using SharedLibrary.Enums;
 using SharedLibrary.Events.ReservationEvents;
@@ -27,11 +26,7 @@ namespace Cinema.Services.SessionAPI.Infrastructure.Consumers
             if (context.Message.SeatIds is not null)
             {
 
-                SeatSessionStatus originalSeatSessionStatus = new()
-                {
-                    ReservedStatus = ReservedStatusEnum.Reserved,
-                    SessionId = context.Message.SessionId,
-                };
+
 
                 var ids = context.Message.SeatIds.Split(',').Select(int.Parse).ToList();
                 // maybe throw exception you should handle to reservation 
@@ -47,19 +42,13 @@ namespace Cinema.Services.SessionAPI.Infrastructure.Consumers
                 }
 
 
-                List<SeatSessionStatus> response = new();
 
-                foreach (var seatId in ids)
+                var response = _seatSessionStatusService.Table
+                    .Where(x => ids.Contains(x.SeatId) && x.SessionId==context.Message.SessionId).ToList();
+
+                foreach (var r in response)
                 {
-
-                    var clone = (SeatSessionStatus)originalSeatSessionStatus.Clone();
-
-                    if (clone is null)
-                        continue;
-
-                    clone.SeatId = seatId;
-
-                    response.Add(clone);
+                    r.ReservedStatus = ReservedStatusEnum.Reserved;
                 }
 
                 if (response.Any())

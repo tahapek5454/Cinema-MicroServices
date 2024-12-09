@@ -148,7 +148,7 @@ namespace Cinema.Services.SessionAPI.Presentation.Controllers
         {
             var r = _seatStatusService.Table.AsNoTracking()
                 .Include(x => x.Seat)
-                .Where(x => x.UserId.Equals(userId) && x.SessionId.Equals(sessionId))
+                .Where(x => x.UserId.Equals(userId) && x.SessionId.Equals(sessionId) && x.ReservedStatus == ReservedStatusEnum.Pending)
                 .ToList();
 
             var seeatEnttiy = r.Select(x => x.Seat);

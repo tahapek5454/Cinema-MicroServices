@@ -139,6 +139,19 @@
       ],
       "UpstreamPathTemplate": "/branchserver/public/{url}",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    // ReservationServer
+    {
+      "DownstreamPathTemplate": "/{url}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7186
+        }
+      ],
+      "UpstreamPathTemplate": "/reservationserver/public/{url}",
+      "UpstreamHttpMethod": [ "Get","Post" ]
     }
 
   ],
