@@ -4,6 +4,7 @@ using Iyzipay.Model;
 using Iyzipay.Request;
 using Microsoft.AspNetCore.Mvc;
 using SharedLibrary.Models.Dtos;
+using System.Web;
 
 namespace Cinema.Services.PaymentAPI.Controllers
 {
@@ -30,11 +31,11 @@ namespace Cinema.Services.PaymentAPI.Controllers
             request.Locale = Locale.TR.ToString();
             request.ConversationId = "123456789";
             request.Price = "1";
-            request.PaidPrice = "1.2";
+            request.PaidPrice = "100";
             request.Currency = Currency.TRY.ToString();
             request.BasketId = "B67832";
             request.PaymentGroup = PaymentGroup.PRODUCT.ToString();
-            request.CallbackUrl = "https://localhost:7135/paymentserver/public/api/Payments/PaymentCallback";
+            request.CallbackUrl = BuildCallbackUrl(requestBody);
 
             Buyer buyer = new Buyer();
             buyer.Id = "BY789";
@@ -84,13 +85,33 @@ namespace Cinema.Services.PaymentAPI.Controllers
 
             var checkoutFormInitialize = CheckoutFormInitialize.Create(request, options);
 
+
+            return Content(checkoutFormInitialize.CheckoutFormContent, "text/javascript");
+        }
+
+        [HttpPost]
+        public IActionResult PaymentCallback(
+            [FromQuery] string sessionId,
+            [FromQuery] string userId,
+            [FromQuery] string seatIds)
+        {
+            var seatIdsList = seatIds.ToString().Split(',').Select(int.Parse).ToList();
+
+            var body = new Body
+            {
+                SessionId = int.Parse(sessionId),
+                UserId = int.Parse(userId),
+                SeatIds = seatIdsList
+            };
+
             try
             {
-                await _paymentServices.SendAsync<Body, BlankDto>(new()
+                // Send data to the reservation server
+                 _paymentServices.SendAsync<Body, BlankDto>(new()
                 {
                     AccessToken = null,
                     ActionType = SharedLibrary.Models.Enums.ActionType.POST,
-                    Data = requestBody,
+                    Data = body,
                     Language = SharedLibrary.Models.Enums.SystemLanguage.tr_TR,
                     Url = "https://localhost:7135/reservationserver/public/api/Reservations/CreateReservation"
                 });
@@ -101,13 +122,6 @@ namespace Cinema.Services.PaymentAPI.Controllers
                 throw;
             }
 
-
-            return Content(checkoutFormInitialize.CheckoutFormContent, "text/javascript");
-        }
-
-        [HttpPost]
-        public IActionResult PaymentCallback()
-        {
             return Content(@"
                         <html>
                             <head>
@@ -149,7 +163,7 @@ namespace Cinema.Services.PaymentAPI.Controllers
                                 </div>
                                 </br>
                                 <div>
-                                   <button class='button' onclick='redirectToTicketBuy()'>Siteye donmek için tıklayınız</button>
+                                   <button class='button' onclick='redirectToTicketBuy()'>Siteye donmek icin tiklayiniz</button>
                                 </div>
 
                                 <script>
@@ -160,6 +174,20 @@ namespace Cinema.Services.PaymentAPI.Controllers
                             </body>
                         </html>
                     ", "text/html");
+
+        }
+        private string BuildCallbackUrl(Body requestBody)
+        {
+            var uriBuilder = new UriBuilder("https://localhost:7135/paymentserver/public/api/Payments/PaymentCallback");
+
+            var queryParams = HttpUtility.ParseQueryString(uriBuilder.Query);
+            queryParams["SessionId"] = requestBody.SessionId.ToString();
+            queryParams["UserId"] = requestBody.UserId.ToString();
+            queryParams["SeatIds"] = string.Join(",", requestBody.SeatIds);
+
+            uriBuilder.Query = queryParams.ToString();
+
+            return uriBuilder.ToString();
         }
 
     }
