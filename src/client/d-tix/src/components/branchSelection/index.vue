@@ -26,8 +26,8 @@
         <div class="" style="width: 45%;">
             <label for="">İlçe</label>
             <v-autocomplete
-                v-model="distrinct"
-                :items="distrincts"
+                v-model="district"
+                :items="districts"
                 item-text="name"
                 item-value="id"
                 deletable-chips

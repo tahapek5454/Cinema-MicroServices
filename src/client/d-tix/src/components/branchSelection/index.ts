@@ -27,12 +27,13 @@ interface BranchSelectionCardModel {
     }
 })
 export default class BranchSelection extends Base {
+    @Prop({default: null}) branchId!: number;
 
     cities: CityDto[] = [];
     city = new CityDto();
 
-    distrincts: DistrinctDto[] = [];
-    distrinct = new DistrinctDto();
+    districts: DistrinctDto[] = [];
+    district = new DistrinctDto();
 
     branchSelectionCardDatas: BranchSelectionCardModel[] = [];
     itemCount: number = 0;
@@ -48,15 +49,15 @@ export default class BranchSelection extends Base {
 
     cityChanged(event: any) {      
         if(event > 0) {
-            this.distrincts = [];
+            this.districts = [];
             this.showLoading();
             _distrinctRepository.GetDistrictByCity(event.toString())
                 .then((r) => {
-                    this.distrincts = r;
+                    this.districts = r;
                 })
                 .finally(() => this.hideLoading());
         }
-        this.distrincts = [];
+        this.districts = [];
     }
 
     distrinctChanged(event: any) {
@@ -81,6 +82,20 @@ export default class BranchSelection extends Base {
     }
 
     mounted(): void {
+        if(this.branchId > 0) {
+            this.showLoading();
+            _branchRepository.GetBrancheById(this.branchId.toString())
+                .then((r) => {
+                    this.city = r.district.city;
+                    this.cityChanged(this.city.id);
+                    this.district = r.district;
+                    this.distrinctChanged(this.district.id);
+                    setTimeout(() => {
+                        this.selectBranch(this.branchId);
+                    }, 1000);
+                })
+                .finally(() => this.hideLoading());            
+        }
     }
 
     selectBranch(id: number) {
