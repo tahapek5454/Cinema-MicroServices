@@ -113,8 +113,8 @@ namespace Cinema.Services.PaymentAPI.Controllers
                     ActionType = SharedLibrary.Models.Enums.ActionType.POST,
                     Data = body,
                     Language = SharedLibrary.Models.Enums.SystemLanguage.tr_TR,
-                    Url = "https://localhost:7135/reservationserver/public/api/Reservations/CreateReservation"
-                });
+                    Url = "https://gateway-svc:8080/reservationserver/public/api/Reservations/CreateReservation"
+                 });
             }
             catch (Exception e)
             {
@@ -168,7 +168,7 @@ namespace Cinema.Services.PaymentAPI.Controllers
 
                                 <script>
                                     function redirectToTicketBuy() {
-                                        window.location.href = 'http://localhost:8080/';
+                                        window.location.href = 'http://web-svc:80/';
                                     }
                                 </script>
                             </body>
@@ -178,7 +178,7 @@ namespace Cinema.Services.PaymentAPI.Controllers
         }
         private string BuildCallbackUrl(Body requestBody)
         {
-            var uriBuilder = new UriBuilder("https://localhost:7135/paymentserver/public/api/Payments/PaymentCallback");
+            var uriBuilder = new UriBuilder("https://gateway-svc:8080/paymentserver/public/api/Payments/PaymentCallback");
 
             var queryParams = HttpUtility.ParseQueryString(uriBuilder.Query);
             queryParams["SessionId"] = requestBody.SessionId.ToString();
