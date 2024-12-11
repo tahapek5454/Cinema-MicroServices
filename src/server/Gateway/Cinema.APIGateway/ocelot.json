@@ -3,11 +3,11 @@
     // AuthServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7291
+          "Host": "auth-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/authserver/public/{url}",
@@ -16,11 +16,11 @@
     // MovieServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7163
+          "Host": "movie-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/movieserver/public/{url}",
@@ -28,11 +28,11 @@
     },
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7163
+          "Host": "movie-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/movieserver/{url}",
@@ -45,11 +45,11 @@
     // CategoryServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7065
+          "Host": "category-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/categoryserver/public/{url}",
@@ -57,11 +57,11 @@
     },
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7065
+          "Host": "category-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/categoryserver/{url}",
@@ -74,11 +74,11 @@
     //SessionServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7177
+          "Host": "session-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/sessionserver/public/{url}",
@@ -87,11 +87,11 @@
     //PaymentServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7235
+          "Host": "payment-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/paymentserver/public/{url}",
@@ -100,11 +100,11 @@
     // AiServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7017
+          "Host": "ai-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/aiserver/public/{url}",
@@ -113,11 +113,11 @@
     // FileServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7095
+          "Host": "file-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/fileserver/{url}",
@@ -130,11 +130,11 @@
     // BranchServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7197
+          "Host": "branch-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/branchserver/public/{url}",
@@ -143,11 +143,11 @@
     // ReservationServer
     {
       "DownstreamPathTemplate": "/{url}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7186
+          "Host": "reservation-svc",
+          "Port": 8080
         }
       ],
       "UpstreamPathTemplate": "/reservationserver/public/{url}",
@@ -156,6 +156,6 @@
 
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://localhost"
+    "BaseUrl": "http://gateway-svc"
   }
 }
