@@ -1,1 +1,1 @@
-export const BaseImagePath = "https://localhost:7095/images/";
+export const BaseImagePath = "http://file-svc:8080/images/";

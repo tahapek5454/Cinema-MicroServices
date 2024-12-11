@@ -7,8 +7,7 @@ import router from "@/router";
 import {Bus} from "@/utils/Bus";
 
 
-const baseURL = 'https://localhost:7135';
-const baseAuthUrl = 'https://localhost:7291';
+const baseURL = 'http://gateway-svc:8080';
 const loginUrl = 'authserver/public/api/Auth/Login';
 
 
@@ -42,7 +41,7 @@ axiosInstance.interceptors.request.use(async req => {
 
 
         try {
-            const response = await axios.post(baseAuthUrl + '/api/Auth/RefreshToken', { RefreshToken: authValues?.refreshToken })
+            const response = await axios.post(baseURL + '/authserver/public/api/Auth/RefreshToken', { RefreshToken: authValues?.refreshToken })
             localStorage.setItem('authValues', JSON.stringify(response.data));
             authValues = GetAuthInfo();
             req.headers.Authorization = `Bearer ${response.data.data?.accessToken}`;

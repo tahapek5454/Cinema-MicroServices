@@ -42,7 +42,7 @@ export default class TheaterHall extends Base {
         if(this.reservationModel){
             this.sessionId = this.reservationModel.sessionId as number;
             this.reservationModel.seatIds = [];
-            this.seatStatusHubService = new SignalRService("localhost:7177", "seatStatus", `sessionId=${this.sessionId}`);
+            this.seatStatusHubService = new SignalRService("session-svc:8080", "seatStatus", `sessionId=${this.sessionId}`);
         }
 
         const self = this;
