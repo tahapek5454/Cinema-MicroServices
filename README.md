@@ -23,3 +23,6 @@ The project simulates purchasing tickets for a cinema movie online from start to
         + Change the SignalR protocol in 'src/client/d-tix/src/services/SignalRService.ts' in the client part.
         + Update the SignalR target address in 'src/client/d-tix/src/components/theaterhall/index.ts' in the client part.
         + Modify the base addresses in 'src/client/d-tix/src/utils/AxiosIstance.ts' in the client part.
+
+## Arch
+<img src="https://github.com/tahapek5454/Cinema-MicroServices/blob/main/docs/DTix-arch.png" alt="D-TIX ARCH" >
